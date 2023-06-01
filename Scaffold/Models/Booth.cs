@@ -33,5 +33,5 @@ public partial class Booth
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
-    public virtual AspUser OwnerUser { get; set; } = null!;
+    public virtual AppUser OwnerUser { get; set; } = null!;
 }

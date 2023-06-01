@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Scaffold.Models;
 
-public partial class MarketPlaceDbContext : DbContext
+public partial class MarketPlaceDbContext : IdentityDbContext<AppUser, IdentityRole<int>, int>
 {
     public MarketPlaceDbContext()
     {
@@ -17,7 +19,7 @@ public partial class MarketPlaceDbContext : DbContext
 
     public virtual DbSet<AllProduct> AllProducts { get; set; }
 
-    public virtual DbSet<AspUser> AspUsers { get; set; }
+    public virtual DbSet<AppUser> AppNetUsers { get; set; }
 
     public virtual DbSet<Auction> Auctions { get; set; }
 
@@ -59,6 +61,7 @@ public partial class MarketPlaceDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<AllProduct>(entity =>
         {
             entity.Property(e => e.Name)
@@ -71,21 +74,31 @@ public partial class MarketPlaceDbContext : DbContext
                 .HasConstraintName("FK_AllProducts_Categorys");
         });
 
-        modelBuilder.Entity<AspUser>(entity =>
+        modelBuilder.Entity<AppUser>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_AspNetUsers");
+
+            entity.HasIndex(e => e.NormalizedEmail, "EmailIndex");
+
+            entity.HasIndex(e => e.NormalizedUserName, "UserNameIndex")
+                .IsUnique()
+                .HasFilter("([NormalizedUserName] IS NOT NULL)");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.CountOfBuy)
                 .HasMaxLength(10)
                 .IsFixedLength();
             entity.Property(e => e.CreatAt).HasColumnName("CreatAT");
+            entity.Property(e => e.Email).HasMaxLength(256);
+            entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
+            entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
+            entity.Property(e => e.UserName).HasMaxLength(256);
 
-            entity.HasOne(d => d.BuyerMedal).WithMany(p => p.AspUsers)
+            entity.HasOne(d => d.BuyerMedal).WithMany(p => p.AppNetUsers)
                 .HasForeignKey(d => d.BuyerMedalId)
                 .HasConstraintName("FK_AspNetUsers_BuyerMedals");
 
-            entity.HasOne(d => d.UserProfileImage).WithMany(p => p.AspUsers)
+            entity.HasOne(d => d.UserProfileImage).WithMany(p => p.AppNetUsers)
                 .HasForeignKey(d => d.UserProfileImageId)
                 .HasConstraintName("FK_AspNetUsers_Images");
         });

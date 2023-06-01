@@ -25,5 +25,5 @@ public partial class Comment
 
     public virtual Order Order { get; set; } = null!;
 
-    public virtual AspUser User { get; set; } = null!;
+    public virtual AppUser User { get; set; } = null!;
 }

@@ -25,5 +25,5 @@ public partial class SellerInformation
 
     public virtual SellerMedal? SellerMedal { get; set; }
 
-    public virtual AspUser User { get; set; } = null!;
+    public virtual AppUser User { get; set; } = null!;
 }

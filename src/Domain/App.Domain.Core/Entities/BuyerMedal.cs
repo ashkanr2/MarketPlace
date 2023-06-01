@@ -11,5 +11,5 @@ public partial class BuyerMedal
 
     public int CountOfBuy { get; set; }
 
-    public virtual ICollection<AspUser> AspUsers { get; set; } = new List<AspUser>();
+    public virtual ICollection<AppUser> AppNetUsers { get; set; } = new List<AppUser>();
 }

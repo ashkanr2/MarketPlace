@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 
 namespace App.Domain.Core.Entities;
-
 public partial class Province
 {
     public int Id { get; set; }

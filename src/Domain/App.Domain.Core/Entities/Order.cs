@@ -27,5 +27,5 @@ public partial class Order
 
     public virtual Status Status { get; set; } = null!;
 
-    public virtual AspUser User { get; set; } = null!;
+    public virtual AppUser User { get; set; } = null!;
 }
