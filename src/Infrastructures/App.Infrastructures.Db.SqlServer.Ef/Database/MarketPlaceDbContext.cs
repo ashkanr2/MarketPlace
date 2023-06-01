@@ -63,6 +63,7 @@ public partial class MarketPlaceDbContext : IdentityDbContext<AppUser, IdentityR
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
         modelBuilder.Entity<AllProduct>(entity =>
         {
             entity.Property(e => e.Name)

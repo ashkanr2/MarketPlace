@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "سفارشات";
+    Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+}
+<div class="portlet-body">
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th><i class="icon-energy"></i></th>
+                    <th>نام خریدار</th>
+                    <th>تاریخ</th>
+                    <th>مبلغ</th>
+                    <th>وضعیت</th>
+                    <th>تایید</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>
+                        <span>
+                            حمید آفرینش فر
+                        </span>
+                    </td>
+                    <td>1396/05/20</td>
+                    <td>515,000</td>
+                    <td>
+                        <label class="label-success round">پرداخت شده</label>
+                    </td>
+                    <td>
+                        <a href="#" class="btn btn-primary btn-round">
+                            <i class="icon-eyeglass"></i>
+                            مشاهده
+                            <div class="paper-ripple"><div class="paper-ripple__background"></div><div class="paper-ripple__waves"></div></div>
+                        </a>
+                        <a href="#" class="btn btn-success btn-round">
+
+                            تایید
+                            <div class="paper-ripple"><div class="paper-ripple__background"></div><div class="paper-ripple__waves"></div></div>
+                        </a>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>

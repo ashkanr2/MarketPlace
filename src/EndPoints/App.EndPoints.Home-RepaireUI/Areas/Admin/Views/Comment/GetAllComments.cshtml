@@ -1,0 +1,77 @@
+﻿@model List<App.EndPoints.Home_RepaireUI.Areas.Admin.Models.Comment.CommentViewModel>
+@{
+    ViewData["Title"] = "نظرات";
+    Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+}
+<div class="portlet-body">
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th><i class="icon-energy">ردیف</i></th>
+                    <th>نام کاربر</th>
+                    <th>تاریخ</th>
+                    <th>نظر</th>
+                    <th>وضعیت</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    @foreach (var item in Model)
+                    {
+
+
+                        <td>1</td>
+                        <td class="text-center">@item.UserName</td>
+                        <td>@item.CreatedAt</td>
+                        <td>@item.Comment</td>
+                        @if (@item.IsCreated == true)
+                        {
+                        }
+                        <td>
+                            <a href="#" class="btn btn-warning btn-round">
+                                غیرفعال
+                                <div class="paper-ripple"><div class="paper-ripple__background"></div><div class="paper-ripple__waves"></div></div>
+                            </a>
+                        </td>
+                    
+                    @if (@item.IsCreated == false)
+                    {
+                        <td>
+                            <a href="#" class="btn btn-success btn-round">
+                                فعال
+                                <div class="paper-ripple"><div class="paper-ripple__background"></div><div class="paper-ripple__waves"></div></div>
+                            </a>
+                        </td>
+
+                    }
+                        @if (@item.IsDeleted== false)
+                        {
+                            <td>
+                                <a href="#" class="btn btn-danger btn-round">
+                                    حذف
+                                    <div class="paper-ripple"><div class="paper-ripple__background"></div><div class="paper-ripple__waves"></div></div>
+                                </a>
+                            </td>
+
+                        }
+                        @if (@item.IsDeleted == true)
+                        {
+                            <td>
+                                <a href="#" class="btn btn-primary btn-round">
+                                    بازگردانی
+                                    <div class="paper-ripple"><div class="paper-ripple__background"></div><div class="paper-ripple__waves"></div></div>
+                                </a>
+                            </td>
+
+                        }
+
+                    }
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
