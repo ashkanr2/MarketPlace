@@ -13,7 +13,7 @@ namespace App.Domain.Core.DataAccess
         
         Task<BoothDto> GetDatail(int boothId, CancellationToken cancellationToken);
         Task Create(BoothDto booth, CancellationToken cancellationToken);
-        Task<BoothDto> GetAll( CancellationToken cancellationToken);
+        Task<List<BoothDto>> GetAll(CancellationToken cancellationToken);
         Task Update(BoothDto booth, CancellationToken cancellationToken);
         Task SoftDelete(int boothId, CancellationToken cancellationToken);
         Task HardDelted(int boothId, CancellationToken cancellationToken);

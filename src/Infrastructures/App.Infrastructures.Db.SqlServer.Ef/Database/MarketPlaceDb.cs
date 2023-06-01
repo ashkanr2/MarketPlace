@@ -7,13 +7,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace App.Infrastructures.Db.SqlServer.Ef.DataBase;
 
-public partial class MarketPlaceDbContext : IdentityDbContext<AppUser, IdentityRole<int>, int>
+public partial class MarketPlaceDb : IdentityDbContext<AppUser, IdentityRole<int>, int>
 {
-    public MarketPlaceDbContext()
+    public MarketPlaceDb()
     {
     }
 
-    public MarketPlaceDbContext(DbContextOptions<MarketPlaceDbContext> options)
+    public MarketPlaceDb(DbContextOptions<MarketPlaceDb> options)
         : base(options)
     {
     }
