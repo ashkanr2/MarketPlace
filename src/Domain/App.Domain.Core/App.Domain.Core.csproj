@@ -10,7 +10,6 @@
     <Folder Include="AppServices\Customers\" />
     <Folder Include="AppServices\Experts\" />
     <Folder Include="DataAccess\" />
-    <Folder Include="DtoModels\" />
   </ItemGroup>
 
   <ItemGroup>

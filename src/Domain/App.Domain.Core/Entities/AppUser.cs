@@ -6,8 +6,7 @@ namespace App.Domain.Core.Entities;
 
 public partial class AppUser : IdentityUser<int>
 {
-   
-
+     public int Id { get; set; }
     public string? UserName { get; set; }
 
     public string? NormalizedUserName { get; set; }
