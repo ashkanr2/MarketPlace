@@ -50,24 +50,25 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
              .Where(x => x.Id == commentId)
               .FirstOrDefaultAsync(cancellationToken)));
 
-
         public async Task HardDelted(int commentId, CancellationToken cancellationToken)
         {
             var comment = await _context.Comments
-               .Where(x => x.Id == commentId)
-               .FirstOrDefaultAsync(cancellationToken);
-            _context.Remove(comment);
-            try
+             .Where(x => x.Id == commentId)
+             .FirstOrDefaultAsync(cancellationToken);
+            if (comment != null) 
             {
-                await _context.SaveChangesAsync(cancellationToken);
+                _context.Remove<Comment>(comment); 
+                try
+                {
+                    await _context.SaveChangesAsync(cancellationToken);
 
-            }
-            catch (Exception ex)
-            {
-                //_loger.LogError("Error in HardDelete order {exception}", ex);
+                }
+                catch (Exception ex)
+                {
+                    //_loger.LogError("Error in HardDelete order {exception}", ex);
+                }
             }
         }
-
 
         public async Task SoftDelete(int commentId, CancellationToken cancellationToken)
         {
