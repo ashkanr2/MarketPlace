@@ -8,8 +8,8 @@
 
   <ItemGroup>
     <Folder Include="AppServices\Customers\" />
-    <Folder Include="AppServices\Experts\" />
-    <Folder Include="DataAccess\" />
+    <Folder Include="AppServices\Admin\" />
+    <Folder Include="AppServices\Seller\" />
   </ItemGroup>
 
   <ItemGroup>
