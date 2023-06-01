@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace App.Domain.Core.Entities;
+namespace Scaffold.Models;
 
 public partial class Order
 {
