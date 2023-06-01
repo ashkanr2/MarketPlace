@@ -3,6 +3,8 @@ using App.EndPoints.Home_RepaireUI.Data;
 using App.Infrastructures.Data.Repositories.AutoMapper;
 using App.Infrastructures.Data.Repositories.DataAccess.Ripository;
 using App.Infrastructures.Db.SqlServer.Ef.DataBase;
+using App.Domain.AppService.Admins;
+using App.Domain.Core.AppServices.Admins;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -27,7 +29,7 @@ builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(AutoMapping)));
 
 
 builder.Services.AddScoped<ICommentRipository, CommentRipository>();
-//builder.Services.AddScoped<ICommentAppservice, CommentAppservice>();
+builder.Services.AddScoped<ICommentAppservice, CommentAppservice>();
 
 
 var app = builder.Build();
