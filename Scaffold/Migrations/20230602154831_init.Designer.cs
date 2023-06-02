@@ -12,8 +12,8 @@ using Scaffold.Models;
 namespace Scaffold.Migrations
 {
     [DbContext(typeof(MarketPlaceDbContext))]
-    [Migration("20230601183240_first")]
-    partial class first
+    [Migration("20230602154831_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -188,13 +188,17 @@ namespace Scaffold.Migrations
                     b.ToTable("AllProducts");
                 });
 
-            modelBuilder.Entity("Scaffold.Models.AppNetUser", b =>
+            modelBuilder.Entity("Scaffold.Models.AppUser", b =>
                 {
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("BuyerMedalId")
                         .HasColumnType("int");
@@ -717,12 +721,6 @@ namespace Scaffold.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nchar(200)")
-                        .IsFixedLength();
-
                     b.Property<int>("CityId")
                         .HasColumnType("int");
 
@@ -808,7 +806,7 @@ namespace Scaffold.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
-                    b.HasOne("Scaffold.Models.AppNetUser", null)
+                    b.HasOne("Scaffold.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -817,7 +815,7 @@ namespace Scaffold.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
-                    b.HasOne("Scaffold.Models.AppNetUser", null)
+                    b.HasOne("Scaffold.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -832,7 +830,7 @@ namespace Scaffold.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Scaffold.Models.AppNetUser", null)
+                    b.HasOne("Scaffold.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -841,7 +839,7 @@ namespace Scaffold.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
-                    b.HasOne("Scaffold.Models.AppNetUser", null)
+                    b.HasOne("Scaffold.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -859,7 +857,7 @@ namespace Scaffold.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("Scaffold.Models.AppNetUser", b =>
+            modelBuilder.Entity("Scaffold.Models.AppUser", b =>
                 {
                     b.HasOne("Scaffold.Models.BuyerMedal", "BuyerMedal")
                         .WithMany("AppNetUsers")
@@ -908,7 +906,7 @@ namespace Scaffold.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_Booth_Cities");
 
-                    b.HasOne("Scaffold.Models.AppNetUser", "OwnerUser")
+                    b.HasOne("Scaffold.Models.AppUser", "OwnerUser")
                         .WithMany("Booths")
                         .HasForeignKey("OwnerUserId")
                         .IsRequired()
@@ -957,7 +955,7 @@ namespace Scaffold.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_Comments_Orders");
 
-                    b.HasOne("Scaffold.Models.AppNetUser", "User")
+                    b.HasOne("Scaffold.Models.AppUser", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
                         .IsRequired()
@@ -984,7 +982,7 @@ namespace Scaffold.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_Orders_Status");
 
-                    b.HasOne("Scaffold.Models.AppNetUser", "User")
+                    b.HasOne("Scaffold.Models.AppUser", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .IsRequired()
@@ -1059,7 +1057,7 @@ namespace Scaffold.Migrations
                         .HasForeignKey("SellerMedalId")
                         .HasConstraintName("FK_SellerInformation_SellerMedals");
 
-                    b.HasOne("Scaffold.Models.AppNetUser", "User")
+                    b.HasOne("Scaffold.Models.AppUser", "User")
                         .WithMany("SellerInformations")
                         .HasForeignKey("UserId")
                         .IsRequired()
@@ -1077,7 +1075,7 @@ namespace Scaffold.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("Scaffold.Models.AppNetUser", b =>
+            modelBuilder.Entity("Scaffold.Models.AppUser", b =>
                 {
                     b.Navigation("Booths");
 

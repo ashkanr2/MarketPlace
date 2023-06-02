@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Scaffold.Migrations
 {
     /// <inheritdoc />
-    public partial class first : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -154,6 +154,15 @@ namespace Scaffold.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatAT = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    BuyerMedalId = table.Column<int>(type: "int", nullable: true),
+                    CountOfBuy = table.Column<string>(type: "nchar(10)", fixedLength: true, maxLength: 10, nullable: true),
+                    UserProfileImageId = table.Column<int>(type: "int", nullable: true),
+                    IsSeller = table.Column<bool>(type: "bit", nullable: false),
+                    IsCreated = table.Column<bool>(type: "bit", nullable: false),
+                    Wallet = table.Column<int>(type: "int", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -167,15 +176,7 @@ namespace Scaffold.Migrations
                     TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false),
-                    CreatAT = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    BuyerMedalId = table.Column<int>(type: "int", nullable: true),
-                    CountOfBuy = table.Column<string>(type: "nchar(10)", fixedLength: true, maxLength: 10, nullable: true),
-                    UserProfileImageId = table.Column<int>(type: "int", nullable: true),
-                    IsSeller = table.Column<bool>(type: "bit", nullable: false),
-                    IsCreated = table.Column<bool>(type: "bit", nullable: false),
-                    Wallet = table.Column<int>(type: "int", nullable: false)
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -382,7 +383,6 @@ namespace Scaffold.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false),
                     NationalCode = table.Column<string>(type: "nchar(10)", fixedLength: true, maxLength: 10, nullable: false),
                     ZipCode = table.Column<int>(type: "int", nullable: false),
-                    Address = table.Column<string>(type: "nchar(200)", fixedLength: true, maxLength: 200, nullable: false),
                     CountOfSell = table.Column<int>(type: "int", nullable: true),
                     SellerMedalID = table.Column<int>(type: "int", nullable: true),
                     CityId = table.Column<int>(type: "int", nullable: false)

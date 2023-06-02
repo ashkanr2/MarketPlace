@@ -16,7 +16,6 @@ namespace App.Domain.Core.DtoModels
 
         public int ZipCode { get; set; }
 
-        public string Address { get; set; } = null!;
 
         public int? CountOfSell { get; set; }
 

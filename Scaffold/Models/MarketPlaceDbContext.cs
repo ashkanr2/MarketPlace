@@ -275,9 +275,7 @@ public partial class MarketPlaceDbContext : IdentityDbContext<AppUser, IdentityR
 
             entity.ToTable("SellerInformation");
 
-            entity.Property(e => e.Address)
-                .HasMaxLength(200)
-                .IsFixedLength();
+         
             entity.Property(e => e.NationalCode)
                 .HasMaxLength(10)
                 .IsFixedLength();
