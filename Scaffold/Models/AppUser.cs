@@ -1,15 +1,17 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Scaffold.Models;
 
-public partial class AppUser : IdentityUser<int>
+public partial class AppUser
 {
+    public int Id { get; set; }
+
     public string Address { get; set; } = null!;
+
     public DateTimeOffset CreatAt { get; set; }
 
-    public bool IsDeleted { get; set; }
+    public bool? IsDeleted { get; set; }
 
     public int? BuyerMedalId { get; set; }
 
@@ -21,7 +23,7 @@ public partial class AppUser : IdentityUser<int>
 
     public bool IsCreated { get; set; }
 
-    public int Wallet { get; set; }
+    public int? Wallet { get; set; }
 
     public virtual ICollection<Booth> Booths { get; set; } = new List<Booth>();
 

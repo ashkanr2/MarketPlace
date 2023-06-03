@@ -12,9 +12,10 @@
                     <th><i class="icon-energy">ردیف</i></th>
                     <th>نام کاربر</th>
                     <th>تاریخ</th>
-                    <th>نظر</th>
+                    <th>مشاهده</th>
                     <th>وضعیت</th>
                     <th>عملیات</th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -26,7 +27,19 @@
                         <td>1</td>
                         <td class="text-center">@item.UserName</td>
                         <td>@item.CreatedAt</td>
-                        <td>@item.Comment</td>
+                        <td>
+                            <button class="btn btn-primary round" id="btn-success">نمایش پیام</button>
+
+                            <script>
+                                $("#btn-success").click(function () {
+                                    swal(
+                                        'انجام گردید.',
+                                        'عملیات ثبت محصول با موفقیت به پایان رسید.',
+                                        'success');
+                                });
+                            </script>
+                            @item.Comment
+                            </td>
                         @if (@item.IsCreated == true)
                         {
                         }
@@ -67,7 +80,9 @@
                             </td>
 
                         }
-
+                        
+                            
+                      
                     }
                 </tr>
 

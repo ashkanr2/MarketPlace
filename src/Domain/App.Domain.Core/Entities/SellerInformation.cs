@@ -13,7 +13,6 @@ public partial class SellerInformation
 
     public int ZipCode { get; set; }
 
-
     public int? CountOfSell { get; set; }
 
     public int? SellerMedalId { get; set; }

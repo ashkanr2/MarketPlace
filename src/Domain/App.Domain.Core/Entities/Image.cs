@@ -15,7 +15,7 @@ public partial class Image
 
     public bool IsAccepted { get; set; }
 
-    public virtual ICollection<AppUser> AppNetUsers { get; set; } = new List<AppUser>();
+    public virtual ICollection<AppUser> AppUsers { get; set; } = new List<AppUser>();
 
     public virtual ICollection<Booth> Booths { get; set; } = new List<Booth>();
 

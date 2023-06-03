@@ -4,7 +4,6 @@ using App.Domain.Core.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
 namespace App.Infrastructures.Db.SqlServer.Ef.DataBase;
 
 public partial class MarketPlaceDb : IdentityDbContext<AppUser, IdentityRole<int>, int>
@@ -20,7 +19,7 @@ public partial class MarketPlaceDb : IdentityDbContext<AppUser, IdentityRole<int
 
     public virtual DbSet<AllProduct> AllProducts { get; set; }
 
-    public virtual DbSet<AppUser> AppNetUsers { get; set; }
+    public virtual DbSet<AppUser> AppUsers { get; set; }
 
     public virtual DbSet<Auction> Auctions { get; set; }
 
@@ -56,16 +55,17 @@ public partial class MarketPlaceDb : IdentityDbContext<AppUser, IdentityRole<int
 
     public virtual DbSet<Status> Statuses { get; set; }
 
-//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer(" Data Source=ASHKANR2-PC2017\\ASHKAN_MAKTAB;Initial Catalog=MarketPlaceDb;TrustServerCertificate=True;Integrated Security=True; ");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer(" Data Source=ASHKANR2-PC2017\\ASHKAN_MAKTAB;Initial Catalog=MarketPlaceDb;TrustServerCertificate=True;Integrated Security=True; ");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
         modelBuilder.Entity<AllProduct>(entity =>
         {
+            entity.HasIndex(e => e.CategoryId, "IX_AllProducts_CategoryId");
+
             entity.Property(e => e.Name)
                 .HasMaxLength(35)
                 .IsFixedLength();
@@ -80,33 +80,32 @@ public partial class MarketPlaceDb : IdentityDbContext<AppUser, IdentityRole<int
         {
             entity.HasKey(e => e.Id).HasName("PK_AspNetUsers");
 
-            entity.HasIndex(e => e.NormalizedEmail, "EmailIndex");
+            entity.ToTable("AppUser");
 
-            entity.HasIndex(e => e.NormalizedUserName, "UserNameIndex")
-                .IsUnique()
-                .HasFilter("([NormalizedUserName] IS NOT NULL)");
+            entity.HasIndex(e => e.BuyerMedalId, "IX_AspNetUsers_BuyerMedalId");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.HasIndex(e => e.UserProfileImageId, "IX_AspNetUsers_UserProfileImageId");
+
             entity.Property(e => e.CountOfBuy)
                 .HasMaxLength(10)
                 .IsFixedLength();
             entity.Property(e => e.CreatAt).HasColumnName("CreatAT");
-            entity.Property(e => e.Email).HasMaxLength(256);
-            entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
-            entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
-            entity.Property(e => e.UserName).HasMaxLength(256);
 
-            entity.HasOne(d => d.BuyerMedal).WithMany(p => p.AppNetUsers)
+            entity.HasOne(d => d.BuyerMedal).WithMany(p => p.AppUsers)
                 .HasForeignKey(d => d.BuyerMedalId)
                 .HasConstraintName("FK_AspNetUsers_BuyerMedals");
 
-            entity.HasOne(d => d.UserProfileImage).WithMany(p => p.AppNetUsers)
+            entity.HasOne(d => d.UserProfileImage).WithMany(p => p.AppUsers)
                 .HasForeignKey(d => d.UserProfileImageId)
                 .HasConstraintName("FK_AspNetUsers_Images");
         });
 
         modelBuilder.Entity<Auction>(entity =>
         {
+            entity.HasIndex(e => e.BidId, "IX_Auctions_BidId");
+
+            entity.HasIndex(e => e.ProductId, "IX_Auctions_ProductId");
+
             entity.HasOne(d => d.Bid).WithMany(p => p.Auctions)
                 .HasForeignKey(d => d.BidId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -121,6 +120,12 @@ public partial class MarketPlaceDb : IdentityDbContext<AppUser, IdentityRole<int
         modelBuilder.Entity<Booth>(entity =>
         {
             entity.ToTable("Booth");
+
+            entity.HasIndex(e => e.BoothImageId, "IX_Booth_BoothImageId");
+
+            entity.HasIndex(e => e.CityId, "IX_Booth_CityId");
+
+            entity.HasIndex(e => e.OwnerUserId, "IX_Booth_OwnerUserId");
 
             entity.Property(e => e.Description)
                 .HasMaxLength(300)
@@ -148,6 +153,8 @@ public partial class MarketPlaceDb : IdentityDbContext<AppUser, IdentityRole<int
         {
             entity.HasKey(e => e.Id).HasName("PK_Category");
 
+            entity.HasIndex(e => e.MotherCategoryId, "IX_Categorys_MotherCategoryId");
+
             entity.Property(e => e.Title)
                 .HasMaxLength(25)
                 .IsFixedLength();
@@ -160,6 +167,8 @@ public partial class MarketPlaceDb : IdentityDbContext<AppUser, IdentityRole<int
 
         modelBuilder.Entity<City>(entity =>
         {
+            entity.HasIndex(e => e.ProvincesId, "IX_Cities_ProvincesId");
+
             entity.Property(e => e.Name)
                 .HasMaxLength(30)
                 .IsFixedLength();
@@ -172,6 +181,12 @@ public partial class MarketPlaceDb : IdentityDbContext<AppUser, IdentityRole<int
 
         modelBuilder.Entity<Comment>(entity =>
         {
+            entity.HasIndex(e => e.BoothId, "IX_Comments_BoothId");
+
+            entity.HasIndex(e => e.OrderId, "IX_Comments_OrderId");
+
+            entity.HasIndex(e => e.UserId, "IX_Comments_User_Id");
+
             entity.Property(e => e.Comment1)
                 .HasMaxLength(250)
                 .IsFixedLength()
@@ -212,6 +227,12 @@ public partial class MarketPlaceDb : IdentityDbContext<AppUser, IdentityRole<int
 
         modelBuilder.Entity<Order>(entity =>
         {
+            entity.HasIndex(e => e.BoothId, "IX_Orders_BoothId");
+
+            entity.HasIndex(e => e.StatusId, "IX_Orders_StatusId");
+
+            entity.HasIndex(e => e.UserId, "IX_Orders_UserId");
+
             entity.HasOne(d => d.Booth).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.BoothId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -230,6 +251,10 @@ public partial class MarketPlaceDb : IdentityDbContext<AppUser, IdentityRole<int
 
         modelBuilder.Entity<OrderProduct>(entity =>
         {
+            entity.HasIndex(e => e.OrderId, "IX_OrderProducts_OrderId");
+
+            entity.HasIndex(e => e.ProductId, "IX_OrderProducts_ProductId");
+
             entity.HasOne(d => d.Order).WithMany(p => p.OrderProducts)
                 .HasForeignKey(d => d.OrderId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -243,6 +268,8 @@ public partial class MarketPlaceDb : IdentityDbContext<AppUser, IdentityRole<int
 
         modelBuilder.Entity<Product>(entity =>
         {
+            entity.HasIndex(e => e.AllProductId, "IX_Products_AllProductId");
+
             entity.HasOne(d => d.AllProduct).WithMany(p => p.Products)
                 .HasForeignKey(d => d.AllProductId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -251,6 +278,10 @@ public partial class MarketPlaceDb : IdentityDbContext<AppUser, IdentityRole<int
 
         modelBuilder.Entity<ProductImage>(entity =>
         {
+            entity.HasIndex(e => e.ImageId, "IX_ProductImages_ImageId");
+
+            entity.HasIndex(e => e.ProductId, "IX_ProductImages_ProductId");
+
             entity.HasOne(d => d.Image).WithMany(p => p.ProductImages)
                 .HasForeignKey(d => d.ImageId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -277,9 +308,12 @@ public partial class MarketPlaceDb : IdentityDbContext<AppUser, IdentityRole<int
 
             entity.ToTable("SellerInformation");
 
-            entity.Property(e => e.Address)
-                .HasMaxLength(200)
-                .IsFixedLength();
+            entity.HasIndex(e => e.CityId, "IX_SellerInformation_CityId");
+
+            entity.HasIndex(e => e.SellerMedalId, "IX_SellerInformation_SellerMedalID");
+
+            entity.HasIndex(e => e.UserId, "IX_SellerInformation_UserId");
+
             entity.Property(e => e.NationalCode)
                 .HasMaxLength(10)
                 .IsFixedLength();

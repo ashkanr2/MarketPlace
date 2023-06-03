@@ -23,10 +23,6 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
             _mapper = mapper;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
        
         public async Task<IActionResult> GetAllComments(CancellationToken cancellation)
         {
@@ -46,18 +42,23 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
 
             return View(commentViewModels);
          }
+        public async Task<IActionResult> Detail(int commentId, CancellationToken cancellation)
+        {
+            await _commentAppservice.GetDatail(commentId, cancellation);
+            return RedirectToAction("Detail");
+        }
         [HttpPost]
         public async Task<IActionResult> Active(int commentId, CancellationToken cancellation)
         {
 
             await _commentAppservice.Active(commentId, cancellation);
-            return RedirectToAction("GetAllComments");
+            return RedirectToAction("Detail");
         }
         [HttpPost]
         public async Task<IActionResult> Diactive(int commentId, CancellationToken cancellation)
         {
             await _commentAppservice.Active(commentId, cancellation);
-            return RedirectToAction("GetAllComments");
+            return RedirectToAction("Detail");
         }
 
 

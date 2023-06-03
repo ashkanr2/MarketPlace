@@ -4,12 +4,15 @@ using System.Collections.Generic;
 
 namespace App.Domain.Core.Entities;
 
-public partial class AppUser : IdentityUser<int>
+public  class AppUser : IdentityUser<int>
 {
+    public int Id { get; set; }
+
     public string Address { get; set; } = null!;
+
     public DateTimeOffset CreatAt { get; set; }
 
-    public bool IsDeleted { get; set; }
+    public bool? IsDeleted { get; set; }
 
     public int? BuyerMedalId { get; set; }
 
@@ -21,7 +24,7 @@ public partial class AppUser : IdentityUser<int>
 
     public bool IsCreated { get; set; }
 
-    public int Wallet { get; set; }
+    public int? Wallet { get; set; }
 
     public virtual ICollection<Booth> Booths { get; set; } = new List<Booth>();
 
@@ -34,4 +37,7 @@ public partial class AppUser : IdentityUser<int>
     public virtual ICollection<SellerInformation> SellerInformations { get; set; } = new List<SellerInformation>();
 
     public virtual Image? UserProfileImage { get; set; }
+
+
+
 }

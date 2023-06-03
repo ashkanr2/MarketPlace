@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Scaffold.Migrations
+namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class first : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -150,19 +150,20 @@ namespace Scaffold.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUsers",
+                name: "AppUser",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatAT = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
                     BuyerMedalId = table.Column<int>(type: "int", nullable: true),
                     CountOfBuy = table.Column<string>(type: "nchar(10)", fixedLength: true, maxLength: 10, nullable: true),
                     UserProfileImageId = table.Column<int>(type: "int", nullable: true),
                     IsSeller = table.Column<bool>(type: "bit", nullable: false),
                     IsCreated = table.Column<bool>(type: "bit", nullable: false),
-                    Wallet = table.Column<int>(type: "int", nullable: false),
+                    Wallet = table.Column<int>(type: "int", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -246,9 +247,9 @@ namespace Scaffold.Migrations
                 {
                     table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetUserClaims_AspNetUsers_UserId",
+                        name: "FK_AspNetUserClaims_AppUser_UserId",
                         column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "AppUser",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -266,9 +267,9 @@ namespace Scaffold.Migrations
                 {
                     table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
                     table.ForeignKey(
-                        name: "FK_AspNetUserLogins_AspNetUsers_UserId",
+                        name: "FK_AspNetUserLogins_AppUser_UserId",
                         column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "AppUser",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -284,15 +285,15 @@ namespace Scaffold.Migrations
                 {
                     table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
                     table.ForeignKey(
-                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "AspNetRoles",
+                        name: "FK_AspNetUserRoles_AppUser_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AppUser",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AspNetUserRoles_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -310,9 +311,9 @@ namespace Scaffold.Migrations
                 {
                     table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
                     table.ForeignKey(
-                        name: "FK_AspNetUserTokens_AspNetUsers_UserId",
+                        name: "FK_AspNetUserTokens_AppUser_UserId",
                         column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "AppUser",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -360,7 +361,7 @@ namespace Scaffold.Migrations
                     table.ForeignKey(
                         name: "FK_Booth_AspNetUsers",
                         column: x => x.OwnerUserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "AppUser",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Booth_Cities",
@@ -393,7 +394,7 @@ namespace Scaffold.Migrations
                     table.ForeignKey(
                         name: "FK_SellerInformation_AspNetUsers",
                         column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "AppUser",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_SellerInformation_Cities",
@@ -449,7 +450,7 @@ namespace Scaffold.Migrations
                     table.ForeignKey(
                         name: "FK_Orders_AspNetUsers",
                         column: x => x.UserId,
-                        principalTable: "AspNetUsers",
+                        principalTable: "AppUser",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Orders_Booth",
@@ -534,7 +535,7 @@ namespace Scaffold.Migrations
                     table.ForeignKey(
                         name: "FK_Comments_AspNetUsers",
                         column: x => x.User_Id,
-                        principalTable: "AspNetUsers",
+                        principalTable: "AppUser",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Comments_Booth",
@@ -578,6 +579,28 @@ namespace Scaffold.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
+                name: "EmailIndex",
+                table: "AppUser",
+                column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_BuyerMedalId",
+                table: "AppUser",
+                column: "BuyerMedalId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_UserProfileImageId",
+                table: "AppUser",
+                column: "UserProfileImageId");
+
+            migrationBuilder.CreateIndex(
+                name: "UserNameIndex",
+                table: "AppUser",
+                column: "NormalizedUserName",
+                unique: true,
+                filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
                 column: "RoleId");
@@ -603,35 +626,6 @@ namespace Scaffold.Migrations
                 name: "IX_AspNetUserRoles_RoleId",
                 table: "AspNetUserRoles",
                 column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "EmailIndex",
-                table: "AspNetUsers",
-                column: "NormalizedEmail");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_BuyerMedalId",
-                table: "AspNetUsers",
-                column: "BuyerMedalId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_UserProfileImageId",
-                table: "AspNetUsers",
-                column: "UserProfileImageId");
-
-            migrationBuilder.CreateIndex(
-                name: "UserNameIndex",
-                table: "AspNetUsers",
-                column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "UserNameIndex1",
-                table: "AspNetUsers",
-                column: "NormalizedUserName",
-                unique: true,
-                filter: "([NormalizedUserName] IS NOT NULL)");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Auctions_BidId",
@@ -797,7 +791,7 @@ namespace Scaffold.Migrations
                 name: "AllProducts");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "AppUser");
 
             migrationBuilder.DropTable(
                 name: "Cities");

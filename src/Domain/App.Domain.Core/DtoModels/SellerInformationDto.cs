@@ -16,7 +16,6 @@ namespace App.Domain.Core.DtoModels
 
         public int ZipCode { get; set; }
 
-
         public int? CountOfSell { get; set; }
 
         public int? SellerMedalId { get; set; }
@@ -26,6 +25,7 @@ namespace App.Domain.Core.DtoModels
         public virtual CityDto City { get; set; } = null!;
 
         public virtual SellerMedalDto? SellerMedal { get; set; }
+
 
         public virtual AppUserDto User { get; set; } = null!;
     }
