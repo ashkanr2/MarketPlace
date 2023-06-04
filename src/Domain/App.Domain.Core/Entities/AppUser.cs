@@ -6,7 +6,7 @@ namespace App.Domain.Core.Entities;
 
 public  class AppUser : IdentityUser<int>
 {
-    public int Id { get; set; }
+    //public int Id { get; set; }
 
     public string Address { get; set; } = null!;
 

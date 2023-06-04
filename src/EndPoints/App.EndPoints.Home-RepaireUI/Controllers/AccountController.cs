@@ -16,14 +16,25 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
             _signInManager = signInManager;
         }
 
-        public IActionResult Login()
+        public async Task <IActionResult> Login()
         {
+            await _signInManager.SignOutAsync();
             return View();
         }
         [HttpPost]
-        public IActionResult Login2()
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false,false);
+                if (result.Succeeded)
+                {
+                    return LocalRedirect("~/");
+                }
+                ModelState.AddModelError(string.Empty, "خطا در لاگین ");
+
+            }
+            return View(model);
         }
         public IActionResult Register()
         {
@@ -38,9 +49,10 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
                 {
                     UserName = model.Email,
                     CreatAt= DateTime.Now,
-                    IsDeleted=false,
+                    IsCreated = false,
+
+                    IsDeleted =false,
                     IsSeller= false,
-                    IsCreated=false,
                     Wallet=0,
                     Email = model.Email,
                     Address= model.Address,
@@ -54,7 +66,7 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
                    var result = await _userManager.CreateAsync(user, model.Password);
                  if(result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    await _signInManager.SignInAsync(user, isPersistent: true);
                     return RedirectToAction("Index","Home");
                 }
                 else

@@ -17,7 +17,6 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
            
         }
 
-
         public IActionResult Index()
         {
             return View();
