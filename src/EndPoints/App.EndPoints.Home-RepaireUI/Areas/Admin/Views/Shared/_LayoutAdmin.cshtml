@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<App.Domain.Core.Entities.AppUser> userManager
+<!DOCTYPE html>
 <html lang="fa" dir="rtl" class="rtl">
 <head>
     <title>قالب مدیریتی مدیران</title>
@@ -250,9 +252,10 @@
 
                     <li class="dropdown dropdown-user">
                         <a href="#" class="dropdown-toggle dropdown-hover" data-bs-toggle="dropdown">
-                            <img src="~/AdminArea/images/user/48.png" alt="عکس پرفایل" class="img-circle img-responsive">
-                            <span>حمید آفرینش فر</span>
+                            <span>@User.Identity?.Name</span>
                             <i class="icon-arrow-down"></i>
+                            <img src="~/AdminArea/images/user/48.png" alt="عکس پرفایل" class="img-circle img-responsive">
+                          
                         </a>
                         <ul class="dropdown-menu">
                             <li>

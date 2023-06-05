@@ -1,6 +1,8 @@
 ﻿@model LoginViewModel
-
-
+@{
+    ViewData["Title"] = "ورود ";
+}
+@*
 <form asp-controller="Account" asp-action="Login" method="post">
 
 
@@ -20,7 +22,7 @@
     <input type="submit" value="ثبت نام" />
 
 
-</form>
+</form>*@
 
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
@@ -67,14 +69,14 @@
 
                     <h2 class="text-center m-b-20">وارد شوید</h2>
                     <hr>
-                    <form id="form" class="m-t-30 m-b-30" action="dashboard.html" method="POST" role="form">
+                    <form id="form" class="m-t-30 m-b-30" asp-controller="Account" asp-action="Login" method="POST" role="form">
                         <div class="form-group">
                             <label for="email" class="sr-only">رایانامه</label>
                             <div class="input-group round">
                                 <span class="input-group-addon">
                                     <i class="icon-envelope"></i>
                                 </span>
-                                <input id="email" class="form-control ltr text-left" type="email" name="email" required>
+                                <input  asp-for="UserName"  class="form-control ltr text-left" type="email" required>
                             </div><!-- /.input-group -->
                         </div><!-- /.form-group -->
                         <div class="form-group">
@@ -83,14 +85,14 @@
                                 <span class="input-group-addon">
                                     <i class="icon-key"></i>
                                 </span>
-                                <input id="password" class="form-control ltr text-left" type="password" minlength="5" required>
+                                <input  asp-for="Password" id="password" class="form-control ltr text-left" type="password" minlength="5" required>
                             </div><!-- /.input-group -->
                         </div><!-- /.form-group -->
                         <p>
-                            <button class="btn btn-info btn-round btn-block" type="submit">
+                            <input class="btn btn-info btn-round btn-block" type="submit">
                                 <i class="icon-paper-plane font-lg"></i>
-                                ورود
-                            </button>
+                              
+                            </input>
                         </p>
                     </form>
                     <hr class="m-b-30">
