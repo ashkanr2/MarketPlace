@@ -25,8 +25,9 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
             _mapper = mapper;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> GetAllProduct ()
         {
+            //await _productAppservice.
             return View();
         }
         public async Task<IActionResult> GetBoothProducts(int boothId,CancellationToken cancellation)
