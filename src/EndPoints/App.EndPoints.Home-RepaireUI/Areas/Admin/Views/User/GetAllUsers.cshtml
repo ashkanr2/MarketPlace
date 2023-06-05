@@ -1,0 +1,42 @@
+﻿@model List<App.EndPoints.Home_RepaireUI.Areas.Admin.Models.User.AppUserViewModel>
+@{
+    ViewData["Title"] = "لیست کاربران";
+    Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+}
+<div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th><i class="icon-energy"></i></th>
+                <th>نام</th>
+                <th>نام خانوادگی</th>
+                <th>نام کاربری</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="table-success">
+                <td>1</td>
+                <td>حمید</td>
+                <td>آفرینش فر</td>
+                <td>hamid.afarinesh</td>
+            </tr>
+           
+            @{
+                int counter = 1;
+                foreach(var item in Model)
+                 {
+                
+                <tr class="table-info">
+                    <td>@counter</td>
+                    <td>@item.Id</td>
+                    <td>@item.CreatAt</td>
+                    <td>@item.Address</td>
+                </tr>
+
+                    counter++;
+                }
+            
+           }
+        </tbody>
+    </table>
+</div>

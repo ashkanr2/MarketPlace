@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using App.Domain.Core.Entities;
 using Microsoft.CodeAnalysis.Options;
+using App.Domain.Core.AppServices.Admin;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -61,9 +62,15 @@ builder.Services.AddControllersWithViews()
 
 builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(AutoMapping)));
 
-
+builder.Services.AddScoped<IAppUserRipositry, AppUserRipository>();
+builder.Services.AddScoped<IBoothAppservice, BoothAppservice>();
+builder.Services.AddScoped<IBoothRipository, BoothRipository>();
 builder.Services.AddScoped<ICommentRipository, CommentRipository>();
 builder.Services.AddScoped<ICommentAppservice, CommentAppservice>();
+builder.Services.AddScoped<IAllProductRepository, AllProductRepository>();
+builder.Services.AddScoped<IALLProductAppservice, ALLProductAppservice>();
+builder.Services.AddScoped<IProductRipository, ProductRipository>();
+builder.Services.AddScoped<IProductAppservice, ProductAppservice>();
 
 builder.Services.AddRazorPages(); 
 var app = builder.Build();

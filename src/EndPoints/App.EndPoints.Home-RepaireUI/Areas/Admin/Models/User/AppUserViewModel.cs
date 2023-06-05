@@ -22,12 +22,5 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Models.User
         public int Wallet { get; set; }
 
 
-        public virtual ICollection<CommentDto> Comments { get; set; } = new List<CommentDto>();
-
-        public virtual ICollection<OrderDto> Orders { get; set; } = new List<OrderDto>();
-
-        public virtual ICollection<SellerInformationDto> SellerInformations { get; set; } = new List<SellerInformationDto>();
-
-        public virtual ImageDto? UserProfileImage { get; set; }
     }
 }

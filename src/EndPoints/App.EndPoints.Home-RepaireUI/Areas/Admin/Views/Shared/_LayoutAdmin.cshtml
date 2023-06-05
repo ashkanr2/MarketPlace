@@ -320,15 +320,22 @@
                     <li>
                       
                         <a href="@Url.Action("Index","Home")"  class="" asp-controller="Home" asp-action="Index" asp-area="Admin">
-                                <i class="icon-home"></i>
+                               
                                 <span>پیشخوان</span>
                                 <div class="paper-ripple"><div class="paper-ripple__background" style="opacity: 0.00288;"></div><div class="paper-ripple__waves"></div></div>
                             </a>
-                       
+
                     <li>
-                        <a  class="">
-                            <i class="icon-user-follow"></i>
-                            <span>ثبت نام</span>
+                        <a href="@Url.Action("GetAllBooths","Booth")" class="">
+                            <i class="icon-home"></i>
+                            <span>لیست غرفه ها</span>
+                            <div class="paper-ripple"><div class="paper-ripple__background" style="opacity: 0.00288;"></div><div class="paper-ripple__waves"></div></div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("GetAllUsers","User")" class="">
+                            <i  class="icon-user-follow"></i>
+                            <span>لیست کاربران</span>
                             <div class="paper-ripple"><div class="paper-ripple__background" style="opacity: 0.00288;"></div><div class="paper-ripple__waves"></div></div>
                         </a>
                     </li>

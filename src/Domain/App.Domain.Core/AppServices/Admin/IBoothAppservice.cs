@@ -12,6 +12,7 @@ namespace App.Domain.Core.AppServices.Admins
         Task Active(int boothId, CancellationToken cancellationToken);
         Task DiActive(int boothId, CancellationToken cancellationToken);
         Task<List<BoothDto>> GetCitiesBooth(int cityId, CancellationToken cancellationToken);
+        Task<List<BoothDto>> GetAll( CancellationToken cancellationToken);
         Task<BoothDto> GetDatail(int boothId, CancellationToken cancellationToken);
         Task Create(BoothDto booth, CancellationToken cancellationToken);
         Task<BoothDto> GetUserBooth(int userId, CancellationToken cancellationToken);

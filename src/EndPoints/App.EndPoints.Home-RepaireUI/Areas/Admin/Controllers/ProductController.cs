@@ -12,6 +12,7 @@ using App.Domain.AppService.Admins;
 
 namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class ProductController : Controller
     {
         private readonly IProductAppservice _productAppservice;

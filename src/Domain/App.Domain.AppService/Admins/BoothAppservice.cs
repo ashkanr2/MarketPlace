@@ -7,6 +7,8 @@ using App.Domain.Core.AppServices.Admins;
 using App.Domain.Core.DataAccess;
 using App.Domain.Core.DtoModels;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+
 namespace App.Domain.AppService.Admins
 {
     public class BoothAppservice : IBoothAppservice
@@ -39,9 +41,16 @@ namespace App.Domain.AppService.Admins
             await _boothRipository.Update(booth, cancellationToken);
         }
 
+        public async Task<List<BoothDto>> GetAll( CancellationToken cancellationToken)
+        {
+           return await _boothRipository.GetAll(cancellationToken);
+        }
+
         public async Task<List<BoothDto>> GetCitiesBooth(int cityId, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var allBooth = await _boothRipository.GetAll(cancellationToken);
+            return await allBooth.Where(c => c.CityId == cityId).AsQueryable().ToListAsync(cancellationToken);
+
         }
 
         public async Task<BoothDto> GetDatail(int boothId, CancellationToken cancellationToken)
