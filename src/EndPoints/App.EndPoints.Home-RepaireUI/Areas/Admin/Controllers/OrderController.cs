@@ -13,6 +13,7 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
     public class OrderController : Controller
     {
        
+       
         [HttpGet]
         public async Task<IActionResult> OrderDetail(int id , CancellationToken cancellation)
         {
@@ -31,7 +32,7 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
         }
         public IActionResult GetAllOrders()
         {
-            //var comments =await _commentAppservice.GetAll(cancellation);
+           
             return View();
         }
 

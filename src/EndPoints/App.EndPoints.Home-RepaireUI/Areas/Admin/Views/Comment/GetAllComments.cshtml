@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "نظرات";
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+    @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 }
 <div class="portlet-body">
 
@@ -40,26 +41,16 @@
                             </script>
                             @item.Comment
                             </td>
-                        @if (@item.IsCreated == true)
+                        @if (item.IsCreated == false)
                         {
+                            <td>  <a href="@Url.Action("Active","Comment")" class="btn btn-success btn-block btn-lg border border-white" asp-controller="Booth" asp-action="Active" asp-route-Id="@item.Id">فعال کردن</a></td>
                         }
-                        <td>
-                            <a href="#" class="btn btn-warning btn-round">
-                                غیرفعال
-                                <div class="paper-ripple"><div class="paper-ripple__background"></div><div class="paper-ripple__waves"></div></div>
-                            </a>
-                        </td>
+                        @if (item.IsCreated == true)
+                        {
+                            <td>  <a href="@Url.Action("Diactivated","Comment")" class="btn btn-danger btn-block btn-lg border border-white" asp-controller="Booth" asp-action="Diactivated" asp-route-Id="@item.Id">غیر فعال </a></td>
+                        }
+                   
                     
-                    @if (@item.IsCreated == false)
-                    {
-                        <td>
-                            <a href="#" class="btn btn-success btn-round">
-                                فعال
-                                <div class="paper-ripple"><div class="paper-ripple__background"></div><div class="paper-ripple__waves"></div></div>
-                            </a>
-                        </td>
-
-                    }
                         @if (@item.IsDeleted== false)
                         {
                             <td>

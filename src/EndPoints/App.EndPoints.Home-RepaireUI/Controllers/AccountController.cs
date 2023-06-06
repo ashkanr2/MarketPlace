@@ -2,6 +2,7 @@
 using App.EndPoints.Home_RepaireUI.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace App.EndPoints.Home_RepaireUI.Controllers
 {
@@ -47,19 +48,21 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
             {
                 var user = new AppUser
                 {
-                    UserName = model.Email,
-                    CreatAt= DateTime.Now,
-                    IsCreated = false,
-
+                    Name = model.Name,
+                    LastName= model.LastName,
+                    Address=model.Address,
+                    Email = model.Email,
+                    CreatAt = DateTime.Now,
                     IsDeleted =false,
                     IsSeller= false,
+                    IsCreated=false,
+                    UserName=model.Email,
                     Wallet=0,
-                    Email = model.Email,
-                    Address= model.Address,
-                    LockoutEnabled=false,
-                    AccessFailedCount=0,
-                    TwoFactorEnabled=false,
-                    PhoneNumberConfirmed=false,
+                    
+                    //LockoutEnabled=false,
+                    //AccessFailedCount=0,
+                    //TwoFactorEnabled=false,
+                    //PhoneNumberConfirmed=false,
                     
                 };
                 

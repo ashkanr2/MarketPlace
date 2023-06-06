@@ -19,6 +19,8 @@ public partial class Order
 
     public int TotalPrice { get; set; }
 
+    public int Commission { get; set; }
+
     public virtual Booth Booth { get; set; } = null!;
 
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();

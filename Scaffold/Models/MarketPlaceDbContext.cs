@@ -19,6 +19,16 @@ public partial class MarketPlaceDbContext : DbContext
 
     public virtual DbSet<AppUser> AppUsers { get; set; }
 
+    public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+
+    public virtual DbSet<AspNetRoleClaim> AspNetRoleClaims { get; set; }
+
+    public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+
+    public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+
+    public virtual DbSet<AspNetUserToken> AspNetUserTokens { get; set; }
+
     public virtual DbSet<Auction> Auctions { get; set; }
 
     public virtual DbSet<Bid> Bids { get; set; }
@@ -26,6 +36,10 @@ public partial class MarketPlaceDbContext : DbContext
     public virtual DbSet<Booth> Booths { get; set; }
 
     public virtual DbSet<BuyerMedal> BuyerMedals { get; set; }
+
+    public virtual DbSet<Cart> Carts { get; set; }
+
+    public virtual DbSet<CartProduct> CartProducts { get; set; }
 
     public virtual DbSet<Category> Categorys { get; set; }
 
@@ -53,9 +67,9 @@ public partial class MarketPlaceDbContext : DbContext
 
     public virtual DbSet<Status> Statuses { get; set; }
 
-//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer(" Data Source=ASHKANR2-PC2017\\ASHKAN_MAKTAB;Initial Catalog=MarketPlaceDb;TrustServerCertificate=True;Integrated Security=True; ");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer(" Data Source=ASHKANR2-PC2017\\ASHKAN_MAKTAB;Initial Catalog=MarketPlaceDb;TrustServerCertificate=True;Integrated Security=True; ");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -79,14 +93,26 @@ public partial class MarketPlaceDbContext : DbContext
 
             entity.ToTable("AppUser");
 
+            entity.HasIndex(e => e.NormalizedEmail, "EmailIndex");
+
             entity.HasIndex(e => e.BuyerMedalId, "IX_AspNetUsers_BuyerMedalId");
 
             entity.HasIndex(e => e.UserProfileImageId, "IX_AspNetUsers_UserProfileImageId");
+
+            entity.HasIndex(e => e.NormalizedUserName, "UserNameIndex")
+                .IsUnique()
+                .HasFilter("([NormalizedUserName] IS NOT NULL)");
 
             entity.Property(e => e.CountOfBuy)
                 .HasMaxLength(10)
                 .IsFixedLength();
             entity.Property(e => e.CreatAt).HasColumnName("CreatAT");
+            entity.Property(e => e.Email).HasMaxLength(256);
+            entity.Property(e => e.LastName).HasDefaultValueSql("(N'')");
+            entity.Property(e => e.Name).HasDefaultValueSql("(N'')");
+            entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
+            entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
+            entity.Property(e => e.UserName).HasMaxLength(256);
 
             entity.HasOne(d => d.BuyerMedal).WithMany(p => p.AppUsers)
                 .HasForeignKey(d => d.BuyerMedalId)
@@ -95,6 +121,58 @@ public partial class MarketPlaceDbContext : DbContext
             entity.HasOne(d => d.UserProfileImage).WithMany(p => p.AppUsers)
                 .HasForeignKey(d => d.UserProfileImageId)
                 .HasConstraintName("FK_AspNetUsers_Images");
+
+            entity.HasMany(d => d.Roles).WithMany(p => p.Users)
+                .UsingEntity<Dictionary<string, object>>(
+                    "AspNetUserRole",
+                    r => r.HasOne<AspNetRole>().WithMany().HasForeignKey("RoleId"),
+                    l => l.HasOne<AppUser>().WithMany().HasForeignKey("UserId"),
+                    j =>
+                    {
+                        j.HasKey("UserId", "RoleId");
+                        j.ToTable("AspNetUserRoles");
+                        j.HasIndex(new[] { "RoleId" }, "IX_AspNetUserRoles_RoleId");
+                    });
+        });
+
+        modelBuilder.Entity<AspNetRole>(entity =>
+        {
+            entity.HasIndex(e => e.NormalizedName, "RoleNameIndex")
+                .IsUnique()
+                .HasFilter("([NormalizedName] IS NOT NULL)");
+
+            entity.Property(e => e.Name).HasMaxLength(256);
+            entity.Property(e => e.NormalizedName).HasMaxLength(256);
+        });
+
+        modelBuilder.Entity<AspNetRoleClaim>(entity =>
+        {
+            entity.HasIndex(e => e.RoleId, "IX_AspNetRoleClaims_RoleId");
+
+            entity.HasOne(d => d.Role).WithMany(p => p.AspNetRoleClaims).HasForeignKey(d => d.RoleId);
+        });
+
+        modelBuilder.Entity<AspNetUserClaim>(entity =>
+        {
+            entity.HasIndex(e => e.UserId, "IX_AspNetUserClaims_UserId");
+
+            entity.HasOne(d => d.User).WithMany(p => p.AspNetUserClaims).HasForeignKey(d => d.UserId);
+        });
+
+        modelBuilder.Entity<AspNetUserLogin>(entity =>
+        {
+            entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
+
+            entity.HasIndex(e => e.UserId, "IX_AspNetUserLogins_UserId");
+
+            entity.HasOne(d => d.User).WithMany(p => p.AspNetUserLogins).HasForeignKey(d => d.UserId);
+        });
+
+        modelBuilder.Entity<AspNetUserToken>(entity =>
+        {
+            entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
+
+            entity.HasOne(d => d.User).WithMany(p => p.AspNetUserTokens).HasForeignKey(d => d.UserId);
         });
 
         modelBuilder.Entity<Auction>(entity =>
@@ -144,6 +222,34 @@ public partial class MarketPlaceDbContext : DbContext
                 .HasForeignKey(d => d.OwnerUserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Booth_AspNetUsers");
+        });
+
+        modelBuilder.Entity<Cart>(entity =>
+        {
+            entity.Property(e => e.CreateTime).HasColumnType("datetime");
+
+            entity.HasOne(d => d.Booth).WithMany(p => p.Carts)
+                .HasForeignKey(d => d.BoothId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Carts_Booth");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Carts)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Carts_AppUser");
+        });
+
+        modelBuilder.Entity<CartProduct>(entity =>
+        {
+            entity.HasOne(d => d.Cart).WithMany(p => p.CartProducts)
+                .HasForeignKey(d => d.CartId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_CartProducts_Carts");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.CartProducts)
+                .HasForeignKey(d => d.ProductId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_CartProducts_Products");
         });
 
         modelBuilder.Entity<Category>(entity =>

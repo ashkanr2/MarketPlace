@@ -38,7 +38,7 @@ namespace App.Domain.AppService.Admins
         {
             var booth = await _boothRipository.GetDatail(boothId, cancellationToken);
             booth.IsCreated = false;
-            await _boothRipository.Update(booth, cancellationToken);
+            await Update(booth, cancellationToken);
         }
 
         public async Task<List<BoothDto>> GetAll( CancellationToken cancellationToken)

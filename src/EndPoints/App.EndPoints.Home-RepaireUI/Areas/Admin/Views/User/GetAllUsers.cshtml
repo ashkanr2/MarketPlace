@@ -2,25 +2,24 @@
 @{
     ViewData["Title"] = "لیست کاربران";
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+    @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 }
 <div class="table-responsive">
     <table class="table table-bordered table-striped table-hover">
+        <form method="post"> 
+
+       
         <thead>
             <tr>
                 <th><i class="icon-energy"></i></th>
-                <th>نام</th>
-                <th>نام خانوادگی</th>
-                <th>نام کاربری</th>
+                <th>نام - نام خانوادگی</th>
+                <th>رایانامه</th>
+                <th>تاریخ ثبت نام</th>
+                <th>عملیات</th>
             </tr>
         </thead>
         <tbody>
-            <tr class="table-success">
-                <td>1</td>
-                <td>حمید</td>
-                <td>آفرینش فر</td>
-                <td>hamid.afarinesh</td>
-            </tr>
-           
+          
             @{
                 int counter = 1;
                 foreach(var item in Model)
@@ -28,15 +27,26 @@
                 
                 <tr class="table-info">
                     <td>@counter</td>
-                    <td>@item.Id</td>
+                    <td>@item.name - @item.LastName</td>
+                    <td>@item.Email</td>
                     <td>@item.CreatAt</td>
-                    <td>@item.Address</td>
-                </tr>
+                            @if (item.IsCreated == false)
+                            {
+                            <td>  <a class="btn btn-success btn-block btn-lg border border-white" asp-controller="User" asp-action="Active" asp-route-Id="@item.Id">فعال کردن</a></td>
+                            }
+                            @if (item.IsCreated == true)
+                            {
+                            <td>  <a  class="btn btn-danger btn-block btn-lg border border-white" asp-controller="User" asp-action="Diactivated" asp-route-Id="@item.Id">غیر فعال </a></td>
+                            }
 
+                       
+                </tr>
+                    
                     counter++;
                 }
             
            }
+            </form>
         </tbody>
     </table>
 </div>

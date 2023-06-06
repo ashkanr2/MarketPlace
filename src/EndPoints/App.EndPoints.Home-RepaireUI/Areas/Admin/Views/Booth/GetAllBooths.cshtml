@@ -1,4 +1,5 @@
 ﻿@model List<App.EndPoints.Home_RepaireUI.Areas.Admin.Models.Booth.BoothViewModel>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "لیست غرفه ها";
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
@@ -21,9 +22,8 @@
                         <thead>
                             <tr role="row">
                                 <th class="sorting_asc" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-sort="ascending" aria-label="ردیف: activate to sort column descending" style="width: 175.535px;">ردیف</th>
-                                <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="ماده غذایی: activate to sort column ascending" style="width: 433.674px;">ماده غذایی</th>
-                                <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="مقدار: activate to sort column ascending" style="width: 180.25px;">مقدار</th>
-                                <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="کالری: activate to sort column ascending" style="width: 188.924px;">کالری</th>
+                                <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="ماده غذایی: activate to sort column ascending" style="width: 433.674px;">نام غرفه</th>
+                                <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="مقدار: activate to sort column ascending" style="width: 180.25px;">تاریخ تاسیس</th>
                                 <td class="sorting_disabled" rowspan="1" colspan="1" aria-label="عملیات" style="width: 211.174px;">عملیات</td>
                             </tr>
                         </thead>
@@ -38,7 +38,18 @@
                                         <td>@counter</td>
                                         <td>@item.Name</td>
                                         <td>@item.CreatedAt</td>
-                                        <td>@item.OwnerUserId</td>
+                                        @if (item.IsCreated == false)
+                                        {   
+
+                                            <td>  
+                                            <a  class="btn btn-success btn-block btn-lg border border-white" asp-controller="Booth" asp-action="Active" asp-route-Id="@item.Id">فعال کردن</a></td>
+                                        }
+                                        @if (item.IsCreated == true)
+                                        {
+                                            <td>  <a class="btn btn-danger btn-block btn-lg border border-white" asp-controller="Booth" asp-action="Diactivated" asp-route-Id="@item.Id">غیر فعال </a></td>
+                                        }
+                                        
+                                        
                                     </tr>
 
                                     counter++;

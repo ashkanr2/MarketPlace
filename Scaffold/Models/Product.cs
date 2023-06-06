@@ -23,6 +23,8 @@ public partial class Product
 
     public virtual ICollection<Auction> Auctions { get; set; } = new List<Auction>();
 
+    public virtual ICollection<CartProduct> CartProducts { get; set; } = new List<CartProduct>();
+
     public virtual ICollection<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
 
     public virtual ICollection<ProductImage> ProductImages { get; set; } = new List<ProductImage>();

@@ -6,7 +6,7 @@ namespace App.EndPoints.Home_RepaireUI.Models
     {
         [Required]
         [Display(Name = "نام")]
-        public string UserName { get; set; }
+        public string Name { get; set; }
         [Required]
         [Display(Name = "نام خانوادگی")]
         public string LastName { get; set; }
@@ -16,6 +16,7 @@ namespace App.EndPoints.Home_RepaireUI.Models
         public string Email { get; set; }
 
         [Required]
+        [Display(Name = "رمزعبور")]
         public string Password { get; set; }
   
        
@@ -24,6 +25,7 @@ namespace App.EndPoints.Home_RepaireUI.Models
         public string ConfirmPassword { get; set; }
 
         [Required]
+        [Display(Name = "نشانی")]
         public string Address { get; set; }
     }
 }

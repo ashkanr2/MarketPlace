@@ -26,6 +26,8 @@ namespace App.Domain.Core.DtoModels
 
         public virtual ICollection<AuctionDto> Auctions { get; set; } = new List<AuctionDto>();
 
+        public virtual ICollection<CartProductDto> CartProducts { get; set; } = new List<CartProductDto>();
+
         public virtual ICollection<OrderProductDto> OrderProducts { get; set; } = new List<OrderProductDto>();
 
         public virtual ICollection<ProductImageDto> ProductImages { get; set; } = new List<ProductImageDto>();

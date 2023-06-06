@@ -1,7 +1,8 @@
-﻿@model List<App.EndPoints.Home_RepaireUI.Areas.Admin.Models.Order.OrderDetailViewModel>
+﻿@*@model List<App.EndPoints.Home_RepaireUI.Areas.Admin.Models.Order.OrderDetailViewModel>*@
 @{
     ViewData["Title"] = "سفارشات";
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+    @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 }
 <div class="portlet-body">
 
@@ -43,7 +44,7 @@
                         </a>
                     </td>
                 </tr>
-                @foreach(var item in Model)
+                @*@foreach(var item in Model)
                 {
                     <tr>
                         <td>1</td>
@@ -70,8 +71,8 @@
                             </a>*@
                         </td>
                     </tr>
-                }
-                
+
+               
 
             </tbody>
         </table>

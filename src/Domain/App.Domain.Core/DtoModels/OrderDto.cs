@@ -22,6 +22,8 @@ namespace App.Domain.Core.DtoModels
 
         public int TotalPrice { get; set; }
 
+        public int Commission { get; set; }
+
         public virtual BoothDto Booth { get; set; } = null!;
 
         public virtual ICollection<CommentDto> Comments { get; set; } = new List<CommentDto>();

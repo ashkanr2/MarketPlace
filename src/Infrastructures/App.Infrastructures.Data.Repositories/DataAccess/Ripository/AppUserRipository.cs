@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
@@ -18,11 +19,11 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
     {
         private readonly IMapper _mapper;
         private readonly UserManager<AppUser> _userManager;
-        private readonly MarketPlaceDb _marketPlaceDb;
+        private readonly MarketPlaceDb _context;
         public AppUserRipository(UserManager<AppUser> userManager, MarketPlaceDb marketPlaceDb, IMapper mapper)
         {
             _userManager = userManager;
-            _marketPlaceDb = marketPlaceDb;
+            _context = marketPlaceDb;
             _mapper = mapper;
         }
         public async Task<IdentityResult> SignUpAsync(AppUserDto userDto)
@@ -37,20 +38,27 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
               Wallet=0
             };
             await _userManager.CreateAsync(user);
-            await _marketPlaceDb.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             return null;
         }
         public async Task <List<AppUser>> GetAll(CancellationToken cancellation)
         {
-            var users = await _marketPlaceDb
+            var users = await _context
             .AppUsers
            .ToListAsync(cancellation);
             return users;
         }
         public async Task<AppUserDto>GetDetail(int userId,CancellationToken cancellation)
         {
-            var user = _mapper.Map < AppUserDto > (await _marketPlaceDb.AppUsers.Where(x=>x.Id == userId).FirstOrDefaultAsync(cancellation));
+            var user = _mapper.Map < AppUserDto > (await _context.AppUsers.Where(x=>x.Id == userId).FirstOrDefaultAsync(cancellation));
             return user;
+        }
+
+        public async Task Update(AppUserDto appuser, CancellationToken cancellation)
+        {
+            var record = await _mapper.ProjectTo<AppUserDto>(_context.Set<AppUserDto>())
+                 .Where(x => x.Id == appuser.Id).FirstOrDefaultAsync();
+            await _context.SaveChangesAsync(cancellation);
         }
     }
 }

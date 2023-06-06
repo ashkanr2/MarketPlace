@@ -1,0 +1,89 @@
+﻿@model List<App.EndPoints.Home_RepaireUI.Areas.Admin.Models.Product.ProductViewModel>
+@{
+    ViewData["Title"] = " تایید کالاها";
+    Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+    @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+}
+<div class="row">
+    <div class="col-md-4 col-12 m-b-20">
+       
+        <a class="btn btn-info btn-round" href="#">
+            <i class="icon-layers"></i>
+            بایگانی
+        </a>
+    </div>
+    <div class="col-md-4 col-12 m-b-20">
+        <form role="form">
+            <div class="input-group round">
+                <input type="text" class="form-control" placeholder="جستجو...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        <i class="icon-magnifier"></i>
+                        <div class="paper-ripple">
+                    </button>
+                </span>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4 col-12 m-b-20">
+        <select class="form-select round">
+            <option value="0">مرتب سازی بر اساس تاریخ</option>
+            <option value="1">مرتب سازی بر اساس خریدار</option>
+            <option value="2">مرتب سازی بر اساس مبلغ</option>
+            <option value="3">مرتب سازی بر اساس وضعیت</option>
+        </select>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th><i class="icon-energy"></i></th>
+                <th>نام کالا</th>
+                <th>تاریخ اضافه کردن</th>
+                <th>مبلغ</th>
+                <th>ایدی غرفه</th>
+                <th>عملیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @{
+                    int counter = 1;
+
+                @foreach(var item in Model)
+                {
+                    
+                
+                <td>@counter</td>
+                <td>
+                    <img class="img-person img-circle" src="">
+                    <span>
+                        @item.ProductName
+                    </span>
+                </td>
+                <td>@item.AddTime</td>
+                <td>@item.UnitPrice</td>
+                <td>@item.boothId</td>
+                <td>
+                            @if (item.IsAccepted == false)
+                            {
+                            <td>
+                                <a asp-controller="Booth" asp-action="Active" asp-route-id="@item.Id" class="btn btn-primary">فعال</a>
+                            </td>
+                            }
+                            @if (item.IsAccepted == true)
+                            {
+                            <td>
+                                <a asp-controller="Booth" asp-action="Diactivated" asp-route-id="@item.Id" class="btn btn-primary">غیرفعال</a>
+                            </td>
+                            }
+                </td>
+                    }
+                    counter++;
+                }
+            </tr>
+           
+        </tbody>
+    </table>
+</div>

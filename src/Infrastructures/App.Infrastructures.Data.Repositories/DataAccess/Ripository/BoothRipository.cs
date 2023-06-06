@@ -45,10 +45,11 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
          => _mapper.Map<List<BoothDto>>(await _context.Booths.ToListAsync(cancellationToken));
 
         public async Task<BoothDto> GetDatail(int boothId, CancellationToken cancellationToken)
-          => await Task.FromResult(_mapper.Map<BoothDto>(await _context.Booths
-             .AsNoTracking()
-             .Where(x => x.Id == boothId)
-              .FirstOrDefaultAsync(cancellationToken)));
+        { var booth = await _context.Booths.AsNoTracking()
+             .Where(x => x.Id == boothId).FirstOrDefaultAsync(cancellationToken);
+            return _mapper.Map<BoothDto>(booth);
+           
+        }     
 
         public async Task HardDelted(int boothId, CancellationToken cancellationToken)
         {
@@ -79,17 +80,22 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
 
         public async Task Update(BoothDto booth, CancellationToken cancellationToken)
         {
-            var record = await _mapper.ProjectTo<BoothDto>(_context.Set<AllProductDto>())
-               .Where(x => x.Id == booth.Id)
-               .FirstOrDefaultAsync();
-            _mapper.Map(booth, record);
+            //var record = await _mapper.ProjectTo<BoothDto>(_context.Set<BoothDto>())
+            //      .Where(x => x.Id == booth.Id).FirstOrDefaultAsync();
+            //_mapper.Map(booth, record);
+            //await _context.SaveChangesAsync(cancellationToken);
+
+            var record = await _context.Booths
+                .Where(x => x.Id == booth.Id)
+                .FirstOrDefaultAsync();
+            record.IsCreated = booth.IsCreated;
             try
             {
                 await _context.SaveChangesAsync(cancellationToken);
             }
             catch (Exception ex)
             {
-                //_loger.LogError("Error in update HomeService {exception}", ex);
+                //_loger.LogError("Error in update Booth {exception}", ex);
             }
         }
     }

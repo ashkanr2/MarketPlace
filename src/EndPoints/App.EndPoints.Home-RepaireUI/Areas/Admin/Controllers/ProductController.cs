@@ -28,22 +28,36 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
 
         public async Task<IActionResult> GetAllProduct(CancellationToken cancellation)
         {
-            //bool status = false;
-            //var products = await _productAppservice.GetAllFromStatus(status, cancellation);
-            return View(/*products*/);
+            bool status = false;
+            var products = await _productAppservice.GetAllFromStatus(status, cancellation);
+            var ProductViwe = products.Select(x => new ProductViewModel
+            {
+                Id = x.Id,
+                UnitPrice = x.UnitPrice,
+                AllProductId = x.AllProductId,
+                IsDeleted = x.IsDeleted,
+                IsAccepted = x.IsAccepted,
+                AddTime = x.AddTime,
+                boothId=x.BoothId,
+                ProductName=x.AllProduct.Name,
+            }).ToList();
+
+            return View(ProductViwe);
         }
         public async Task<IActionResult> GetBoothProducts(int boothId,CancellationToken cancellation)
         {
+           
             var products = await _productAppservice.GetBoothProducts(boothId, cancellation);
             var ProductViwe = products.Select(x => new ProductViewModel
             {
-                Id= x.Id,
-                UnitPrice= x.UnitPrice,
-                AllProductId=x.AllProductId,
-                IsDeleted=x.IsDeleted,
-                IsAccepted=x.IsAccepted,
-                AddTime=x.AddTime,
-                
+                Id = x.Id,
+                UnitPrice = x.UnitPrice,
+                AllProductId = x.AllProductId,
+                IsDeleted = x.IsDeleted,
+                IsAccepted = x.IsAccepted,
+                AddTime = x.AddTime,
+                boothId = x.BoothId,
+                ProductName = x.AllProduct.Name,
             }).ToList();
 
             return View(ProductViwe);
@@ -57,7 +71,7 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Diactive(int productId, CancellationToken cancellation)
         {
-            await _productAppservice.Active(productId, cancellation);
+            await _productAppservice.Deactivate(productId, cancellation);
             return RedirectToAction("Index", "Home");
         }
         [HttpPost]

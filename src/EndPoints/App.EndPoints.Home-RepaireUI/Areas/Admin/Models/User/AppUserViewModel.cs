@@ -4,7 +4,10 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Models.User
     public class AppUserViewModel
     {
         public int Id { get; set; }
+        public string name { get; set; }
+        public string LastName { get; set; }
         public string Address { get; set; } = null!;
+        public string Email { get; set; }
         public DateTimeOffset CreatAt { get; set; }
 
         public bool IsDeleted { get; set; }

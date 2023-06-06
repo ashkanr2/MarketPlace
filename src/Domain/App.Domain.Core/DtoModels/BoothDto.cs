@@ -30,12 +30,14 @@ namespace App.Domain.Core.DtoModels
 
         public virtual ImageDto? BoothImage { get; set; }
 
-        public virtual CityDto City { get; set; } = null!;
+        public virtual ICollection<CartDto> Carts { get; set; } = new List<CartDto?>();
 
-        public virtual ICollection<CommentDto> Comments { get; set; } = new List<CommentDto>();
+        public virtual CityDto? City { get; set; } = null!;
 
-        public virtual ICollection<OrderDto> Orders { get; set; } = new List<OrderDto>();
+        public virtual ICollection<CommentDto?> Comments { get; set; } = new List<CommentDto?>();
 
-        public virtual AppUserDto OwnerUser { get; set; } = null!;
+        public virtual ICollection<OrderDto?> Orders { get; set; } = new List<OrderDto?>();
+
+        public virtual AppUserDto? OwnerUser { get; set; } = null!;
     }
 }

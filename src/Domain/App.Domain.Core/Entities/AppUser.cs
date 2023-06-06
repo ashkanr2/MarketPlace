@@ -7,6 +7,8 @@ namespace App.Domain.Core.Entities;
 public  class AppUser : IdentityUser<int>
 {
     //public int Id { get; set; }
+    public string Name { get; set; }
+    public string LastName { get; set; }
 
     public string Address { get; set; } = null!;
 
@@ -33,6 +35,7 @@ public  class AppUser : IdentityUser<int>
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
+    public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
 
     public virtual ICollection<SellerInformation> SellerInformations { get; set; } = new List<SellerInformation>();
 

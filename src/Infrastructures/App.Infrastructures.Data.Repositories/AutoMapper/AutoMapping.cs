@@ -24,7 +24,7 @@ namespace App.Infrastructures.Data.Repositories.AutoMapper
             CreateMap<Bid, BidDto>();
 
             CreateMap<Booth, BoothDto>();
-
+        
             CreateMap<BuyerMedal, BuyerMedalDto>();
 
             CreateMap<Category, CategoryDto>();
@@ -36,6 +36,8 @@ namespace App.Infrastructures.Data.Repositories.AutoMapper
             CreateMap<Image, ImageDto>();
 
            
+            CreateMap<Cart, CartDto>();
+            CreateMap<CartProduct, CartProductDto>();
 
             CreateMap<MothersCategory, MothersCategoryDto>();
 

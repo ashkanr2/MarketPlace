@@ -6,6 +6,8 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Models.Product
         public int Id { get; set; }
 
         public int UnitPrice { get; set; }
+        public int boothId { get; set; }
+        public string ProductName { get; set; }
 
         public int AllProductId { get; set; }
 

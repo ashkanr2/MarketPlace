@@ -1,5 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @inject UserManager<App.Domain.Core.Entities.AppUser> userManager
+@inject SignInManager<App.Domain.Core.Entities.AppUser> SignInManager
 <!DOCTYPE html>
 <html lang="fa" dir="rtl" class="rtl">
 <head>
@@ -252,7 +254,7 @@
 
                     <li class="dropdown dropdown-user">
                         <a href="#" class="dropdown-toggle dropdown-hover" data-bs-toggle="dropdown">
-                            <span>@User.Identity?.Name</span>
+                            <span>@User.Identity.Name</span>
                             <i class="icon-arrow-down"></i>
                             <img src="~/AdminArea/images/user/48.png" alt="عکس پرفایل" class="img-circle img-responsive">
                           
@@ -322,7 +324,7 @@
 
                     <li>
                       
-                        <a href="@Url.Action("Index","Home")"  class="" asp-controller="Home" asp-action="Index" asp-area="Admin">
+                        <a  class="" asp-controller="Home" asp-action="Index" asp-area="Admin">
                                
                                 <span>پیشخوان</span>
                                 <div class="paper-ripple"><div class="paper-ripple__background" style="opacity: 0.00288;"></div><div class="paper-ripple__waves"></div></div>
@@ -358,7 +360,7 @@
                         </a>
                     </li>
                     <li >
-                        <a href="@Url.Action("GetAllComments","Comment")" class="" asp-controller="Comment" asp-action="GetAllComments" asp-area="Admin">
+                        <a  class="" asp-controller="Comment" asp-action="GetAllComments" asp-area="Admin">
                             <i class="icon-bubble"></i>
                             <span>نظرات</span>
                             <div class="paper-ripple"><div class="paper-ripple__background"></div><div class="paper-ripple__waves"></div></div>

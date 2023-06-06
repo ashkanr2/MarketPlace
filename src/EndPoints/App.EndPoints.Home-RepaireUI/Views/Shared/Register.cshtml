@@ -2,39 +2,6 @@
 @{
     ViewData ["Title"] = "ثبت نام ";
 }
-
-<div>
-    <form  asp-controller="Account" asp-action="Register" method="post">
-
-
-        <div class="form-group">
-        <label asp-for=" Email"></label>
-        <input asp-for="Email"/>
-        </div>
-
-        <div class="form-group">
-            <label asp-for=" Password"></label>
-            <input asp-for="Password" />
-        </div>
-
-
-        <div class="form-group">
-            <label asp-for=" ConfirmPassword"></label>
-            <input asp-for="ConfirmPassword" />
-        </div>
-
-        <div class="form-group">
-            <label asp-for=" Address"></label>
-            <input asp-for="Address" />
-        </div>
-
-       <input type="submit" value="ثبت نام"/>
-
-
-    </form>
-
-</div>
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -86,7 +53,7 @@
                                 <span class="input-group-addon">
                                     <i class="icon-note"></i>
                                 </span>
-                                <input asp-for="UserName" type="text" class="form-control round" id="firstname" name="firstname" placeholder="نام">
+                                <input asp-for="Name" type="text" class="form-control round" id="firstname"  placeholder="نام">
                             </div><!-- /.input-group-->
                         </div><!-- /.form-group -->
                         <div class="form-group">
@@ -122,7 +89,16 @@
                                 <span class="input-group-addon">
                                     <i class="icon-key"></i>
                                 </span>
-                                <input type="password" asp-for="ConfirmPassword" class="form-control round ltr text-left" id="confirm_password" name="confirm_password" placeholder="تکرار رمز عبور">
+                                <input type="password" asp-for="ConfirmPassword" class="form-control round ltr text-left" id="confirm_password" name="ConfirmPassword" placeholder="تکرار رمز عبور">
+                            </div><!-- /.input-group-->
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                            <label class="sr-only control-label" for="confirm_password">آدرس</label>
+                            <div class="input-group round">
+                                <span class="input-group-addon">
+                                    <i class="icon-key"></i>
+                                </span>
+                                <input type="text" asp-for="Address" class="form-control round ltr text-left" id="Address"  placeholder="نشانی">
                             </div><!-- /.input-group-->
                         </div><!-- /.form-group -->
                         <div class="form-group">

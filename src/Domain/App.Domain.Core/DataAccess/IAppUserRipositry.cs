@@ -17,6 +17,7 @@ namespace App.Domain.Core.DataAccess
         Task<List<AppUser>> GetAll(CancellationToken cancellation);
 
         Task<AppUserDto> GetDetail(int userId, CancellationToken cancellation);
+        Task Update(AppUserDto appuser, CancellationToken cancellation);
 
 
     }
