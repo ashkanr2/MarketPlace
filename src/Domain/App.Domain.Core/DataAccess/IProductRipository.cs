@@ -11,6 +11,7 @@ namespace App.Domain.Core.DataAccess
     {
       
         Task<List<ProductDto>> GetAll(int boothId, CancellationToken cancellationToken);
+        Task<List<ProductDto>> GetAllIsAccepted(bool status, CancellationToken cancellationToken);
         Task<List<ProductDto>> GetAllFromCategory(int categoryId, CancellationToken cancellationToken);
         Task<ProductDto> GetDatail(int productId, CancellationToken cancellationToken);
         Task Create(ProductDto product, CancellationToken cancellationToken);

@@ -39,6 +39,10 @@ namespace App.Domain.AppService.Admins
             await _productRipository.Update(product, cancellationToken);
         }
 
+        public async Task<List<ProductDto>> GetAllFromStatus(bool status, CancellationToken cancellationToken)
+        =>  await _productRipository.GetAllIsAccepted(status, cancellationToken);
+        
+
         public async Task<List<ProductDto>> GetBoothProducts(int boothId, CancellationToken cancellationToken)
        => await _productRipository.GetAll(boothId, cancellationToken);
 

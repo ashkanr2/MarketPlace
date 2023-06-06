@@ -1,0 +1,516 @@
+﻿@model List<App.EndPoints.Home_RepaireUI.Areas.Admin.Models.Product.ProductViewModel>
+@{
+    ViewData["Title"] = " تایید کالاها";
+    Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+}
+<div class="row">
+    <div class="col-md-4 col-12 m-b-20">
+        <a class="btn btn-success btn-round" href="#">
+            <i class="icon-plus"></i>
+            افزودن
+        </a>
+        <a class="btn btn-info btn-round" href="#">
+            <i class="icon-layers"></i>
+            بایگانی
+        </a>
+    </div>
+    <div class="col-md-4 col-12 m-b-20">
+        <form role="form">
+            <div class="input-group round">
+                <input type="text" class="form-control" placeholder="جستجو...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        <i class="icon-magnifier"></i>
+                        <div class="paper-ripple">
+                    </button>
+                </span>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4 col-12 m-b-20">
+        <select class="form-select round">
+            <option value="0">مرتب سازی بر اساس تاریخ</option>
+            <option value="1">مرتب سازی بر اساس خریدار</option>
+            <option value="2">مرتب سازی بر اساس مبلغ</option>
+            <option value="3">مرتب سازی بر اساس وضعیت</option>
+        </select>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th><i class="icon-energy"></i></th>
+                <th>نام خریدار</th>
+                <th>تاریخ</th>
+                <th>مبلغ</th>
+                <th>وضعیت</th>
+                <th>مدیریت</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>
+                    <img class="img-person img-circle" src="">
+                    <span>
+                        حمید آفرینش فر
+                    </span>
+                </td>
+                <td>1396/05/20</td>
+                <td>515,000</td>
+                <td>
+                    <label class="label-success round">پرداخت شده</label>
+                </td>
+                <td>
+                    <a href="#" class="btn btn-success btn-round">
+                        <i class="icon-eyeglass"></i>
+                        مشاهده
+                    </a>
+                    <a href="#" class="btn btn-info btn-round">
+                        <i class="icon-note"></i>
+                        ویرایش
+                    </a>
+                    <a href="#" class="btn btn-danger btn-round">
+                        <i class="icon-trash"></i>
+                        حذف
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>
+                    <img class="img-person img-circle" src="">
+                    <span>
+                        بهزاد پور نوری
+                    </span>
+                </td>
+                <td>1396/05/20</td>
+                <td>180,500</td>
+                <td>
+                    <label class="label-success round">پرداخت شده</label>
+                </td>
+                <td>
+                    <a href="#" class="btn btn-success btn-round">
+                        <i class="icon-eyeglass"></i>
+                        مشاهده
+                    </a>
+                    <a href="#" class="btn btn-info btn-round">
+                        <i class="icon-note"></i>
+                        ویرایش
+                    </a>
+                    <a href="#" class="btn btn-danger btn-round">
+                        <i class="icon-trash"></i>
+                        حذف
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>
+                    <img class="img-person img-circle" src="">
+                    <span>
+                        حمید آفرینش فر
+                    </span>
+                </td>
+                <td>1396/03/20</td>
+                <td>120,000</td>
+                <td>
+                    <label class="label-success round">پرداخت شده</label>
+                </td>
+                <td>
+                    <a href="#" class="btn btn-success btn-round">
+                        <i class="icon-eyeglass"></i>
+                        مشاهده
+                    </a>
+                    <a href="#" class="btn btn-info btn-round">
+                        <i class="icon-note"></i>
+                        ویرایش
+                    </a>
+                    <a href="#" class="btn btn-danger btn-round">
+                        <i class="icon-trash"></i>
+                        حذف
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>
+                    <img class="img-person img-circle" src="">
+                    <span>
+                        بهزاد پور نوری
+                    </span>
+                </td>
+                <td>1396/02/18</td>
+                <td>250,000</td>
+                <td>
+                    <label class="label-warning round">پرداخت نشده</label>
+                </td>
+                <td>
+                    <a href="#" class="btn btn-success btn-round">
+                        <i class="icon-eyeglass"></i>
+                        مشاهده
+                    </a>
+                    <a href="#" class="btn btn-info btn-round">
+                        <i class="icon-note"></i>
+                        ویرایش
+                    </a>
+                    <a href="#" class="btn btn-danger btn-round">
+                        <i class="icon-trash"></i>
+                        حذف
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>
+                    <img class="img-person img-circle" src="">
+                    <span>
+                        حمید آفرینش فر
+                    </span>
+                </td>
+                <td>1396/02/15</td>
+                <td>530,000</td>
+                <td>
+                    <label class="label-danger round">مرجوعی</label>
+                </td>
+                <td>
+                    <a href="#" class="btn btn-success btn-round">
+                        <i class="icon-eyeglass"></i>
+                        مشاهده
+                    </a>
+                    <a href="#" class="btn btn-info btn-round">
+                        <i class="icon-note"></i>
+                        ویرایش
+                    </a>
+                    <a href="#" class="btn btn-danger btn-round">
+                        <i class="icon-trash"></i>
+                        حذف
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>
+                    <img class="img-person img-circle" src="">
+                    <span>
+                        بهزاد پور نوری
+                    </span>
+                </td>
+                <td>1396/02/20</td>
+                <td>150,000</td>
+                <td>
+                    <label class="label-success round">پرداخت شده</label>
+                </td>
+                <td>
+                    <a href="#" class="btn btn-success btn-round">
+                        <i class="icon-eyeglass"></i>
+                        مشاهده
+                    </a>
+                    <a href="#" class="btn btn-info btn-round">
+                        <i class="icon-note"></i>
+                        ویرایش
+                    </a>
+                    <a href="#" class="btn btn-danger btn-round">
+                        <i class="icon-trash"></i>
+                        حذف
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>
+                    <img class="img-person img-circle" src="">
+                    <span>
+                        حمید آفرینش فر
+                    </span>
+                </td>
+                <td>1396/02/19</td>
+                <td>97,000</td>
+                <td>
+                    <label class="label-danger round">مرجوعی</label>
+                </td>
+                <td>
+                    <a href="#" class="btn btn-success btn-round">
+                        <i class="icon-eyeglass"></i>
+                        مشاهده
+                    </a>
+                    <a href="#" class="btn btn-info btn-round">
+                        <i class="icon-note"></i>
+                        ویرایش
+                    </a>
+                    <a href="#" class="btn btn-danger btn-round">
+                        <i class="icon-trash"></i>
+                        حذف
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>
+                    <img class="img-person img-circle" src="">
+                    <span>
+                        بهزاد پور نوری
+                    </span>
+                </td>
+                <td>1396/02/15</td>
+                <td>150,000</td>
+                <td>
+                    <label class="label-success round">پرداخت شده</label>
+                </td>
+                <td>
+                    <a href="#" class="btn btn-success btn-round">
+                        <i class="icon-eyeglass"></i>
+                        مشاهده
+                    </a>
+                    <a href="#" class="btn btn-info btn-round">
+                        <i class="icon-note"></i>
+                        ویرایش
+                    </a>
+                    <a href="#" class="btn btn-danger btn-round">
+                        <i class="icon-trash"></i>
+                        حذف
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>
+                    <img class="img-person img-circle" src="">
+                    <span>
+                        حمید آفرینش فر
+                    </span>
+                </td>
+                <td>1396/02/10</td>
+                <td>245,000</td>
+                <td>
+                    <label class="label-success round">پرداخت شده</label>
+                </td>
+                <td>
+                    <a href="#" class="btn btn-success btn-round">
+                        <i class="icon-eyeglass"></i>
+                        مشاهده
+                    </a>
+                    <a href="#" class="btn btn-info btn-round">
+                        <i class="icon-note"></i>
+                        ویرایش
+                    </a>
+                    <a href="#" class="btn btn-danger btn-round">
+                        <i class="icon-trash"></i>
+                        حذف
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>
+                    <img class="img-person img-circle" src="">
+                    <span>
+                        بهزاد پور نوری
+                    </span>
+                </td>
+                <td>1396/02/05</td>
+                <td>1,860,000</td>
+                <td>
+                    <label class="label-warning round">پرداخت نشده</label>
+                </td>
+                <td>
+                    <a href="#" class="btn btn-success btn-round">
+                        <i class="icon-eyeglass"></i>
+                        مشاهده
+                    </a>
+                    <a href="#" class="btn btn-info btn-round">
+                        <i class="icon-note"></i>
+                        ویرایش
+                    </a>
+                    <a href="#" class="btn btn-danger btn-round">
+                        <i class="icon-trash"></i>
+                        حذف
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>
+                    <img class="img-person img-circle" src="">
+                    <span>
+                        حمید آفرینش فر
+                    </span>
+                </td>
+                <td>1396/05/20</td>
+                <td>515,000</td>
+                <td>
+                    <label class="label-success round">پرداخت شده</label>
+                </td>
+                <td>
+                    <a href="#" class="btn btn-success btn-round">
+                        <i class="icon-eyeglass"></i>
+                        مشاهده
+                    </a>
+                    <a href="#" class="btn btn-info btn-round">
+                        <i class="icon-note"></i>
+                        ویرایش
+                    </a>
+                    <a href="#" class="btn btn-danger btn-round">
+                        <i class="icon-trash"></i>
+                        حذف
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>
+                    <img class="img-person img-circle" src="">
+                    <span>
+                        بهزاد پور نوری
+                    </span>
+                </td>
+                <td>1396/02/01</td>
+                <td>180,500</td>
+                <td>
+                    <label class="label-success round">پرداخت شده</label>
+                </td>
+                <td>
+                    <a href="#" class="btn btn-success btn-round">
+                        <i class="icon-eyeglass"></i>
+                        مشاهده
+                    </a>
+                    <a href="#" class="btn btn-info btn-round">
+                        <i class="icon-note"></i>
+                        ویرایش
+                    </a>
+                    <a href="#" class="btn btn-danger btn-round">
+                        <i class="icon-trash"></i>
+                        حذف
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>
+                    <img class="img-person img-circle" src="">
+                    <span>
+                        حمید آفرینش فر
+                    </span>
+                </td>
+                <td>1396/01/31</td>
+                <td>120,000</td>
+                <td>
+                    <label class="label-success round">پرداخت شده</label>
+                </td>
+                <td>
+                    <a href="#" class="btn btn-success btn-round">
+                        <i class="icon-eyeglass"></i>
+                        مشاهده
+                    </a>
+                    <a href="#" class="btn btn-info btn-round">
+                        <i class="icon-note"></i>
+                        ویرایش
+                    </a>
+                    <a href="#" class="btn btn-danger btn-round">
+                        <i class="icon-trash"></i>
+                        حذف
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>
+                    <img class="img-person img-circle" src="">
+                    <span>
+                        بهزاد پور نوری
+                    </span>
+                </td>
+                <td>1396/01/25</td>
+                <td>250,000</td>
+                <td>
+                    <label class="label-warning round">پرداخت نشده</label>
+                </td>
+                <td>
+                    <a href="#" class="btn btn-success btn-round">
+                        <i class="icon-eyeglass"></i>
+                        مشاهده
+                    </a>
+                    <a href="#" class="btn btn-info btn-round">
+                        <i class="icon-note"></i>
+                        ویرایش
+                    </a>
+                    <a href="#" class="btn btn-danger btn-round">
+                        <i class="icon-trash"></i>
+                        حذف
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>
+                    <img class="img-person img-circle" src="">
+                    <span>
+                        حمید آفرینش فر
+                    </span>
+                </td>
+                <td>1396/01/20</td>
+                <td>820,000</td>
+                <td>
+                    <label class="label-success round">پرداخت شده</label>
+                </td>
+                <td>
+                    <a href="#" class="btn btn-success btn-round">
+                        <i class="icon-eyeglass"></i>
+                        مشاهده
+                    </a>
+                    <a href="#" class="btn btn-info btn-round">
+                        <i class="icon-note"></i>
+                        ویرایش
+                    </a>
+                    <a href="#" class="btn btn-danger btn-round">
+                        <i class="icon-trash"></i>
+                        حذف
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="text-center">
+    <ul class="pagination round">
+        <li>
+            <a href="#">
+                <i class="icon-control-end"></i>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="icon-arrow-right"></i>
+            </a>
+        </li>
+        <li>
+            <a href="#">1</a>
+        </li>
+        <li>
+            <span class="active" href="#">2</span>
+        </li>
+        <li>
+            <a href="#">3</a>
+        </li>
+        <li>
+            <a href="#">4</a>
+        </li>
+        <li>
+            <a href="#">5</a>
+        </li>
+        <li>
+            <a href="#">6</a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="icon-arrow-left"></i>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="icon-control-start"></i>
+            </a>
+        </li>
+    </ul>
+</div>

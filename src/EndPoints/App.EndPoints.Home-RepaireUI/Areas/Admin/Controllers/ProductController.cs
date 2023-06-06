@@ -9,6 +9,7 @@ using App.EndPoints.Home_RepaireUI.Areas.Admin.Models.Comment;
 using System.Drawing.Printing;
 using App.EndPoints.Home_RepaireUI.Areas.Admin.Models.Product;
 using App.Domain.AppService.Admins;
+using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 
 namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
 {
@@ -17,18 +18,19 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
     {
         private readonly IProductAppservice _productAppservice;
         
-        private readonly Mapper _mapper;
+        private readonly IMapper _mapper;   
 
-        public ProductController(IProductAppservice productAppservice, Mapper mapper)
+        public ProductController(IProductAppservice productAppservice, IMapper mapper)
         {
             _productAppservice = productAppservice;
             _mapper = mapper;
         }
 
-        public async Task<IActionResult> GetAllProduct ()
+        public async Task<IActionResult> GetAllProduct(CancellationToken cancellation)
         {
-            //await _productAppservice.
-            return View();
+            //bool status = false;
+            //var products = await _productAppservice.GetAllFromStatus(status, cancellation);
+            return View(/*products*/);
         }
         public async Task<IActionResult> GetBoothProducts(int boothId,CancellationToken cancellation)
         {

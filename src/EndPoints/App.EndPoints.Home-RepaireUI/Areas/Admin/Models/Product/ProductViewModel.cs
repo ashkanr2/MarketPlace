@@ -1,4 +1,5 @@
-﻿namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Models.Product
+﻿using App.Domain.Core.DtoModels;
+namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Models.Product
 {
     public class ProductViewModel
     {
@@ -14,12 +15,6 @@
 
         public bool IsAccepted { get; set; }
 
-        //public virtual AllProduct AllProduct { get; set; } = null!;
-
-        //public virtual ICollection<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
-
-        //public virtual ICollection<ProductBid> ProductBids { get; set; } = new List<ProductBid>();
-
-        //public virtual ICollection<ProductImage> ProductImages { get; set; } = new List<ProductImage>();
+        public virtual ICollection<ProductImageDto> ProductImages { get; set; } = new List<ProductImageDto>();
     }
 }

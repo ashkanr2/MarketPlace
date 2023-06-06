@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using App.Infrastructures.Db.SqlServer.Ef.DataBase;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper.QueryableExtensions;
 
 namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
 {
@@ -54,11 +55,23 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
             .Include(x => x.AllProduct)
             .ThenInclude(a => a.Category)
              .Where(x => x.AllProduct.CategoryId == categoryId)
-   .ToListAsync(cancellationToken);
+                .ToListAsync(cancellationToken);
 
             var productDtos = _mapper.Map<List<ProductDto>>(products);
 
             return productDtos;
+        }
+
+        public async Task<List<ProductDto>> GetAllIsAccepted(bool status, CancellationToken cancellationToken)
+        {
+            var products = _context.Products
+                 .AsNoTracking()
+                 .Where(x => x.IsAccepted == status);
+
+            return await products
+                .ProjectTo<ProductDto>(_mapper.ConfigurationProvider)
+                .ToListAsync(cancellationToken);
+
         }
 
         public  async Task<ProductDto> GetDatail(int productId, CancellationToken cancellationToken)
