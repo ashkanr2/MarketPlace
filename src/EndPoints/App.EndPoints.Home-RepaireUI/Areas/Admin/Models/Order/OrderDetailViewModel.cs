@@ -10,5 +10,6 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Models.Order
         public string BoothName { get; set; }
         public int TotalPrice { get; set; }
         public string  UserName { get; set; } = null!;
+        public int Commission { get; set; }
     }  
  }
