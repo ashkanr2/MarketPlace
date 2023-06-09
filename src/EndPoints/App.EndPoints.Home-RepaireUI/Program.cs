@@ -55,6 +55,7 @@ builder.Services.AddIdentity<AppUser, IdentityRole<int>>(
     .AddEntityFrameworkStores<MarketPlaceDb>();
 
 
+
 builder.Services.AddControllersWithViews()
     .AddRazorRuntimeCompilation();
 
@@ -95,6 +96,11 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapAreaControllerRoute(
+    name: "areas",
+    areaName: "Seller",
+    pattern: "Seller/{controller=Home}/{action=Index}/{id?}");
 
 app.MapAreaControllerRoute(
     name: "areas",

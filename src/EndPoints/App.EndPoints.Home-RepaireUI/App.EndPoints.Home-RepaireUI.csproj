@@ -9,6 +9,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Seller\Views\**" />
+    <Content Remove="Areas\Seller\Views\**" />
+    <EmbeddedResource Remove="Areas\Seller\Views\**" />
+    <None Remove="Areas\Seller\Views\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Areas\Seller\Views\Shared\_LayoutSeller.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.5" />
@@ -25,6 +39,18 @@
     <ProjectReference Include="..\..\Domain\App.Domain.Core\App.Domain.Core.csproj" />
     <ProjectReference Include="..\..\Infrastructures\App.Infrastructures.Data.Repositories\App.Infrastructures.Data.Repositories.csproj" />
     <ProjectReference Include="..\..\Infrastructures\App.Infrastructures.Db.SqlServer.Ef\App.Infrastructures.Db.SqlServer.Ef.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Seller\Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\Seller\Views\Booth\Create.cshtml" />
+    <None Include="Areas\Seller\Views\Booth\Edite.cshtml" />
+    <None Include="Areas\Seller\Views\Booth\Index.cshtml" />
+    <None Include="Areas\Seller\Views\Home\Index.cshtml" />
+    <None Include="Areas\Seller\Views\Shared\_LayoutSeller.cshtml.css" />
   </ItemGroup>
 
 </Project>

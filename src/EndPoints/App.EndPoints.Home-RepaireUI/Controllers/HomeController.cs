@@ -32,14 +32,6 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        //public async Task<IActionResult> SignUp([FromBody]AppUserDto userDto)
-        //{
-        //    var result = await _appUserRipository.SignUpAsync(userDto);
-        //    if(result.Succeeded)
-        //    {
-        //        return Ok(result.Succeeded);
-        //    }
-        //    return Unauthorized();
-        //}
+        
     }
 }

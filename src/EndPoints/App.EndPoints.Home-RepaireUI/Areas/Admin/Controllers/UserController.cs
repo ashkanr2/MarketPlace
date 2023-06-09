@@ -42,7 +42,7 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
                 IsSeller = user.IsSeller,
                 name= user.Name,
                 LastName= user.LastName,
-                Email=user.Email,
+               
              
                 UserProfileImageId = user.UserProfileImageId,
 
@@ -63,6 +63,27 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
             user.IsCreated = false;
             await _IAppUserRipositry.Update(user, cancellation);
             return RedirectToAction("GetAllUsers");
+        }
+        [HttpGet]
+        public async Task<IActionResult> EditeInformation( CancellationToken cancellation)
+        {
+            var user = await _signInManager.UserManager.GetUserAsync(User);
+            
+            var userView = new AppUser
+            {
+                Id = user.Id,
+                Name = user.Name,
+                LastName = user.LastName,
+                Address = user.Address,
+                Email= user.Email,
+                UserProfileImageId = user.UserProfileImageId,
+                BuyerMedal= user.BuyerMedal,
+                BuyerMedalId= user.BuyerMedalId,
+                IsDeleted= user.IsDeleted,
+                CountOfBuy= user.CountOfBuy,
+
+            };
+            return View(userView);
         }
 
     }

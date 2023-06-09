@@ -14,11 +14,12 @@ namespace App.Domain.Core.DataAccess
     {
         Task<IdentityResult> SignUpAsync(AppUserDto userDto);
 
-        Task<List<AppUser>> GetAll(CancellationToken cancellation);
+        Task<List<AppUserDto>> GetAll(CancellationToken cancellation);
 
         Task<AppUserDto> GetDetail(int userId, CancellationToken cancellation);
         Task Update(AppUserDto appuser, CancellationToken cancellation);
-
+        Task<bool> Exists(string email, CancellationToken cancellationToken);
+        Task<List<string>> GetRoles(int userId, CancellationToken cancellationToken);
 
     }
 }

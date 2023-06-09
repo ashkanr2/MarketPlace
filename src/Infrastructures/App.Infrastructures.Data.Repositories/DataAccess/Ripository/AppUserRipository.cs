@@ -19,6 +19,7 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
     {
         private readonly IMapper _mapper;
         private readonly UserManager<AppUser> _userManager;
+        
         private readonly MarketPlaceDb _context;
         public AppUserRipository(UserManager<AppUser> userManager, MarketPlaceDb marketPlaceDb, IMapper mapper)
         {
@@ -41,12 +42,21 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
             await _context.SaveChangesAsync();
             return null;
         }
-        public async Task <List<AppUser>> GetAll(CancellationToken cancellation)
+        public async Task <List<AppUserDto>> GetAll(CancellationToken cancellation)
         {
-            var users = await _context
-            .AppUsers
-           .ToListAsync(cancellation);
-            return users;
+            try
+            {
+                var users = await _context.AppUsers.ToListAsync(cancellation);
+                var userDtos = _mapper.Map<List<AppUserDto>>(users);
+                return userDtos;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception here using your preferred logging framework
+                // For example, using Serilog:
+                //Log.Error(ex, "Error getting all users");
+                throw;
+            }
         }
         public async Task<AppUserDto>GetDetail(int userId,CancellationToken cancellation)
         {
@@ -60,5 +70,29 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
                  .Where(x => x.Id == appuser.Id).FirstOrDefaultAsync();
             await _context.SaveChangesAsync(cancellation);
         }
+
+        public async Task<bool> Exists(string email, CancellationToken cancellationToken)
+        {
+          var user = await _context.AppUsers.Where(x=>x.Email == email).FirstOrDefaultAsync();
+            if (user == null) return false;
+            else return true;
+        }
+
+        public async Task<List<string>> GetRoles(int userId, CancellationToken cancellationToken)
+        {
+            var user = await _context.Users.FindAsync(userId);
+
+            if (user == null)
+            {
+                // You can throw an exception or return null as appropriate
+                throw new ArgumentException($"User with ID {userId} not found");
+            }
+
+
+            var roles = (await _userManager.GetRolesAsync(user)).ToList();
+
+            return roles;
+        }
+
     }
 }

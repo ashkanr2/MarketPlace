@@ -44,7 +44,7 @@
     <div class="navbar navbar-fixed-top" id="main-navbar">
         <div class="header-right">
             <span>
-                مدیریت
+               فروشنده 
             </span>
                
             
@@ -326,30 +326,42 @@
 
                     <li>
                       
-                        <a  class="" asp-controller="Home" asp-action="Index" asp-area="Admin">
+                        <a  class="" asp-controller="Home" asp-action="Index" asp-area="Seller">
                                
                                 <span>پیشخوان</span>
                                 <div class="paper-ripple"><div class="paper-ripple__background" style="opacity: 0.00288;"></div><div class="paper-ripple__waves"></div></div>
                             </a>
 
                     <li>
-                        <a href="@Url.Action("GetAllBooths","Booth")" class="">
+                        <a href="@Url.Action("Index","Booth")" class="dropdown-toggle">
                             <i class="icon-home"></i>
-                            <span>لیست غرفه ها</span>
+                            <span>غرفه ی من</span>
                             <div class="paper-ripple"><div class="paper-ripple__background" style="opacity: 0.00288;"></div><div class="paper-ripple__waves"></div></div>
                         </a>
+
+                        <ul>
+                            <li>
+                                <a href="@Url.Action("Create","Booth")" class="">
+                                    <i class="icon-home"></i>
+                                    <span>ساخت غرفه جدید</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Edite","Booth")" class="">
+                                    <i class="icon-home"></i>
+                                    <span>ویرایش</span>
+                                </a>
+                            </li>
+                            
+                        </ul>
                     </li>
-                    <li>
-                        <a href="@Url.Action("GetAllUsers","User")" class="">
-                            <i  class="icon-user-follow"></i>
-                            <span>لیست کاربران</span>
-                            <div class="paper-ripple"><div class="paper-ripple__background" style="opacity: 0.00288;"></div><div class="paper-ripple__waves"></div></div>
-                        </a>
-                    </li>
+
+
+
                     <li>
                         <a href="@Url.Action("GetAllProduct","Product")" class="">
                             <i class="icon-briefcase"></i>
-                            <span>لیست کالاها</span>
+                            <span>کالاهای غرفه</span>
                             <div class="paper-ripple"><div class="paper-ripple__background" style="opacity: 0.00288;"></div><div class="paper-ripple__waves"></div></div>
                         </a>
                     </li>

@@ -1,0 +1,84 @@
+﻿@model App.EndPoints.Home_RepaireUI.Areas.Seller.Models.Booth.BoothViewModel
+@{
+    ViewData["Title"] = "ساخت غرفه";
+    Layout = "~/Areas/Seller/Views/shared/_LayoutSeller.cshtml";
+    @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+}
+<div class="portlet box border shadow">
+                            <div class="portlet-heading">
+                                <div class="portlet-title">
+                                    <h3 class="title">                                        
+                                        <i class="icon-settings"></i>
+                                       ساخت غرفه جدید
+                                    </h3>
+                                </div><!-- /.portlet-title -->
+                                <div class="buttons-box">
+                                    <a class="btn btn-sm btn-default btn-round btn-fullscreen" rel="tooltip" title="تمام صفحه" href="#">
+                                        <i class="icon-size-fullscreen"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-default btn-round btn-collapse" rel="tooltip" title="کوچک کردن" href="#">
+                                        <i class="icon-arrow-up"></i>
+                                    </a>
+                                </div><!-- /.buttons-box -->
+                            </div><!-- /.portlet-heading -->
+                            <div class="portlet-body">
+                                <form role="form" method="post" asp-controller="Booth" asp-action="Create" asp-area="Seller">
+                                    <div class="form-body">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3">نام</label>
+                                            <div class="col-sm-9">
+                                                <input asp-for="Name" type="text" class="form-control" placeholder="نام غرفه " >
+                                            </div>
+                                        </div><!-- /.form-group -->
+                                        <div class="form-group row">
+                                            <label class="col-sm-3">توضیحات</label>
+                                            <div class="col-sm-9">
+                                                <textarea asp-for="Description" class="form-control" rows="5" placeholder="توضیحات"></textarea>
+                                            </div>
+                                        </div><!-- /.form-group -->
+                                        <div class="form-group row">
+                                            <label class="col-sm-3">تایید مدیریت </label>
+                                            <div class="col-sm-9">
+                                                <input  type="text" class="form-control" placeholder="غیرفعال" disabled>
+                                            </div>
+                                        </div><!-- /.form-group -->
+                                    </div><!-- /.form-body -->
+                                    <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label for="slc-province">استان</label>
+                                                            <select id="slc-province" class="form-control select2 round">
+                                                                <option>تهران</option>
+                                                                <option>فارس</option>
+                                                                <option>اصفهان</option>
+                                                                <option>خراسان</option>
+                                                                <option>یزد</option>
+                                                            </select>
+                                                        </div><!-- /.form-group -->
+                                                    </div><!-- /.col -->
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label for="slc-city">شهر</label>
+                                                            <select id="slc-city" class="form-control select2 round">
+                                                                <option>تهران</option>
+                                                                <option>ورامین</option>
+                                                                <option>پرند</option>
+                                                                <option>پردیس</option>
+                                                                <option>ری</option>
+                                                            </select>
+                                                        </div><!-- /.form-group -->
+                                                    </div><!-- /.col -->
+                                                </div><!-- /.row -->
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-info btn-round">
+                                            <i class="icon-check"></i>
+                                            ایجاد
+                                        </button>
+                                        <button type="button" class="btn btn-warning btn-round">
+                                            بازگشت
+                                            <i class="icon-close"></i>
+                                        </button>
+                                    </div><!-- /.form-actions -->
+                                </form>
+                            </div><!-- /.portlet-body -->
+                        </div><!-- /.portlet -->

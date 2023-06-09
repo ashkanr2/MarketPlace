@@ -1,4 +1,5 @@
-﻿using App.Domain.Core.Entities;
+﻿using App.Domain.Core.DataAccess;
+using App.Domain.Core.Entities;
 using App.EndPoints.Home_RepaireUI.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,11 +11,12 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
-
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        private readonly IAppUserRipositry _appUserRipositry;
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IAppUserRipositry appUserRipositry)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _appUserRipositry = appUserRipositry;
         }
 
         public async Task <IActionResult> Login()
@@ -23,18 +25,38 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model,CancellationToken cancellationToken)
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false,false);
+                var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
+                
                 if (result.Succeeded)
                 {
-                    return LocalRedirect("~/");
+                  
+                    var user = await _userManager.FindByNameAsync(model.UserName);
+                    var roles = _appUserRipositry.GetRoles(user.Id, cancellationToken);
+                    foreach (var item in roles.Result)
+                    {
+                        //if(item == "Admin")
+                        //{
+                        //    return RedirectToAction("Index", "Home", new { area = "Admin" });
+                        //}
+                        //if(item == "Customer")
+                        //{
+                        //    return RedirectToAction("Index", "Home", new { area = "Admin" });
+                        //}
+                        if (item == "Seller")
+                        {
+                            return RedirectToAction("Index", "Home", new { area = "Seller" });
+                        }
+
+                    }
+                  
                 }
                 ModelState.AddModelError(string.Empty, "خطا در لاگین ");
-
             }
+
             return View(model);
         }
         public IActionResult Register()
