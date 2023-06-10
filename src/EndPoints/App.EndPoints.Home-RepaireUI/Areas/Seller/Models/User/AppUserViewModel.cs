@@ -1,5 +1,5 @@
 ﻿using App.Domain.Core.DtoModels;
-namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Models.User
+namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Models.User
 {
     public class AppUserViewModel
     {

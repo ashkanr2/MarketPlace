@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl" class="rtl">
 <head>
-    
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewData["Title"]</title>
@@ -13,8 +13,8 @@
     <meta name="keywords" content="قالب مدیریت, قالب داشبورد, قالب ادمین, قالب مدیران, قالب مدیریت راستچین , قالب ایرانی مدیریت, پوسته مدیریت, قالب ادمین داشبورد سایت, قالب مدیریتی, مدیران, قالب مدیریت مدیران, پنل مدیریت, پنل مدیریت مدرن, قالب ادمین متریال, قالب مدیریت بوت استرپ, قالب ادمین بوتسترپ, قالب ادمین سایت, پوسته مدیریتی ایرانی, قالب مدیرتی مدیران ایرانی, بهترین قالب مدیریت, قالب مدیریت ریسپانسیو, قالب مدیریت ارزان, قالب admin">
     <meta name="fontiran.com:license" content="NE29X">
     <link rel="shortcut icon" href="~/AdminArea/images/favicon.png">
-     
-    
+
+
     <!-- BEGIN CSS -->
     <link href="~/AdminArea/plugins/bootstrap/bootstrap5/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link href="~/AdminArea/plugins/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
@@ -265,11 +265,11 @@
                             <span>@User.Identity.Name</span>
                             <i class="icon-arrow-down"></i>
                             <img src="~/AdminArea/images/user/48.png" alt="عکس پرفایل" class="img-circle img-responsive">
-                          
+
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a asp-action="EditeInformation"asp-controller="User">
+                                <a asp-action="EditeInformation" asp-controller="User">
                                     <i class="icon-note"></i>
                                     ویرایش پروفایل
                                 </a>
@@ -296,7 +296,7 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a asp-action="Login"asp-controller="Account"asp-area="">
+                                <a asp-action="Login" asp-controller="Account" asp-area="">
                                     <i class="icon-power"></i>
                                     خروج
                                 </a>
@@ -331,12 +331,12 @@
                 <ul class="metismenu " id="side-menu">
 
                     <li>
-                      
-                        <a  class="" asp-controller="Home" asp-action="Index" asp-area="Seller">
-                               
-                                <span>پیشخوان</span>
-                                <div class="paper-ripple"><div class="paper-ripple__background" style="opacity: 0.00288;"></div><div class="paper-ripple__waves"></div></div>
-                            </a>
+
+                        <a class="" asp-controller="Home" asp-action="Index" asp-area="Seller">
+
+                            <span>پیشخوان</span>
+                            <div class="paper-ripple"><div class="paper-ripple__background" style="opacity: 0.00288;"></div><div class="paper-ripple__waves"></div></div>
+                        </a>
 
                     <li>
                         <a href="@Url.Action("Index","Booth")" class="dropdown-toggle">
@@ -358,7 +358,7 @@
                                     <span>ویرایش</span>
                                 </a>
                             </li>
-                            
+
                         </ul>
                     </li>
 
@@ -371,24 +371,31 @@
                             <div class="paper-ripple"><div class="paper-ripple__background" style="opacity: 0.00288;"></div><div class="paper-ripple__waves"></div></div>
                         </a>
                     </li>
-                  
+
                     <li>
                         <a href="@Url.Action("GetAllOrders","Order")" class="">
                             <i class="icon-basket-loaded fa-flip-horizontal"></i>
-                            <span>سفارشات</span>
+                            <span>سفارشات ثبت شده</span>
                             <div class="paper-ripple"><div class="paper-ripple__background"></div><div class="paper-ripple__waves"></div></div>
                         </a>
                     </li>
-                    <li >
-                        <a  class="" asp-controller="Comment" asp-action="GetAllComments" asp-area="Admin">
+                    <li>
+                        <a class="" asp-controller="Comment" asp-action="GetAllComments" asp-area="Admin">
                             <i class="icon-bubble"></i>
                             <span>نظرات</span>
                             <div class="paper-ripple"><div class="paper-ripple__background"></div><div class="paper-ripple__waves"></div></div>
                         </a>
                     </li>
-                    
-                    
-                   
+
+                    <li>
+                        <a href="@Url.Action("Index","Booth")" >
+                            <i class="icon-chart"></i>
+                            <span>ساخت مزاید</span>
+                            <div class="paper-ripple"><div class="paper-ripple__background" style="opacity: 0.00288;"></div><div class="paper-ripple__waves"></div></div>
+                        </a>
+                    </li>
+
+
 
 
                 </ul><!-- /#side-menu -->
@@ -413,8 +420,8 @@
                 <!-- END BREADCRUMB -->
 
                 <div class="col-md-12">
-                    
-                 
+
+
 
                     <div>
                         @RenderBody()

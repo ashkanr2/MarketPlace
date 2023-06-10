@@ -26,10 +26,10 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
             _mapper = mapper;
         }
 
-        public async Task<IActionResult> GetAllProduct(CancellationToken cancellation)
+        public async Task<IActionResult> GetAllProduct(CancellationToken CancellationToken)
         {
-            bool status = false;
-            var products = await _productAppservice.GetAllFromStatus(status, cancellation);
+            
+            var products = await _productAppservice.GetAll(CancellationToken);
             var ProductViwe = products.Select(x => new ProductViewModel
             {
                 Id = x.Id,
@@ -62,24 +62,23 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
 
             return View(ProductViwe);
         }
-        [HttpPost]
-        public async Task<IActionResult> Active(int productId, CancellationToken cancellation)
+      
+        public async Task<IActionResult> Active(int id, CancellationToken cancellation)
         {
-            await _productAppservice.Active(productId, cancellation);
-            return RedirectToAction("Index","Home");
-        }
-        [HttpPost]
-        public async Task<IActionResult> Diactive(int productId, CancellationToken cancellation)
-        {
-            await _productAppservice.Deactivate(productId, cancellation);
-            return RedirectToAction("Index", "Home");
-        }
-        [HttpPost]
-        public async Task<IActionResult> Update(ProductDto product, CancellationToken cancellation)
-        {
+            var product =  await _productAppservice.GetDetail(id, cancellation);
+            product.IsAccepted = true;
             await _productAppservice.Update(product, cancellation);
-            int boothId = product.BoothId;
-            return RedirectToAction("GetBoothProducts","product","boothId");
+            return RedirectToAction("GetAllProduct", "Product");
         }
+       
+        public async Task<IActionResult> Diactive(int Id, CancellationToken cancellation)
+        {
+            var product = await _productAppservice.GetDetail(Id, cancellation);
+            product.IsAccepted = false;
+            await _productAppservice.Update(product, cancellation);
+            return RedirectToAction("GetAllProduct", "Product");
+        }
+    
+        
     }
 }

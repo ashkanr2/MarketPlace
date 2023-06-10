@@ -40,50 +40,79 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
                 CreatAt = user.CreatAt,
                 IsCreated = user.IsCreated,
                 IsSeller = user.IsSeller,
-                name= user.Name,
+                Name= user.Name,
                 LastName= user.LastName,
-               
-             
+                
+
+
                 UserProfileImageId = user.UserProfileImageId,
 
                 // add other properties as necessary
             }).ToList();
             return View(userViewModels);
         }
-        public async Task<IActionResult>Active(int id,CancellationToken cancellation)
+        public async Task<IActionResult>Active(int Id,CancellationToken cancellation)
         {
-            var user = await _IAppUserRipositry.GetDetail(id, cancellation);
+            var user = await _IAppUserRipositry.GetDetail(Id, cancellation);
             user.IsCreated = true;
             await _IAppUserRipositry.Update(user, cancellation);
             return RedirectToAction("GetAllUsers");
         }
-        public async Task<IActionResult> DiActivated(int id, CancellationToken cancellation)
+        public async Task<IActionResult> DiActivated(int Id, CancellationToken cancellation)
         {
-            var user = await _IAppUserRipositry.GetDetail(id, cancellation);
+            var user = await _IAppUserRipositry.GetDetail(Id, cancellation);
             user.IsCreated = false;
             await _IAppUserRipositry.Update(user, cancellation);
             return RedirectToAction("GetAllUsers");
         }
         [HttpGet]
-        public async Task<IActionResult> EditeInformation( CancellationToken cancellation)
+        public async Task<IActionResult> EditeInformation(CancellationToken cancellation)
         {
             var user = await _signInManager.UserManager.GetUserAsync(User);
-            
-            var userView = new AppUser
+
+            var userView = new AppUserViewModel
             {
                 Id = user.Id,
                 Name = user.Name,
                 LastName = user.LastName,
                 Address = user.Address,
-                Email= user.Email,
+                Email = user.Email,
                 UserProfileImageId = user.UserProfileImageId,
-                BuyerMedal= user.BuyerMedal,
-                BuyerMedalId= user.BuyerMedalId,
-                IsDeleted= user.IsDeleted,
-                CountOfBuy= user.CountOfBuy,
+                PhoneNumber = user.PhoneNumber,
 
             };
             return View(userView);
+        }
+        [HttpGet]
+        public async Task<IActionResult> EditeUserInformation(int Id, CancellationToken cancellation)
+        {   var d = (await _IAppUserRipositry.GetDetail(Id, cancellation));
+            var user =_mapper.Map<AppUser>(await _IAppUserRipositry.GetDetail(Id, cancellation));
+            var userView = new AppUserViewModel
+            {
+                Id = user.Id,
+                Name = user.Name,
+                LastName = user.LastName,
+                Address = user.Address,
+                Email = user.Email,
+                UserProfileImageId = user.UserProfileImageId,
+                PhoneNumber = user.PhoneNumber,
+
+            };
+            return View(userView);
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditeInformation(AppUserViewModel user , CancellationToken CancellationToken)
+        {
+            
+            var appuser = new AppUserDto
+            {
+                Id = user.Id,
+                Name = user.Name,
+                LastName = user.LastName,
+                Address= user.Address,
+            };
+            await _IAppUserRipositry.Update(appuser, CancellationToken);
+            return RedirectToAction("Index", "Home");
         }
 
     }

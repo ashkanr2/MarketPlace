@@ -21,9 +21,9 @@ namespace App.Domain.AppService.Admins
 
         public async Task Active(int productId, CancellationToken cancellationToken)
         {
-            var booth = await _productRipository.GetDatail(productId, cancellationToken);
-            booth.IsAccepted = true;
-            await _productRipository.Update(booth, cancellationToken);
+            var product = await _productRipository.GetDatail(productId, cancellationToken);
+            product.IsAccepted = true;
+            await _productRipository.Update(product, cancellationToken);
         }
 
         public async Task Create(ProductDto product, CancellationToken cancellationToken)
@@ -39,8 +39,8 @@ namespace App.Domain.AppService.Admins
             await _productRipository.Update(product, cancellationToken);
         }
 
-        public async Task<List<ProductDto>> GetAllFromStatus(bool status, CancellationToken cancellationToken)
-        =>  await _productRipository.GetAllIsAccepted(status, cancellationToken);
+        public async Task<List<ProductDto>> GetAll( CancellationToken cancellationToken)
+        =>  await _productRipository.GetAll( cancellationToken);
         
 
         public async Task<List<ProductDto>> GetBoothProducts(int boothId, CancellationToken cancellationToken)

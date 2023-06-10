@@ -34,9 +34,10 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Controllers
             Id= a.Id,
             UnitPrice= a.UnitPrice,
             IsAccepted= a.IsAccepted,
-            //ProductName=a.AllProduct.Name,
-            //category=a.AllProduct.Category.Title,
+            ProductName=a.AllProduct.Name,
+            category=a.AllProduct.Category.Title,
             ProductImages=a.ProductImages,
+            IsDeleted=a.IsDeleted,
 
             }).ToList();
            

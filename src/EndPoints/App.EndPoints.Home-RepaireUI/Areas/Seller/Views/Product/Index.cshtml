@@ -5,10 +5,14 @@
     @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 }
 
-
+<div> 
+    <a href="#" class="btn btn-success btn-round">اضافه کردن محصول</a>
+    </div>
 <div class="table-responsive">
+    
     <table class="table table-bordered table-hover table-striped" id="data-table">
         <thead>
+            <span class="text text-success "> کالا های موجود غرفه</span>
             <tr>
                 <th>ردیف</th>
                 <th>نام کالا</th>
@@ -23,19 +27,113 @@
                 int count =1;
             @foreach(var item in Model){
 
-            
+            @if(item.IsDeleted == false && item.IsAccepted == true){
             <tr>
                 <td>@count</td>
                 <td>@item.ProductName</td>
                  <td>@item.category</td>
-                <td>@item.IsAccepted</td>
+                 @if(item.IsAccepted == false){
+                 <td>در انتظار تایید</td>
+                 }
+                 @if(item.IsAccepted == true){
+                 <td> تایید شده </td>
+                 }
+              
                 <td>
                 <a href="#" class="btn btn-info btn-round">مشاهده</a>
                 <a href="#" class="btn btn-info btn-round">ویرایش</a>
                  <a href="#" class="btn btn-info btn-round">حذف  </a>
                 </td>
             </tr>
+            }
             count++;
+
+            }
+            }
+        </tbody>
+    </table>
+
+     <table class="table table-bordered table-hover table-striped" id="data-table">
+        <thead>
+            <span class="text text-primary "> کالا های تایید نشده  غرفه</span>
+            <tr>
+                <th>ردیف</th>
+                <th>نام کالا</th>
+                 <th>دسته بندی</th>
+                <th>وضعیت</th>
+                <td>عملیات</td>
+            </tr>
+        </thead>
+        <tbody>
+
+            @{
+                int count2 =1;
+            @foreach(var item in Model){
+
+            @if(item.IsDeleted == false && item.IsAccepted == false){
+            <tr>
+                <td>@count2</td>
+                <td>@item.ProductName</td>
+                 <td>@item.category</td>
+                 @if(item.IsAccepted == false){
+                 <td>در انتظار تایید</td>
+                 }
+                 @if(item.IsAccepted == true){
+                 <td> تایید شده </td>
+                 }
+              
+                <td>
+                <a href="#" class="btn btn-info btn-round">مشاهده</a>
+                <a href="#" class="btn btn-info btn-round">ویرایش</a>
+                 <a href="#" class="btn btn-info btn-round">حذف  </a>
+                </td>
+            </tr>
+            }
+            count2++;
+
+            }
+            }
+        </tbody>
+    </table>
+
+     <table class="table table-bordered table-hover table-striped" id="data-table">
+        <thead>
+            <span class="text text-danger "> کالا های حذف شده غرفه</span>
+            <tr>
+                <th>ردیف</th>
+                <th>نام کالا</th>
+                 <th>دسته بندی</th>
+                <th>وضعیت</th>
+                <td>عملیات</td>
+            </tr>
+        </thead>
+        <tbody>
+
+            @{
+                int count3 =1;
+            @foreach(var item in Model){
+
+            @if(item.IsDeleted == true){
+            <tr>
+                <td>@count3</td>
+                <td>@item.ProductName</td>
+                 <td>@item.category</td>
+                 @if(item.IsAccepted == false){
+                 <td>در انتظار تایید</td>
+                 }
+                 @if(item.IsAccepted == true ){
+                 <td> تایید شده </td>
+                 }
+              
+                <td>
+                <a href="#" class="btn btn-info btn-round">مشاهده</a>
+                <a href="#" class="btn btn-info btn-round">ویرایش</a>
+                 <a href="#" class="btn btn-info btn-round">حذف  </a>
+                </td>
+            </tr>
+            }
+            count3++;
+
             }
             }
         </tbody>

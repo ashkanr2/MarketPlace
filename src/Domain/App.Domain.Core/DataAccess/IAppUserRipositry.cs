@@ -12,13 +12,13 @@ namespace App.Domain.Core.DataAccess
 {
     public interface IAppUserRipositry
     {
-        Task<IdentityResult> SignUpAsync(AppUserDto userDto);
+        Task<IdentityResult> SignUpAsync(AppUserDto userDto, CancellationToken CancellationToken);
 
-        Task<List<AppUserDto>> GetAll(CancellationToken cancellation);
+        Task<List<AppUserDto>> GetAll(CancellationToken CancellationToken);
 
-        Task<AppUserDto> GetDetail(int userId, CancellationToken cancellation);
-        Task Update(AppUserDto appuser, CancellationToken cancellation);
-        Task<bool> Exists(string email, CancellationToken cancellationToken);
+        Task<AppUserDto> GetDetail(int userId, CancellationToken CancellationToken);
+        Task Update(AppUserDto appuser, CancellationToken CancellationToken);
+        Task<bool> Exists(string email, CancellationToken CancellationToken);
         Task<List<string>> GetRoles(int userId, CancellationToken cancellationToken);
 
     }

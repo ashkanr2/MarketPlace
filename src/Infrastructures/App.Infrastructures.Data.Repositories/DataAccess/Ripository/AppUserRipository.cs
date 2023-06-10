@@ -27,7 +27,7 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
             _context = marketPlaceDb;
             _mapper = mapper;
         }
-        public async Task<IdentityResult> SignUpAsync(AppUserDto userDto)
+        public async Task<IdentityResult> SignUpAsync(AppUserDto userDto, CancellationToken CancellationToken)
         {
             var user = new AppUser() { 
             
@@ -42,11 +42,11 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
             await _context.SaveChangesAsync();
             return null;
         }
-        public async Task <List<AppUserDto>> GetAll(CancellationToken cancellation)
+        public async Task <List<AppUserDto>> GetAll(CancellationToken CancellationToken)
         {
             try
             {
-                var users = await _context.AppUsers.ToListAsync(cancellation);
+                var users = await _context.AppUsers.ToListAsync(CancellationToken);
                 var userDtos = _mapper.Map<List<AppUserDto>>(users);
                 return userDtos;
             }
@@ -58,17 +58,26 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
                 throw;
             }
         }
-        public async Task<AppUserDto>GetDetail(int userId,CancellationToken cancellation)
+        public async Task<AppUserDto>GetDetail(int userId,CancellationToken CancellationToken)
         {
-            var user = _mapper.Map < AppUserDto > (await _context.AppUsers.Where(x=>x.Id == userId).FirstOrDefaultAsync(cancellation));
+            var user = _mapper.Map < AppUserDto > (await _context.AppUsers.Where(x=>x.Id == userId).FirstOrDefaultAsync(CancellationToken));
             return user;
         }
 
-        public async Task Update(AppUserDto appuser, CancellationToken cancellation)
+        public async Task Update(AppUserDto appuser, CancellationToken CancellationToken)
         {
-            var record = await _mapper.ProjectTo<AppUserDto>(_context.Set<AppUserDto>())
-                 .Where(x => x.Id == appuser.Id).FirstOrDefaultAsync();
-            await _context.SaveChangesAsync(cancellation);
+            var record = await _context.AppUsers
+               .Where(x => x.Id == appuser.Id)
+               .FirstOrDefaultAsync();
+            record.IsCreated = appuser.IsCreated;
+            try
+            {
+                    await _context.SaveChangesAsync(CancellationToken);
+            }
+            catch (Exception ex)
+            {
+                //_loger.LogError("Error in update user {exception}", ex);
+            }
         }
 
         public async Task<bool> Exists(string email, CancellationToken cancellationToken)

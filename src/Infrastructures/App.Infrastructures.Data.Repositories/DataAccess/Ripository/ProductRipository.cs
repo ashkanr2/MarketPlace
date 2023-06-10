@@ -42,12 +42,18 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
         }
 
         public async Task<List<ProductDto>> GetAll(int boothId, CancellationToken cancellationToken)
-        => _mapper.Map<List<ProductDto>>(await _context.Products
-                .AsNoTracking()
-                .Where(x => x.BoothId == boothId)
-                .ToListAsync(cancellationToken));
-        
+        {
+            var products = await _context.Products
+            .AsNoTracking()
+             .Where(a => a.BoothId == boothId)
+              .Include(x => x.AllProduct)
+             .ThenInclude(p => p.Category) // Include the related Category entity
+            .ToListAsync(cancellationToken);
 
+            var productDtos = _mapper.Map<List<ProductDto>>(products);
+            return productDtos;
+
+        }
         public async Task<List<ProductDto>> GetAllFromCategory(int categoryId, CancellationToken cancellationToken)
         {
             var products = await _context.Products
@@ -62,24 +68,26 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
             return productDtos;
         }
 
-        public async Task<List<ProductDto>> GetAllIsAccepted(bool status, CancellationToken cancellationToken)
+        public async Task<List<ProductDto>> GetAll( CancellationToken cancellationToken)
         {
-            var products = _context.Products
-                 .AsNoTracking()
-                 .Where(x => x.IsAccepted == status);
-
-            return await products
-                .ProjectTo<ProductDto>(_mapper.ConfigurationProvider)
+            var products = await _context.Products
+                .AsNoTracking()
+                .Include(x => x.AllProduct)
                 .ToListAsync(cancellationToken);
+            var productDtos = _mapper.Map<List<ProductDto>>(products);
+           return productDtos;
 
         }
 
-        public  async Task<ProductDto> GetDatail(int productId, CancellationToken cancellationToken)
-         => await Task.FromResult(_mapper.Map<ProductDto>(await _context.Products
-             .AsNoTracking()
-             .Where(x => x.Id == productId)
-              .FirstOrDefaultAsync(cancellationToken)));
+        public async Task<ProductDto> GetDatail(int productId, CancellationToken cancellationToken)
+        {
+            var product = _mapper.Map<ProductDto>(await _context.Products
+                .Where(a=>a.Id == productId)
+                .FirstOrDefaultAsync(cancellationToken));
 
+            return product; 
+           
+        }
         public async Task HardDelted(int productId, CancellationToken cancellationToken)
         {
             var product = await _context.Products
@@ -106,10 +114,11 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
         }
         public async Task Update(ProductDto product, CancellationToken cancellationToken)
         {
-            var record = await _mapper.ProjectTo<ProductDto>(_context.Set<ProductDto>())
-                 .Where(x => x.Id == product.Id).FirstOrDefaultAsync();
-            _mapper.Map(product, record);
-            await _context.SaveChangesAsync(cancellationToken);
+            var record =  _mapper.Map<Product>(await _context.Products
+                 .Where(x => x.Id == product.Id)
+                 .FirstOrDefaultAsync(cancellationToken));
+            record.IsAccepted = product.IsAccepted;
+            await _context.SaveChangesAsync();
         }
     }
 }

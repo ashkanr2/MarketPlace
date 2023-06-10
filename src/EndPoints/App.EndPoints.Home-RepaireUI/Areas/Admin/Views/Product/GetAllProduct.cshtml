@@ -1,16 +1,14 @@
 ﻿@model List<App.EndPoints.Home_RepaireUI.Areas.Admin.Models.Product.ProductViewModel>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-    ViewData["Title"] = " تایید کالاها";
+    ViewData["Title"] = "تایید کالاها ";
     Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
-    @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+   
 }
 <div class="row">
     <div class="col-md-4 col-12 m-b-20">
        
-        <a class="btn btn-info btn-round" href="#">
-            <i class="icon-layers"></i>
-            بایگانی
-        </a>
+       
     </div>
     <div class="col-md-4 col-12 m-b-20">
         <form role="form">
@@ -23,18 +21,16 @@
                     </button>
                 </span>
             </div>
-        </form>
+        </form >
     </div>
-    <div class="col-md-4 col-12 m-b-20">
-        <select class="form-select round">
-            <option value="0">مرتب سازی بر اساس تاریخ</option>
-            <option value="1">مرتب سازی بر اساس خریدار</option>
-            <option value="2">مرتب سازی بر اساس مبلغ</option>
-            <option value="3">مرتب سازی بر اساس وضعیت</option>
-        </select>
-    </div>
+  
 </div>
+<p>کالا های تایید نشده</p>
 <div class="table-responsive">
+    <form method="post">
+
+  
+   
     <table class="table table-bordered table-striped table-hover">
         <thead>
             <tr>
@@ -47,17 +43,16 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                @{
+             @{
                     int counter = 1;
 
                 @foreach(var item in Model)
                 {
-                    
+            <tr>
                 
                 <td>@counter</td>
                 <td>
-                    <img class="img-person img-circle" src="">
+                 
                     <span>
                         @item.ProductName
                     </span>
@@ -65,25 +60,28 @@
                 <td>@item.AddTime</td>
                 <td>@item.UnitPrice</td>
                 <td>@item.boothId</td>
-                <td>
+                
                             @if (item.IsAccepted == false)
                             {
                             <td>
-                              
+                                    <button class="btn btn-success btn-block btn-lg border border-white" asp-controller="Product" asp-action="Active" asp-route-Id="@item.Id">فعال کردن</button>
                             </td>
                             }
                             @if (item.IsAccepted == true)
                             {
                             <td>
-                               
+                                    <button class="btn btn-danger btn-block btn-lg border border-white" asp-controller="Product" asp-action="Diactive" asp-route-Id="@item.Id">غیرفعال</button>
                             </td>
                             }
-                </td>
+
+            </tr>
+                            
                     }
                     counter++;
                 }
-            </tr>
            
         </tbody>
     </table>
+    </form>
+   
 </div>
