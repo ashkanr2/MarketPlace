@@ -13,7 +13,8 @@
     <meta name="keywords" content="قالب مدیریت, قالب داشبورد, قالب ادمین, قالب مدیران, قالب مدیریت راستچین , قالب ایرانی مدیریت, پوسته مدیریت, قالب ادمین داشبورد سایت, قالب مدیریتی, مدیران, قالب مدیریت مدیران, پنل مدیریت, پنل مدیریت مدرن, قالب ادمین متریال, قالب مدیریت بوت استرپ, قالب ادمین بوتسترپ, قالب ادمین سایت, پوسته مدیریتی ایرانی, قالب مدیرتی مدیران ایرانی, بهترین قالب مدیریت, قالب مدیریت ریسپانسیو, قالب مدیریت ارزان, قالب admin">
     <meta name="fontiran.com:license" content="NE29X">
     <link rel="shortcut icon" href="~/AdminArea/images/favicon.png">
-
+     
+    
     <!-- BEGIN CSS -->
     <link href="~/AdminArea/plugins/bootstrap/bootstrap5/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link href="~/AdminArea/plugins/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
@@ -43,11 +44,16 @@
     <!-- BEGIN HEADER -->
     <div class="navbar navbar-fixed-top" id="main-navbar">
         <div class="header-right">
-            <span>
-               فروشنده 
+            <span class="title12" style="
+             width: 100%;
+             display:flex;
+             align-items : center;
+             font-size : 20px !important;
+             color : white !important;
+             text-align : center;
+             justify-content : center;">
+                فروشنده
             </span>
-               
-            
         </div><!-- /.header-right -->
         <div class="header-left">
             <div class="top-bar">
@@ -359,7 +365,7 @@
 
 
                     <li>
-                        <a href="@Url.Action("GetAllProduct","Product")" class="">
+                        <a href="@Url.Action("Index","Product")" class="">
                             <i class="icon-briefcase"></i>
                             <span>کالاهای غرفه</span>
                             <div class="paper-ripple"><div class="paper-ripple__background" style="opacity: 0.00288;"></div><div class="paper-ripple__waves"></div></div>

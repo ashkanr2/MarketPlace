@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
 {
     /// <inheritdoc />
-    public partial class first : Migration
+    public partial class ChangeDataType : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -63,7 +63,7 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Path = table.Column<string>(type: "nchar(30)", fixedLength: true, maxLength: 30, nullable: false),
+                    Path = table.Column<string>(type: "nvarchar(30)", fixedLength: true, maxLength: 30, nullable: false),
                     Isdeleted = table.Column<bool>(type: "bit", nullable: false),
                     IsProfileImage = table.Column<bool>(type: "bit", nullable: false),
                     IsAccepted = table.Column<bool>(type: "bit", nullable: false)
@@ -79,7 +79,7 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nchar(25)", fixedLength: true, maxLength: 25, nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(25)", fixedLength: true, maxLength: 25, nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -93,7 +93,7 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nchar(30)", fixedLength: true, maxLength: 30, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(30)", fixedLength: true, maxLength: 30, nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -121,7 +121,7 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    title = table.Column<string>(type: "nchar(20)", fixedLength: true, maxLength: 20, nullable: false)
+                    title = table.Column<string>(type: "nvarchar(20)", fixedLength: true, maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -155,11 +155,13 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValueSql: "(N'')"),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValueSql: "(N'')"),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatAT = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true),
                     BuyerMedalId = table.Column<int>(type: "int", nullable: true),
-                    CountOfBuy = table.Column<string>(type: "nchar(10)", fixedLength: true, maxLength: 10, nullable: true),
+                    CountOfBuy = table.Column<string>(type: "nvarchar(10)", fixedLength: true, maxLength: 10, nullable: true),
                     UserProfileImageId = table.Column<int>(type: "int", nullable: true),
                     IsSeller = table.Column<bool>(type: "bit", nullable: false),
                     IsCreated = table.Column<bool>(type: "bit", nullable: false),
@@ -200,7 +202,7 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nchar(25)", fixedLength: true, maxLength: 25, nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(25)", fixedLength: true, maxLength: 25, nullable: false),
                     MotherCategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -220,7 +222,7 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProvincesId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nchar(30)", fixedLength: true, maxLength: 30, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(30)", fixedLength: true, maxLength: 30, nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -324,7 +326,7 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nchar(35)", fixedLength: true, maxLength: 35, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(35)", fixedLength: true, maxLength: 35, nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     IsCreated = table.Column<bool>(type: "bit", nullable: false)
@@ -345,10 +347,10 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nchar(45)", fixedLength: true, maxLength: 45, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(45)", fixedLength: true, maxLength: 45, nullable: false),
                     OwnerUserId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Description = table.Column<string>(type: "nchar(300)", fixedLength: true, maxLength: 300, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(300)", fixedLength: true, maxLength: 300, nullable: false),
                     TotalSalesNumber = table.Column<int>(type: "int", nullable: false),
                     BoothImageId = table.Column<int>(type: "int", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -382,7 +384,7 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    NationalCode = table.Column<string>(type: "nchar(10)", fixedLength: true, maxLength: 10, nullable: false),
+                    NationalCode = table.Column<string>(type: "nvarchar(10)", fixedLength: true, maxLength: 10, nullable: false),
                     ZipCode = table.Column<int>(type: "int", nullable: false),
                     CountOfSell = table.Column<int>(type: "int", nullable: true),
                     SellerMedalID = table.Column<int>(type: "int", nullable: true),
@@ -432,6 +434,31 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Carts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    BoothId = table.Column<int>(type: "int", nullable: false),
+                    CreateTime = table.Column<DateTime>(type: "datetime", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Carts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Carts_AppUser",
+                        column: x => x.UserId,
+                        principalTable: "AppUser",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Carts_Booth",
+                        column: x => x.BoothId,
+                        principalTable: "Booth",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
                 {
@@ -442,7 +469,8 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                     StatusId = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     BoothId = table.Column<int>(type: "int", nullable: false),
-                    TotalPrice = table.Column<int>(type: "int", nullable: false)
+                    TotalPrice = table.Column<int>(type: "int", nullable: false),
+                    Commission = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -516,13 +544,37 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CartProducts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    CartId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CartProducts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CartProducts_Carts",
+                        column: x => x.CartId,
+                        principalTable: "Carts",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_CartProducts_Products",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Comments",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     User_Id = table.Column<int>(type: "int", nullable: false),
-                    comment = table.Column<string>(type: "nchar(250)", fixedLength: true, maxLength: 250, nullable: false),
+                    comment = table.Column<string>(type: "nvarchar(250)", fixedLength: true, maxLength: 250, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     BoothId = table.Column<int>(type: "int", nullable: false),
@@ -601,6 +653,13 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "UserNameIndex1",
+                table: "AppUser",
+                column: "NormalizedUserName",
+                unique: true,
+                filter: "([NormalizedUserName] IS NOT NULL)");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
                 column: "RoleId");
@@ -651,6 +710,26 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                 name: "IX_Booth_OwnerUserId",
                 table: "Booth",
                 column: "OwnerUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartProducts_CartId",
+                table: "CartProducts",
+                column: "CartId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartProducts_ProductId",
+                table: "CartProducts",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Carts_BoothId",
+                table: "Carts",
+                column: "BoothId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Carts_UserId",
+                table: "Carts",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Categorys_MotherCategoryId",
@@ -755,6 +834,9 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                 name: "Auctions");
 
             migrationBuilder.DropTable(
+                name: "CartProducts");
+
+            migrationBuilder.DropTable(
                 name: "Comments");
 
             migrationBuilder.DropTable(
@@ -771,6 +853,9 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
 
             migrationBuilder.DropTable(
                 name: "Bids");
+
+            migrationBuilder.DropTable(
+                name: "Carts");
 
             migrationBuilder.DropTable(
                 name: "Orders");

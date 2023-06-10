@@ -56,11 +56,10 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Controllers
             {Name = booth.Name,
              OwnerUserId= userId,
              Description=booth.Description,
-             CityId=booth.cityId,
+             CityId=1,
              TotalSalesNumber=booth.TotalSales,
-             CreatedAt = DateTime.Now,
-             IsCreated =false,
              IsDeleted=false,
+             
             };
             await _boothAppservice.Create(newBooth, cancellationToken);
             return RedirectToAction("Index");

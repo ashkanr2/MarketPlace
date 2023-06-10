@@ -27,7 +27,8 @@ namespace App.Infrastructures.Data.Repositories.AutoMapper
             CreateMap<Bid, BidDto>();
 
             CreateMap<Booth, BoothDto>();
-        
+            CreateMap<BoothDto, Booth>();
+
             CreateMap<BuyerMedal, BuyerMedalDto>();
 
             CreateMap<Category, CategoryDto>();
