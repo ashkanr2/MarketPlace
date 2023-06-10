@@ -41,8 +41,9 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
         }
 
         public async Task<List<CommentDto>> GetAll(CancellationToken cancellationToken)
-          => _mapper.Map<List<CommentDto>>(await _context.Comments.
-            ToListAsync(cancellationToken));
+          => _mapper.Map<List<CommentDto>>(await _context.Comments
+              .Include(a=>a.Booth)
+            .ToListAsync(cancellationToken));
 
         public async Task<CommentDto> GetDatail(int commentId, CancellationToken cancellationToken)
          => await Task.FromResult(_mapper.Map<CommentDto>(await _context.Comments

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using App.Domain.Core.AppServices.Admins;
 using Microsoft.AspNetCore.Authorization;
 using App.Domain.Core.DtoModels;
-using App.EndPoints.Home_RepaireUI.Areas.Admin.Models;
+using App.EndPoints.Home_RepaireUI.Areas.Admin.Models.Order;
 using App.Domain.Core.AppServices.Admin;
 
 namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
@@ -32,9 +32,23 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
         }
         public async Task <IActionResult> GetAllOrders(CancellationToken cancellationToken)
         {
-           //var orders= await _orderAppservice.GetAllOrders(cancellationToken);
-           
-            return View(/*orders*/);
+           var orders = await _orderAppservice.GetAllOrders(cancellationToken);
+
+          
+            var ordertViewModels = orders.Select(a => new OrderDetailViewModel
+            {
+              Id=a.Id,
+              UserId=a.UserId,
+              OrderCreatTime=a.OrderCreatTime,
+              status=a.Status.Title,
+              BoothName=a.Booth.Name,
+              TotalPrice=a.TotalPrice,
+              UserName=a.User.Name,
+              Commission=a.Commission,
+            }).ToList();
+
+
+            return View(orders);
         }
 
 

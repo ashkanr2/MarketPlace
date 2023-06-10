@@ -5,79 +5,52 @@
     @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 }
 <div class="portlet-body">
+    <Form method="post">
 
+    
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
                     <th><i class="icon-energy">ردیف</i></th>
-                    <th>نام کاربر</th>
+                    <th>نام غرفه</th>
                     <th>تاریخ</th>
-                    <th>مشاهده</th>
-                    <th>وضعیت</th>
+                    <th>کامنت</th>
                     <th>عملیات</th>
                     
                 </tr>
             </thead>
             <tbody>
                 <tr>
+                    @{
+                        int counter=1;
+                    
                     @foreach (var item in Model)
                     {
 
 
-                        <td>1</td>
-                        <td class="text-center">@item.UserName</td>
+                        <td>@counter</td>
+                        <td class="text-center">@item.BoothName</td>
                         <td>@item.CreatedAt</td>
-                        <td>
-                            <button class="btn btn-primary round" id="btn-success">نمایش پیام</button>
-
-                            <script>
-                                $("#btn-success").click(function () {
-                                    swal(
-                                        'انجام گردید.',
-                                        'عملیات ثبت محصول با موفقیت به پایان رسید.',
-                                        'success');
-                                });
-                            </script>
-                            @item.Comment
-                            </td>
+                        <td>@item.Comment</td>
                         @if (item.IsCreated == false)
                         {
-                            <td>  <a href="@Url.Action("Active","Comment")" class="btn btn-success btn-block btn-lg border border-white" asp-controller="Booth" asp-action="Active" asp-route-Id="@item.Id">فعال کردن</a></td>
+                            <td>  <a class="btn btn-success btn-round" asp-controller="Comment" asp-action="Active" asp-route-Id="@item.Id">فعال کردن</a> </td>
                         }
                         @if (item.IsCreated == true)
                         {
-                            <td>  <a href="@Url.Action("Diactivated","Comment")" class="btn btn-danger btn-block btn-lg border border-white" asp-controller="Booth" asp-action="Diactivated" asp-route-Id="@item.Id">غیر فعال </a></td>
+                            <td> 
+                               <a class="btn btn-danger btn-round" asp-controller="Comment" asp-action="Diactive" asp-route-Id="@item.Id"> غیرفعال </a>   
+                            </td>
                         }
                    
-                    
-                        @if (@item.IsDeleted== false)
-                        {
-                            <td>
-                                <a href="#" class="btn btn-danger btn-round">
-                                    حذف
-                                    <div class="paper-ripple"><div class="paper-ripple__background"></div><div class="paper-ripple__waves"></div></div>
-                                </a>
-                            </td>
-
-                        }
-                        @if (@item.IsDeleted == true)
-                        {
-                            <td>
-                                <a href="#" class="btn btn-primary btn-round">
-                                    بازگردانی
-                                    <div class="paper-ripple"><div class="paper-ripple__background"></div><div class="paper-ripple__waves"></div></div>
-                                </a>
-                            </td>
-
-                        }
-                        
-                            
-                      
+                       counter++;     
+                      }
                     }
                 </tr>
 
             </tbody>
         </table>
     </div>
+    </Form>
 </div>

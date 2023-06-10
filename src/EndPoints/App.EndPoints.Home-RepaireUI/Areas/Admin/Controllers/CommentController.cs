@@ -47,18 +47,18 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
             await _commentAppservice.GetDatail(commentId, cancellation);
             return RedirectToAction("Detail");
         }
-        [HttpPost]
-        public async Task<IActionResult> Active(int commentId, CancellationToken cancellation)
+       
+        public async Task<IActionResult> Active(int id, CancellationToken cancellation)
         {
 
-            await _commentAppservice.Active(commentId, cancellation);
-            return RedirectToAction("Detail");
+            await _commentAppservice.Active(id, cancellation);
+            return RedirectToAction("GetAllComments");
         }
-        [HttpPost]
-        public async Task<IActionResult> Diactive(int commentId, CancellationToken cancellation)
+        
+        public async Task<IActionResult> Diactive(int id, CancellationToken cancellation)
         {
-            await _commentAppservice.Active(commentId, cancellation);
-            return RedirectToAction("Detail");
+            await _commentAppservice.DiActive(id, cancellation);
+            return RedirectToAction("GetAllComments");
         }
 
 

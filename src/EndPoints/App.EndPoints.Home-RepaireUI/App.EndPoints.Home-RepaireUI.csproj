@@ -24,6 +24,10 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <Content Include="Areas\Seller\Views\User\EditeInformation.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -47,6 +51,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Seller\Data\" />
+    <Folder Include="Areas\Seller\Views\Auction\" />
   </ItemGroup>
 
   <ItemGroup>

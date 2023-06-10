@@ -36,7 +36,7 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
             }
             catch (Exception ex)
             {
-                //_loger.LogError("Error in add new Order {exception}", ex);
+                //_loger.LogError("Error in add new Booth {exception}", ex);
             }
 
         }

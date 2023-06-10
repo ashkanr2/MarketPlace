@@ -23,8 +23,10 @@ namespace App.Domain.AppService.Admins
 
 
         public async Task<List<OrderDto>> GetAllOrders(CancellationToken cancellationToken)
-        => await _orderRipository.GetAllOrders(cancellationToken);
-
+        {
+         var orders =  await _orderRipository.GetAllOrders(cancellationToken);
+            return orders;
+        }
         public async Task<List<OrderDto>> GetAllUserOrders(int userId, CancellationToken cancellationToken)
        =>await _orderRipository.GetAllUserOrders(userId, cancellationToken);
 
