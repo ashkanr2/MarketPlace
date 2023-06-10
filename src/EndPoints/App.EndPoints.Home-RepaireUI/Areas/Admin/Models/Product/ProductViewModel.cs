@@ -1,4 +1,5 @@
 ﻿using App.Domain.Core.DtoModels;
+
 namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Models.Product
 {
     public class ProductViewModel

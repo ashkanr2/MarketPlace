@@ -64,13 +64,13 @@
                             @if (item.IsAccepted == false)
                             {
                             <td>
-                                    <button class="btn btn-success btn-block btn-lg border border-white" asp-controller="Product" asp-action="Active" asp-route-Id="@item.Id">فعال کردن</button>
+                                    <button class="btn btn-success btn-round" asp-controller="Product" asp-action="Active" asp-route-Id="@item.Id">فعال کردن</button>
                             </td>
                             }
                             @if (item.IsAccepted == true)
                             {
                             <td>
-                                    <button class="btn btn-danger btn-block btn-lg border border-white" asp-controller="Product" asp-action="Diactive" asp-route-Id="@item.Id">غیرفعال</button>
+                                    <button class="btn btn-danger btn-round" asp-controller="Product" asp-action="Diactive" asp-route-Id="@item.Id">غیر فعال</button>
                             </td>
                             }
 

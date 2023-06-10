@@ -5,7 +5,7 @@ using App.Domain.Core.AppServices.Admins;
 using Microsoft.AspNetCore.Authorization;
 using App.Domain.Core.DtoModels;
 using App.EndPoints.Home_RepaireUI.Areas.Admin.Models;
-using App.EndPoints.Home_RepaireUI.Areas.Admin.Models.Comment;
+using App.EndPoints.Home_RepaireUI.Areas.Admin.Models.Product;
 using System.Drawing.Printing;
 using App.EndPoints.Home_RepaireUI.Areas.Admin.Models.Product;
 using App.Domain.AppService.Admins;

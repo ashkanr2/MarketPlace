@@ -69,6 +69,20 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
             var record = await _context.AppUsers
                .Where(x => x.Id == appuser.Id)
                .FirstOrDefaultAsync();
+            if(record != null)
+            {
+                record.Name=appuser.Name;
+                record.LastName=appuser.LastName;
+                record.Address=appuser.Address;
+                record.IsCreated= appuser.IsCreated;
+                record.IsDeleted= appuser.IsDeleted;
+                record.BuyerMedalId= appuser.BuyerMedalId;
+                record.CountOfBuy= appuser.CountOfBuy;
+                record.UserProfileImageId= appuser.UserProfileImageId;
+                record.IsSeller= appuser.IsSeller;
+                record.Wallet= appuser.Wallet;
+
+            }
             record.IsCreated = appuser.IsCreated;
             try
             {

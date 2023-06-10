@@ -81,10 +81,17 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
 
         public async Task Update(CommentDto comment, CancellationToken cancellationToken)
         {
-            var record = await _mapper.ProjectTo<CommentDto>(_context.Set<CommentDto>())
-                  .Where(x => x.Id == comment.Id).FirstOrDefaultAsync();
-            _mapper.Map(comment, record);
-            await _context.SaveChangesAsync(cancellationToken);
+            var record =  await _context.Comments
+                  .Where(x => x.Id == comment.Id).FirstOrDefaultAsync(cancellationToken);
+        
+            if (record != null)
+            {
+                record.Comment1 = comment.Comment1;
+                record.IsDeleted=comment.IsDeleted;
+                record.IsAccepted= comment.IsAccepted;
+
+            }
+            await _context.SaveChangesAsync();
         }
     }
 }

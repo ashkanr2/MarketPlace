@@ -73,9 +73,17 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
 
         public async Task Update(AllProductDto AllProduct, CancellationToken cancellationToken)
         {
-            var record = await _mapper.ProjectTo<AllProductDto>(_context.Set<AllProductDto>())
-                  .Where(x => x.Id == AllProduct.Id).FirstOrDefaultAsync();
-            _mapper.Map(AllProduct, record);
+            var record =  _mapper.Map<AllProduct>(await _context.AllProducts
+                  .Where(x => x.Id == AllProduct.Id).FirstOrDefaultAsync(cancellationToken));
+          if(record != null)
+            {
+                record.Id = AllProduct.Id;
+                record.Name = AllProduct.Name;
+                record.CategoryId=AllProduct.CategoryId;
+                record.IsDeleted=AllProduct.IsDeleted;
+                record.IsCreated=AllProduct.IsCreated;
+
+            }
             await _context.SaveChangesAsync(cancellationToken);
         }
     }

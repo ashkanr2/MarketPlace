@@ -80,15 +80,19 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
 
         public async Task Update(BoothDto booth, CancellationToken cancellationToken)
         {
-            //var record = await _mapper.ProjectTo<BoothDto>(_context.Set<BoothDto>())
-            //      .Where(x => x.Id == booth.Id).FirstOrDefaultAsync();
-            //_mapper.Map(booth, record);
-            //await _context.SaveChangesAsync(cancellationToken);
-
             var record = await _context.Booths
                 .Where(x => x.Id == booth.Id)
                 .FirstOrDefaultAsync();
-            record.IsCreated = booth.IsCreated;
+            if(record != null)
+            {
+                record.Name= booth.Name;
+                record.Description= booth.Description;
+                record.TotalSalesNumber= booth.TotalSalesNumber;
+                record.BoothImageId= booth.BoothImageId;
+                record.IsCreated = booth.IsCreated;
+                record.IsCreated= booth.IsCreated;
+                record.CityId= booth.CityId;
+            }
             try
             {
                 await _context.SaveChangesAsync(cancellationToken);

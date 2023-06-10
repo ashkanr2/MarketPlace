@@ -11,7 +11,7 @@
 
        
         <thead>
-            <tr>
+            <tr class="text text-center">
                 <th><i class="icon-energy"></i></th>
                 <th>نام - نام خانوادگی</th>
                 <th>رایانامه</th>
@@ -34,13 +34,13 @@
                         <td>
                     @if (item.IsCreated == false)
                      {
-                     <a class="btn btn-success btn-block btn-lg border border-white" asp-controller="User" asp-action="Active" asp-route-Id="@item.Id">فعال کردن</a>
+                                <a class="btn btn-success btn-round" asp-controller="User" asp-action="Active" asp-route-Id="@item.Id">فعال کردن</a>
                      }
                    @if (item.IsCreated == true)
                      {
-                     <a  class="btn btn-danger btn-block btn-lg border border-white" asp-controller="User" asp-action="Diactivated" asp-route-Id="@item.Id">غیر فعال </a>
+                                <a class="btn btn-danger btn-round" asp-controller="User" asp-action="Diactivated" asp-route-Id="@item.Id">غیر فعال </a>
                       }
-                 <a class="btn btn-primary btn-block btn-lg border border-white" asp-controller="User" asp-action="EditeUserInformation" asp-route-Id="@item.Id">ویرایش پروفایل</a>
+                            <a class="btn btn-primary btn-round" asp-controller="User" asp-action="EditeUserInformation" asp-route-Id="@item.Id">ویرایش پروفایل</a>
                  </td>
                        
                 </tr>

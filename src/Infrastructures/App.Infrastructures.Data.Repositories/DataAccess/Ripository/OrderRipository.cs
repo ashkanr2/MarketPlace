@@ -93,9 +93,28 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
 
         }
 
-        public Task Update(OrderDto order, CancellationToken cancellationToken)
+        public async Task Update(OrderDto order, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+           var record = await _context.Orders
+                .Where(a=>a.Id==order.Id)
+                .FirstOrDefaultAsync(cancellationToken);
+            if (record != null)
+            {
+                record.StatusId = order.StatusId;
+                record.IsDeleted = order.IsDeleted;
+                record.TotalPrice= order.TotalPrice;
+                
+            }
+            try
+            {
+                await _context.SaveChangesAsync(cancellationToken);
+
+            }
+            catch (Exception ex)
+            {
+                //_loger.LogError("Error in Update order {exception}", ex);
+            }
+            
         }
     }
 }

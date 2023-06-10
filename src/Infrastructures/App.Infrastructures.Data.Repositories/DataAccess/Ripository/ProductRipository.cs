@@ -114,11 +114,26 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
         }
         public async Task Update(ProductDto product, CancellationToken cancellationToken)
         {
-            var record =  _mapper.Map<Product>(await _context.Products
+            var record = await _context.Products
                  .Where(x => x.Id == product.Id)
-                 .FirstOrDefaultAsync(cancellationToken));
-            record.IsAccepted = product.IsAccepted;
-            await _context.SaveChangesAsync();
+                 .FirstOrDefaultAsync(cancellationToken);
+            if(record != null)
+            {
+                record.UnitPrice=product.UnitPrice;
+                record.AllProductId=product.AllProductId;
+                record.IsAccepted=product.IsAccepted;
+                record.IsDeleted=product.IsDeleted;
+               
+            }
+            try
+            {
+                await _context.SaveChangesAsync(cancellationToken);
+
+            }
+            catch (Exception ex)
+            {
+                //_loger.LogError("Error in update product {exception}", ex);
+            }
         }
     }
 }
