@@ -19,6 +19,10 @@ public partial class Product
 
     public bool IsAccepted { get; set; }
 
+    public bool IsAvailable { get; set; }
+
+    public string Name { get; set; } = null!;
+
     public virtual AllProduct AllProduct { get; set; } = null!;
 
     public virtual ICollection<Auction> Auctions { get; set; } = new List<Auction>();

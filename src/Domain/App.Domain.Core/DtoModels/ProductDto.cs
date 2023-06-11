@@ -22,6 +22,10 @@ namespace App.Domain.Core.DtoModels
 
         public bool IsAccepted { get; set; }
 
+        public bool IsAvailable { get; set; }
+
+        public string Name { get; set; } = null!;
+
         public virtual AllProductDto AllProduct { get; set; } = null!;
 
         public virtual ICollection<AuctionDto> Auctions { get; set; } = new List<AuctionDto>();
@@ -31,5 +35,6 @@ namespace App.Domain.Core.DtoModels
         public virtual ICollection<OrderProductDto> OrderProducts { get; set; } = new List<OrderProductDto>();
 
         public virtual ICollection<ProductImageDto> ProductImages { get; set; } = new List<ProductImageDto>();
+
     }
 }

@@ -177,19 +177,22 @@ public partial class MarketPlaceDbContext : DbContext
 
         modelBuilder.Entity<Auction>(entity =>
         {
-            entity.HasIndex(e => e.BidId, "IX_Auctions_BidId");
-
             entity.HasIndex(e => e.ProductId, "IX_Auctions_ProductId");
-
-            entity.HasOne(d => d.Bid).WithMany(p => p.Auctions)
-                .HasForeignKey(d => d.BidId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Auctions_Bids");
 
             entity.HasOne(d => d.Product).WithMany(p => p.Auctions)
                 .HasForeignKey(d => d.ProductId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Auctions_Products");
+        });
+
+        modelBuilder.Entity<Bid>(entity =>
+        {
+            entity.HasIndex(e => e.AuctionId, "IX_Bids_AuctionId");
+
+            entity.HasOne(d => d.Auction).WithMany(p => p.Bids)
+                .HasForeignKey(d => d.AuctionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Bids_Auctions");
         });
 
         modelBuilder.Entity<Booth>(entity =>
@@ -367,6 +370,13 @@ public partial class MarketPlaceDbContext : DbContext
         modelBuilder.Entity<Product>(entity =>
         {
             entity.HasIndex(e => e.AllProductId, "IX_Products_AllProductId");
+
+            entity.Property(e => e.IsAvailable)
+                .IsRequired()
+                .HasDefaultValueSql("(CONVERT([bit],(0)))");
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .HasDefaultValueSql("(N'')");
 
             entity.HasOne(d => d.AllProduct).WithMany(p => p.Products)
                 .HasForeignKey(d => d.AllProductId)

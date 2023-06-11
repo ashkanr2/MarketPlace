@@ -20,6 +20,8 @@ namespace App.Domain.Core.DtoModels
 
         public bool IsCreated { get; set; }
 
-        public virtual ICollection<AuctionDto> Auctions { get; set; } = new List<AuctionDto>();
+        public int AuctionId { get; set; }
+
+        public virtual AuctionDto Auction { get; set; } = null!;
     }
 }

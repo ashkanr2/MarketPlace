@@ -42,8 +42,7 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(35)
-                        .HasColumnType("nvarchar(35)")
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(35)");
 
                     b.HasKey("Id");
 
@@ -76,8 +75,7 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
 
                     b.Property<string>("CountOfBuy")
                         .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)")
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<DateTimeOffset>("CreatAt")
                         .HasColumnType("datetimeoffset")
@@ -183,9 +181,6 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BidId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
@@ -200,8 +195,6 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "BidId" }, "IX_Auctions_BidId");
-
                     b.HasIndex(new[] { "ProductId" }, "IX_Auctions_ProductId");
 
                     b.ToTable("Auctions");
@@ -214,6 +207,9 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AuctionId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -231,6 +227,8 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AuctionId");
 
                     b.ToTable("Bids");
                 });
@@ -255,8 +253,7 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)")
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<bool>("IsCreated")
                         .HasColumnType("bit");
@@ -267,8 +264,7 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(45)
-                        .HasColumnType("nvarchar(45)")
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(45)");
 
                     b.Property<int>("OwnerUserId")
                         .HasColumnType("int");
@@ -325,9 +321,9 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BoothId");
+                    b.HasIndex(new[] { "BoothId" }, "IX_Carts_BoothId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex(new[] { "UserId" }, "IX_Carts_UserId");
 
                     b.ToTable("Carts");
                 });
@@ -348,9 +344,9 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CartId");
+                    b.HasIndex(new[] { "CartId" }, "IX_CartProducts_CartId");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex(new[] { "ProductId" }, "IX_CartProducts_ProductId");
 
                     b.ToTable("CartProducts");
                 });
@@ -369,8 +365,7 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)")
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(25)");
 
                     b.HasKey("Id")
                         .HasName("PK_Category");
@@ -394,8 +389,7 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)")
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<int>("ProvincesId")
                         .HasColumnType("int");
@@ -422,8 +416,7 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)")
-                        .HasColumnName("comment")
-                        .IsFixedLength();
+                        .HasColumnName("comment");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -472,8 +465,7 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                     b.Property<string>("Path")
                         .IsRequired()
                         .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)")
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
 
@@ -494,8 +486,7 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)")
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(25)");
 
                     b.HasKey("Id")
                         .HasName("PK_MothersCategory");
@@ -586,8 +577,16 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                     b.Property<bool>("IsAccepted")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("UnitPrice")
                         .HasColumnType("int");
@@ -635,9 +634,8 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)")
-                        .IsFixedLength();
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
 
@@ -661,8 +659,7 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                     b.Property<string>("NationalCode")
                         .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)")
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<int?>("SellerMedalId")
                         .HasColumnType("int")
@@ -718,8 +715,7 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)")
-                        .HasColumnName("title")
-                        .IsFixedLength();
+                        .HasColumnName("title");
 
                     b.HasKey("Id");
 
@@ -889,21 +885,24 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
 
             modelBuilder.Entity("App.Domain.Core.Entities.Auction", b =>
                 {
-                    b.HasOne("App.Domain.Core.Entities.Bid", "Bid")
-                        .WithMany("Auctions")
-                        .HasForeignKey("BidId")
-                        .IsRequired()
-                        .HasConstraintName("FK_Auctions_Bids");
-
                     b.HasOne("App.Domain.Core.Entities.Product", "Product")
                         .WithMany("Auctions")
                         .HasForeignKey("ProductId")
                         .IsRequired()
                         .HasConstraintName("FK_Auctions_Products");
 
-                    b.Navigation("Bid");
-
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("App.Domain.Core.Entities.Bid", b =>
+                {
+                    b.HasOne("App.Domain.Core.Entities.Auction", "Auction")
+                        .WithMany("Bids")
+                        .HasForeignKey("AuctionId")
+                        .IsRequired()
+                        .HasConstraintName("FK_Bids_Auctions");
+
+                    b.Navigation("Auction");
                 });
 
             modelBuilder.Entity("App.Domain.Core.Entities.Booth", b =>
@@ -1190,9 +1189,9 @@ namespace App.Infrastructures.Db.SqlServer.Ef.Migrations
                     b.Navigation("SellerInformations");
                 });
 
-            modelBuilder.Entity("App.Domain.Core.Entities.Bid", b =>
+            modelBuilder.Entity("App.Domain.Core.Entities.Auction", b =>
                 {
-                    b.Navigation("Auctions");
+                    b.Navigation("Bids");
                 });
 
             modelBuilder.Entity("App.Domain.Core.Entities.Booth", b =>

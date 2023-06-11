@@ -16,5 +16,7 @@ public partial class Bid
 
     public bool IsCreated { get; set; }
 
-    public virtual ICollection<Auction> Auctions { get; set; } = new List<Auction>();
+    public int AuctionId { get; set; }
+
+    public virtual Auction Auction { get; set; } = null!;
 }
