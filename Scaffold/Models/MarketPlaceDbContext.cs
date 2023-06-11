@@ -77,9 +77,7 @@ public partial class MarketPlaceDbContext : DbContext
         {
             entity.HasIndex(e => e.CategoryId, "IX_AllProducts_CategoryId");
 
-            entity.Property(e => e.Name)
-                .HasMaxLength(35)
-                .IsFixedLength();
+            entity.Property(e => e.Name).HasMaxLength(35);
 
             entity.HasOne(d => d.Category).WithMany(p => p.AllProducts)
                 .HasForeignKey(d => d.CategoryId)
@@ -103,9 +101,11 @@ public partial class MarketPlaceDbContext : DbContext
                 .IsUnique()
                 .HasFilter("([NormalizedUserName] IS NOT NULL)");
 
-            entity.Property(e => e.CountOfBuy)
-                .HasMaxLength(10)
-                .IsFixedLength();
+            entity.HasIndex(e => e.NormalizedUserName, "UserNameIndex1")
+                .IsUnique()
+                .HasFilter("([NormalizedUserName] IS NOT NULL)");
+
+            entity.Property(e => e.CountOfBuy).HasMaxLength(10);
             entity.Property(e => e.CreatAt).HasColumnName("CreatAT");
             entity.Property(e => e.Email).HasMaxLength(256);
             entity.Property(e => e.LastName).HasDefaultValueSql("(N'')");
@@ -202,12 +202,8 @@ public partial class MarketPlaceDbContext : DbContext
 
             entity.HasIndex(e => e.OwnerUserId, "IX_Booth_OwnerUserId");
 
-            entity.Property(e => e.Description)
-                .HasMaxLength(300)
-                .IsFixedLength();
-            entity.Property(e => e.Name)
-                .HasMaxLength(45)
-                .IsFixedLength();
+            entity.Property(e => e.Description).HasMaxLength(300);
+            entity.Property(e => e.Name).HasMaxLength(45);
 
             entity.HasOne(d => d.BoothImage).WithMany(p => p.Booths)
                 .HasForeignKey(d => d.BoothImageId)
@@ -226,6 +222,10 @@ public partial class MarketPlaceDbContext : DbContext
 
         modelBuilder.Entity<Cart>(entity =>
         {
+            entity.HasIndex(e => e.BoothId, "IX_Carts_BoothId");
+
+            entity.HasIndex(e => e.UserId, "IX_Carts_UserId");
+
             entity.Property(e => e.CreateTime).HasColumnType("datetime");
 
             entity.HasOne(d => d.Booth).WithMany(p => p.Carts)
@@ -241,6 +241,10 @@ public partial class MarketPlaceDbContext : DbContext
 
         modelBuilder.Entity<CartProduct>(entity =>
         {
+            entity.HasIndex(e => e.CartId, "IX_CartProducts_CartId");
+
+            entity.HasIndex(e => e.ProductId, "IX_CartProducts_ProductId");
+
             entity.HasOne(d => d.Cart).WithMany(p => p.CartProducts)
                 .HasForeignKey(d => d.CartId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -258,9 +262,7 @@ public partial class MarketPlaceDbContext : DbContext
 
             entity.HasIndex(e => e.MotherCategoryId, "IX_Categorys_MotherCategoryId");
 
-            entity.Property(e => e.Title)
-                .HasMaxLength(25)
-                .IsFixedLength();
+            entity.Property(e => e.Title).HasMaxLength(25);
 
             entity.HasOne(d => d.MotherCategory).WithMany(p => p.Categories)
                 .HasForeignKey(d => d.MotherCategoryId)
@@ -272,9 +274,7 @@ public partial class MarketPlaceDbContext : DbContext
         {
             entity.HasIndex(e => e.ProvincesId, "IX_Cities_ProvincesId");
 
-            entity.Property(e => e.Name)
-                .HasMaxLength(30)
-                .IsFixedLength();
+            entity.Property(e => e.Name).HasMaxLength(30);
 
             entity.HasOne(d => d.Provinces).WithMany(p => p.Cities)
                 .HasForeignKey(d => d.ProvincesId)
@@ -292,7 +292,6 @@ public partial class MarketPlaceDbContext : DbContext
 
             entity.Property(e => e.Comment1)
                 .HasMaxLength(250)
-                .IsFixedLength()
                 .HasColumnName("comment");
             entity.Property(e => e.UserId).HasColumnName("User_Id");
 
@@ -314,18 +313,14 @@ public partial class MarketPlaceDbContext : DbContext
 
         modelBuilder.Entity<Image>(entity =>
         {
-            entity.Property(e => e.Path)
-                .HasMaxLength(30)
-                .IsFixedLength();
+            entity.Property(e => e.Path).HasMaxLength(30);
         });
 
         modelBuilder.Entity<MothersCategory>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_MothersCategory");
 
-            entity.Property(e => e.Title)
-                .HasMaxLength(25)
-                .IsFixedLength();
+            entity.Property(e => e.Title).HasMaxLength(25);
         });
 
         modelBuilder.Entity<Order>(entity =>
@@ -400,9 +395,7 @@ public partial class MarketPlaceDbContext : DbContext
         {
             entity.ToTable("provinces");
 
-            entity.Property(e => e.Name)
-                .HasMaxLength(30)
-                .IsFixedLength();
+            entity.Property(e => e.Name).HasMaxLength(255);
         });
 
         modelBuilder.Entity<SellerInformation>(entity =>
@@ -417,9 +410,7 @@ public partial class MarketPlaceDbContext : DbContext
 
             entity.HasIndex(e => e.UserId, "IX_SellerInformation_UserId");
 
-            entity.Property(e => e.NationalCode)
-                .HasMaxLength(10)
-                .IsFixedLength();
+            entity.Property(e => e.NationalCode).HasMaxLength(10);
             entity.Property(e => e.SellerMedalId).HasColumnName("SellerMedalID");
 
             entity.HasOne(d => d.City).WithMany(p => p.SellerInformations)
@@ -448,7 +439,6 @@ public partial class MarketPlaceDbContext : DbContext
 
             entity.Property(e => e.Title)
                 .HasMaxLength(20)
-                .IsFixedLength()
                 .HasColumnName("title");
         });
 
