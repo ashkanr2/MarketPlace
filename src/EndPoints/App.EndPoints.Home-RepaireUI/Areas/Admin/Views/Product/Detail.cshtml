@@ -1,0 +1,59 @@
+﻿@model App.EndPoints.Home_RepaireUI.Areas.Admin.Models.Product.ProductViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = " جزئیات کالا";
+    Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+    @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+}
+<div>
+
+
+<form method="post" asp-action="Update"asp-controller="Product">
+
+       
+                            <div class="portlet-heading">
+                                <div class="portlet-title">
+                                    <h3 class="title">                                        
+                                        <i class="icon-settings"></i>
+                                       ویرایش کالا
+                                    </h3>
+                                </div><!-- /.portlet-title -->
+                               
+                            </div><!-- /.portlet-heading -->
+                            <div class="portlet-body">
+                               
+                                    <div class="form-body">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3">نام کالا</label>
+                                            <div class="col-sm-9">
+                                                
+                                                    <p class="form-control">
+                                                              @Model.ProductName
+                                                    </p>
+                                            </div>
+                                        </div><!-- /.form-group -->
+                                        <div class="form-group row">
+                                            <label class="col-sm-3">قیمت</label>
+                                            <div class="col-sm-9">
+                                                
+                                                    <p  class="form-control">
+                                                         @Model.UnitPrice
+                                                    </p>
+                                            </div>
+                                        </div><!-- /.form-group -->
+                                        
+                                        <div class="form-group row">
+                                            <label class="col-sm-3">دسته بندی </label>
+                                            <div class="col-sm-9">
+                                                <p class="form-control" >
+                                                    @Model.Allproduct
+                                                
+                                                </p>
+                                            </div>
+                                        </div><!-- /.form-group -->
+                         
+                            </div><!-- /.portlet-body -->
+                      
+                   
+ </form>
+</div>

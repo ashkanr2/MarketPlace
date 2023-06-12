@@ -24,11 +24,11 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Controllers
         //{
         //    return View();
         //}
-        //public Task<IActionResult> Create(CancellationToken cancellationToken)
-        //{
-            
-        //    return View();
-        //}
+        public IActionResult Create(CancellationToken cancellationToken)
+        {
+
+            return View();
+        }
     }
 }
  

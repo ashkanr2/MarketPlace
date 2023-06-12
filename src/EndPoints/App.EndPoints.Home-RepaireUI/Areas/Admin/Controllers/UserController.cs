@@ -85,8 +85,8 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
         }
         [HttpGet]
         public async Task<IActionResult> EditeUserInformation(int Id, CancellationToken cancellation)
-        {   var d = (await _IAppUserRipositry.GetDetail(Id, cancellation));
-            var user =_mapper.Map<AppUser>(await _IAppUserRipositry.GetDetail(Id, cancellation));
+        {   
+            var user = (await _IAppUserRipositry.GetDetail(Id, cancellation));
             var userView = new AppUserViewModel
             {
                 Id = user.Id,
@@ -103,14 +103,22 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> EditeInformation(AppUserViewModel user , CancellationToken CancellationToken)
         {
-            
+
+            var info =  await _IAppUserRipositry.GetDetail(user.Id, CancellationToken);
             var appuser = new AppUserDto
             {
-                Id = user.Id,
+                Id=user.Id,
                 Name = user.Name,
                 LastName = user.LastName,
+                PhoneNumber=user.PhoneNumber,
                 Address= user.Address,
+                IsCreated = user.IsCreated,
+                IsDeleted= user.IsDeleted,
+                BuyerMedal=info.BuyerMedal,
+                CountOfBuy=info.CountOfBuy,
+               
             };
+          
             await _IAppUserRipositry.Update(appuser, CancellationToken);
             return RedirectToAction("Index", "Home");
         }

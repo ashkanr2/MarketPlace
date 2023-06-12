@@ -73,7 +73,9 @@
             <hr>
             <form id="form" role="form" method="POST" asp-action="EditeInformation" asp-controller="User" asp-area="Admin">
                 <div class="form-body">
-
+                    <div style="display: none;">
+                         <input value="@Model.Id" asp-for="Id" />
+                    </div>
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -82,7 +84,7 @@
                                     <span class="input-group-addon">
                                         <i class="icon-user"></i>
                                     </span>
-                                    <input type="text" id="txt-firstname" name="firstname" class="form-control"placeholder="@Model.Name" asp-for="Name" >
+                                    <input type="text" id="txt-firstname"  class="form-control"placeholder="@Model.Name" asp-for="Name" >
                                 </div>
                             </div>
                         </div>
@@ -93,7 +95,7 @@
                                     <span class="input-group-addon">
                                         <i class="icon-user"></i>
                                     </span>
-                                    <input type="text" id="txt-lastname" name="lastname" class="form-control"placeholder="@Model.LastName" asp-for="LastName">
+                                    <input type="text" id="txt-lastname"  class="form-control"placeholder="@Model.LastName" asp-for="LastName">
                                 </div>
                             </div>
                         </div>
@@ -115,7 +117,7 @@
                             <span class="input-group-addon">
                                 <i class="icon-envelope"></i>
                             </span>
-                            <input type="email" id="txt-email" name="email" class="form-control ltr text-left"placeholder="@Model.Email" asp-for="Email">
+                            <input type="email" id="txt-email"  class="form-control ltr text-left"placeholder="@Model.Email" asp-for="Email">
                         </div>
                     </div>
 

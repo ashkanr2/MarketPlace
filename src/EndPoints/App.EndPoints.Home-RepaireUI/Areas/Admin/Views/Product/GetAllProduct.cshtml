@@ -60,20 +60,25 @@
                 <td>@item.AddTime</td>
                 <td>@item.UnitPrice</td>
                 <td>@item.boothId</td>
-                
-                            @if (item.IsAccepted == false)
-                            {
+
+
                             <td>
-                                    <button class="btn btn-success btn-round" asp-controller="Product" asp-action="Active" asp-route-Id="@item.Id">فعال کردن</button>
-                            </td>
+                                <button class="btn btn-warning btn-round" asp-controller="Product" asp-action="Detail" asp-route-Id="@item.Id">مشاهده</button>
+
+                                @if (item.IsAccepted == false)
+                            {       <button class="btn btn-success btn-round" asp-controller="Product" asp-action="Active" asp-route-Id="@item.Id">فعال کردن</button>
+                            
                             }
                             @if (item.IsAccepted == true)
                             {
-                            <td>
-                                    <button class="btn btn-danger btn-round" asp-controller="Product" asp-action="Diactive" asp-route-Id="@item.Id">غیر فعال</button>
-                            </td>
+                            
+                                  <button class="btn btn-danger btn-round" asp-controller="Product" asp-action="Diactive" asp-route-Id="@item.Id">غیر فعال</button>
+                           
                             }
+                                <button class="btn btn-info btn-round" asp-controller="Product" asp-action="Update" asp-route-Id="@item.Id">ویرایش</button>
 
+                            </td>
+                                    
             </tr>
                             
                     }

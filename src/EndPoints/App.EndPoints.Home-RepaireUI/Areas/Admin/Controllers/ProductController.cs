@@ -62,7 +62,23 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
 
             return View(ProductViwe);
         }
-      
+        public async Task<IActionResult> Detail(int id, CancellationToken cancellation)
+        {
+
+            var product = await _productAppservice.GetDetail(id, cancellation);
+            var productview = new ProductViewModel
+            {
+                Id = product.Id,
+                UnitPrice = product.UnitPrice,
+                IsAccepted = product.IsAccepted,
+                boothId = product.BoothId,
+                ProductName = product.Name,
+                Allproduct = product.AllProduct.Name,
+                //ProductImages= product.ProductImages,
+            };
+            return View(productview);
+        }
+
         public async Task<IActionResult> Active(int id, CancellationToken cancellation)
         {
             var product =  await _productAppservice.GetDetail(id, cancellation);
@@ -78,7 +94,8 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
             await _productAppservice.Update(product, cancellation);
             return RedirectToAction("GetAllProduct", "Product");
         }
-    
-        
+      
+
+
     }
 }

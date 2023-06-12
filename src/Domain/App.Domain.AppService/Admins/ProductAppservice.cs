@@ -60,6 +60,20 @@ namespace App.Domain.AppService.Admins
             throw new NotImplementedException();
         }
 
+        public async Task OnDelete(int producttId, CancellationToken cancellationToken)
+        {
+            var product = await _productRipository.GetDatail(producttId, cancellationToken);
+            product.IsDeleted = false;
+            await _productRipository.Update(product, cancellationToken);
+        }
+
+        public async Task SoftDelete(int producttId, CancellationToken cancellationToken)
+        {
+           var product = await _productRipository.GetDatail(producttId, cancellationToken);
+            product.IsDeleted= true;
+            await _productRipository.Update(product,cancellationToken);
+        }
+
         public async Task Update(ProductDto product, CancellationToken cancellationToken)
         {
             await _productRipository.Update(product, cancellationToken);

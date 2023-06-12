@@ -83,7 +83,7 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
                 record.Wallet= appuser.Wallet;
 
             }
-            record.IsCreated = appuser.IsCreated;
+            
             try
             {
                     await _context.SaveChangesAsync(CancellationToken);

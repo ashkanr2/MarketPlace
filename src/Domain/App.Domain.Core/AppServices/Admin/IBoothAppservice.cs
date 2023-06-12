@@ -19,5 +19,7 @@ namespace App.Domain.Core.AppServices.Admins
         Task Update(BoothDto booth, CancellationToken cancellationToken);
         Task SoftDelete(int boothId, CancellationToken cancellationToken);
         Task HardDelted(int boothId, CancellationToken cancellationToken);
+        Task<AppUserDto> GetOwnerbooth(int BoothId, CancellationToken CancellationToken);
+        Task<BoothDto> Getbooth(int userId, CancellationToken CancellationToken);
     }
 }

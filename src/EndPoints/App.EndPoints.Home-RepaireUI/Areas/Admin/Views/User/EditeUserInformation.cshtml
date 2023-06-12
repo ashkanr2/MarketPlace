@@ -70,10 +70,13 @@
                 </div>
                 <div class="help-block"></div>
             </div>
+            
             <hr>
             <form id="form" role="form" method="POST" asp-action="EditeInformation" asp-controller="User" asp-area="Admin">
                 <div class="form-body">
-
+                   <div class="hidden-tag">
+                    <input value="@Model.Id"asp-for="Id"/>
+                    </div>  
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -82,7 +85,7 @@
                                     <span class="input-group-addon">
                                         <i class="icon-user"></i>
                                     </span>
-                                    <input type="text" id="txt-firstname" name="firstname" class="form-control"placeholder="@Model.Name" asp-for="Name" >
+                                    <input type="text" id="txt-firstname" class="form-control"placeholder="@Model.Name" asp-for="Name" >
                                 </div>
                             </div>
                         </div>
@@ -93,7 +96,7 @@
                                     <span class="input-group-addon">
                                         <i class="icon-user"></i>
                                     </span>
-                                    <input type="text" id="txt-lastname" name="lastname" class="form-control"placeholder="@Model.LastName" asp-for="LastName">
+                                    <input type="text" asp-for="LastName" id="txt-lastname" class="form-control"placeholder="@Model.LastName" >
                                 </div>
                             </div>
                         </div>
@@ -156,9 +159,28 @@
                             <textarea class="form-control" rows="4" placeholder="نشانی"placeholder="@Model.Address" asp-for="Address"></textarea>
                         </div>
                     </div>
-
                 </div>
 
+                <div class="checkbox">
+                    <label>
+                         <input type="checkbox" id="agree"  value="agree" asp-for="IsSeller">
+                         <a class="text text-danger" >کاربرفروشنده است</a>
+                  
+                      </label>
+                      <label>
+                         <input type="checkbox" id="agree"  value="agree" asp-for="IsCreated">
+                         <a class="text text-success">کاربرفعال شود</a>
+                  
+                      </label>
+                       <label>
+                         <input type="checkbox" id="agree" value="agree" asp-for="IsDeleted">
+                         <a class="text text-danger" >کاربر حذف شود</a>
+                  
+                      </label>
+                
+                 </div>
+                 
+                     
                 <div class="form-actions">
                     <button type="submit" class="btn btn-info btn-round">
                         <i class="icon-check"></i>

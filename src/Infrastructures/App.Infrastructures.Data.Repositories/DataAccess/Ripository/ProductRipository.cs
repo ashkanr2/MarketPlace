@@ -83,6 +83,7 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
         {
             var product = _mapper.Map<ProductDto>(await _context.Products
                 .Where(a=>a.Id == productId)
+                .Include(x=>x.AllProduct)
                 .FirstOrDefaultAsync(cancellationToken));
 
             return product; 
@@ -119,10 +120,12 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
                  .FirstOrDefaultAsync(cancellationToken);
             if(record != null)
             {
+                record.Name= product.Name;
                 record.UnitPrice=product.UnitPrice;
                 record.AllProductId=product.AllProductId;
                 record.IsAccepted=product.IsAccepted;
                 record.IsDeleted=product.IsDeleted;
+                record.IsAvailable=product.IsAvailable;
                
             }
             try

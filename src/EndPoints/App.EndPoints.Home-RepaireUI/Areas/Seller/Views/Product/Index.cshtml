@@ -1,22 +1,32 @@
 ﻿@model List< App.EndPoints.Home_RepaireUI.Areas.Seller.Models.Product.ProductViewModel>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "لیست کالاها";
     Layout = "~/Areas/Seller/Views/shared/_LayoutSeller.cshtml";
-    @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+  
 }
 
-<div> 
-    <a href="#" class="btn btn-success btn-round">اضافه کردن محصول</a>
-    </div>
+
+<div>
+         <a asp-controller="Auction" asp-action="Create" class="btn btn-success btn-round">اضافه کردن محصول قیمت ثابت </a>
+         <a " class="btn btn-success btn-round">اضافه کردن محصول  برای حراج  </a>
+</div>
+
+<div class="table-responsive">
+ 
 <div class="table-responsive">
     
     <table class="table table-bordered table-hover table-striped" id="data-table">
+        <form method="post">
+
+     
         <thead>
-            <span class="text text-success "> کالا های موجود غرفه</span>
-            <tr>
+            <span class="text text-white bg-success "> کالا های موجود غرفه</span>
+            <tr class="text text-danger">
                 <th>ردیف</th>
                 <th>نام کالا</th>
                  <th>دسته بندی</th>
+                 <th>نوع کالا</th>
                 <th>وضعیت</th>
                 <td>عملیات</td>
             </tr>
@@ -27,39 +37,123 @@
                 int count =1;
             @foreach(var item in Model){
 
-            @if(item.IsDeleted == false && item.IsAccepted == true){
+            @if(item.IsDeleted == false && item.IsAccepted == true)
+            {
             <tr>
                 <td>@count</td>
                 <td>@item.ProductName</td>
-                 <td>@item.category</td>
+                 <td class="text text-warning" >@item.category</td>
+                 <td>@item.Allproduct</td>
                  @if(item.IsAccepted == false){
-                 <td>در انتظار تایید</td>
+                 <td class="text text-danger">در انتظار تایید</td>
                  }
                  @if(item.IsAccepted == true){
-                 <td> تایید شده </td>
+                 <td class="text text-success" > تایید شده </td>
                  }
               
                 <td>
-                <a href="#" class="btn btn-info btn-round">مشاهده</a>
-                <a href="#" class="btn btn-info btn-round">ویرایش</a>
-                 <a href="#" class="btn btn-info btn-round">حذف  </a>
+                                 <a asp-controller="Product" asp-action="Detail" asp-route-Id="@item.Id" class="btn btn-warning btn-round">مشاهده</a>
+             
+                @if (item.IsDeleted == true)
+                     {
+                                <a class="btn btn-success btn-round" asp-controller="Product" asp-action="OnDelete" asp-route-Id="@item.Id">بازگردانی</a>
+                     }
+                   @if (item.IsDeleted == false)
+                     {
+                                <a class="btn btn-danger btn-round" asp-controller="Product" asp-action="Delete" asp-route-Id="@item.Id">حذف  </a>
+                      }
+                                    <a class="btn btn-info btn-round" asp-controller="Product" asp-action="Update" asp-route-Id="@item.Id">ویرایش</a>
                 </td>
-            </tr>
+                 </tr>
             }
-            count++;
-
+                            count++;
             }
             }
         </tbody>
+        </form>
     </table>
+</div
 
-     <table class="table table-bordered table-hover table-striped" id="data-table">
+
+
+
+<div class="table-responsive">
+    
+    <table class="table table-bordered table-hover table-striped" id="data-table">
+        <form method="post">
+
+     
         <thead>
-            <span class="text text-primary "> کالا های تایید نشده  غرفه</span>
-            <tr>
+            <span class="text text-white bg-danger"> کالا های حذف شده ی غرفه</span>
+            <tr class="text text-danger">
                 <th>ردیف</th>
                 <th>نام کالا</th>
                  <th>دسته بندی</th>
+                 <th>نوع کالا</th>
+                <th>وضعیت</th>
+                <td>عملیات</td>
+            </tr>
+        </thead>
+        <tbody>
+
+            @{
+                int count1 =1;
+            @foreach(var item in Model){
+
+            @if(item.IsDeleted == true && item.IsAccepted == true)
+            {
+            <tr>
+                <td>@count1</td>
+                <td>@item.ProductName</td>
+                 <td class="text text-warning">@item.category</td>
+                 <td>@item.Allproduct</td>
+                 @if(item.IsAccepted == false){
+                 <td class="text text-danger">در انتظار تایید</td>
+                 }
+                 @if(item.IsAccepted == true){
+                 <td class="text text-success"> تایید شده </td>
+                 }
+              
+                <td>
+                                 <a asp-controller="Product" asp-action="Detail" asp-route-Id="@item.Id" class="btn btn-warning btn-round">مشاهده</a>
+             
+                @if (item.IsDeleted == true)
+                     {
+                                <a class="btn btn-success btn-round" asp-controller="Product" asp-action="OnDelete" asp-route-Id="@item.Id">بازگردانی</a>
+                     }
+                   @if (item.IsDeleted == false)
+                     {
+                                <a class="btn btn-danger btn-round" asp-controller="Product" asp-action="Delete" asp-route-Id="@item.Id">حذف  </a>
+                      }
+                                    <a class="btn btn-info btn-round" asp-controller="Product" asp-action="Update" asp-route-Id="@item.Id">ویرایش</a>
+                </td>
+                 </tr>
+            }
+                            count1++;
+            }
+            }
+        </tbody>
+        </form>
+    </table>
+</div>
+
+
+
+
+                                
+<div class="table-responsive">
+    
+    <table class="table table-bordered table-hover table-striped" id="data-table">
+        <form method="post">
+
+     
+        <thead>
+            <span class="text text-white bg-info "> کالا های تایید نشده ی غرفه</span>
+            <tr class="text text-danger">
+                <th>ردیف</th>
+                <th>نام کالا</th>
+                 <th >دسته بندی</th>
+                 <th>نوع کالا</th>
                 <th>وضعیت</th>
                 <td>عملیات</td>
             </tr>
@@ -70,73 +164,31 @@
                 int count2 =1;
             @foreach(var item in Model){
 
-            @if(item.IsDeleted == false && item.IsAccepted == false){
+            @if( item.IsAccepted == false)
+            {
             <tr>
                 <td>@count2</td>
                 <td>@item.ProductName</td>
-                 <td>@item.category</td>
+                 <td class="text text-warning">@item.category</td>
+                 <td>@item.Allproduct</td>
                  @if(item.IsAccepted == false){
-                 <td>در انتظار تایید</td>
+                 <td class="text text-danger">در انتظار تایید</td>
                  }
                  @if(item.IsAccepted == true){
-                 <td> تایید شده </td>
+                 <td class="text text-success"> تایید شده </td>
                  }
               
-                <td>
-                <a href="#" class="btn btn-info btn-round">مشاهده</a>
-                <a href="#" class="btn btn-info btn-round">ویرایش</a>
-                 <a href="#" class="btn btn-info btn-round">حذف  </a>
+                <td>  
+                <a asp-controller="Product" asp-action="Detail" asp-route-Id="@item.Id" class="btn btn-warning btn-round">مشاهده</a>
+   
                 </td>
-            </tr>
+                 </tr>
             }
-            count2++;
-
+                            count2++;
             }
             }
         </tbody>
-    </table>
-
-     <table class="table table-bordered table-hover table-striped" id="data-table">
-        <thead>
-            <span class="text text-danger "> کالا های حذف شده غرفه</span>
-            <tr>
-                <th>ردیف</th>
-                <th>نام کالا</th>
-                 <th>دسته بندی</th>
-                <th>وضعیت</th>
-                <td>عملیات</td>
-            </tr>
-        </thead>
-        <tbody>
-
-            @{
-                int count3 =1;
-            @foreach(var item in Model){
-
-            @if(item.IsDeleted == true){
-            <tr>
-                <td>@count3</td>
-                <td>@item.ProductName</td>
-                 <td>@item.category</td>
-                 @if(item.IsAccepted == false){
-                 <td>در انتظار تایید</td>
-                 }
-                 @if(item.IsAccepted == true ){
-                 <td> تایید شده </td>
-                 }
-              
-                <td>
-                <a href="#" class="btn btn-info btn-round">مشاهده</a>
-                <a href="#" class="btn btn-info btn-round">ویرایش</a>
-                 <a href="#" class="btn btn-info btn-round">حذف  </a>
-                </td>
-            </tr>
-            }
-            count3++;
-
-            }
-            }
-        </tbody>
+        </form>
     </table>
 </div>
 

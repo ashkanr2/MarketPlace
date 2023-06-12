@@ -20,6 +20,6 @@ namespace App.Domain.Core.DataAccess
         Task Update(AppUserDto appuser, CancellationToken CancellationToken);
         Task<bool> Exists(string email, CancellationToken CancellationToken);
         Task<List<string>> GetRoles(int userId, CancellationToken cancellationToken);
-
+       
     }
 }

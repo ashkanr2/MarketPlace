@@ -1,15 +1,16 @@
-﻿@model App.EndPoints.Home_RepaireUI.Areas.Seller.Models.Booth.BoothViewModel
+﻿
 @{
     ViewData["Title"] = "ساخت غرفه";
     Layout = "~/Areas/Seller/Views/shared/_LayoutSeller.cshtml";
     @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 }
-                        <div class="portlet box border shadow">
+
+  <div class="portlet box border shadow">
                             <div class="portlet-heading">
                                 <div class="portlet-title">
                                     <h3 class="title">                                        
                                         <i class="icon-settings"></i>
-                                       ساخت غرفه جدید
+                                       ساخت حراجی جدید
                                     </h3>
                                 </div><!-- /.portlet-title -->
                                 <div class="buttons-box">
@@ -27,13 +28,13 @@
                                         <div class="form-group row">
                                             <label class="col-sm-3">نام</label>
                                             <div class="col-sm-9">
-                                                <input asp-for="Name" type="text" class="form-control" placeholder="نام غرفه " >
+                                                <input  type="text" class="form-control" placeholder="نام غرفه " >
                                             </div>
                                         </div><!-- /.form-group -->
                                         <div class="form-group row">
                                             <label class="col-sm-3">توضیحات</label>
                                             <div class="col-sm-9">
-                                                <textarea asp-for="Description" class="form-control" rows="5" placeholder="توضیحات"></textarea>
+                                                <textarea  class="form-control" rows="5" placeholder="توضیحات"></textarea>
                                             </div>
                                         </div><!-- /.form-group -->
                                         <div class="form-group row">
@@ -81,4 +82,4 @@
                                     </div><!-- /.form-actions -->
                                 </form>
                             </div><!-- /.portlet-body -->
-                        </div><!-- /.portlet -->
+  </div><!-- /.portlet                       -->

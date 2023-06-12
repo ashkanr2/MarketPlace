@@ -46,6 +46,13 @@ namespace App.Domain.AppService.Admins
            return await _boothRipository.GetAll(cancellationToken);
         }
 
+        public async Task<BoothDto> Getbooth(int userId, CancellationToken CancellationToken)
+        {
+            var result = (await _boothRipository.GetAll(CancellationToken)).Where(a => a.OwnerUserId == userId).FirstOrDefault();
+           var Booth =_mapper.Map<BoothDto>(result);
+            return Booth;
+        }
+
         public async Task<List<BoothDto>> GetCitiesBooth(int cityId, CancellationToken cancellationToken)
         {
             var allBooth = await _boothRipository.GetAll(cancellationToken);
@@ -58,6 +65,12 @@ namespace App.Domain.AppService.Admins
            return await _boothRipository.GetDatail(boothId, cancellationToken);
         }
 
+        public async Task<AppUserDto> GetOwnerbooth(int BoothId, CancellationToken CancellationToken)
+        {
+            var booth = await _boothRipository.GetDatail(BoothId, CancellationToken);
+            var user = _mapper.Map<AppUserDto>(booth.OwnerUser);
+            return user;
+        }
 
         public async Task<BoothDto> GetUserBooth(int userId, CancellationToken cancellationToken)
         {
