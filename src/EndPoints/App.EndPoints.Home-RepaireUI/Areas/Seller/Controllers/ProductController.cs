@@ -33,14 +33,14 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Controllers
         public async Task <IActionResult> Index( CancellationToken cancellationToken)
         {
             var userId = (await _signInManager.UserManager.GetUserAsync(User)).Id;
-            var boothId = (await _boothAppservice.Getbooth(userId, cancellationToken)).Id;
+            var boothId = (await _boothAppservice.Getbooth(userId, cancellationToken))?.Id;
             if(boothId == null )
             {
                 return RedirectToAction("Index", "Home");
             }
             else
             {
-                var products = await _productAppservice.GetBoothProducts(boothId, cancellationToken);
+                var products = await _productAppservice.GetBoothProducts(boothId.Value, cancellationToken);
                 var BoothProducts = products.Select(a => new ProductViewModel
                 {
                     Id = a.Id,
