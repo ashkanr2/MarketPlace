@@ -1,0 +1,49 @@
+﻿@model List< App.EndPoints.Home_RepaireUI.Areas.Seller.Models.Auction.AuctionViewModel>
+@{
+    ViewData["Title"] = "لیست  حراجی ها";
+}
+<span class="text text-danger">لیست حراجی های غرفه </span>
+<form method="post">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped" id="data-table">
+            <thead>
+                <tr class="text-center ">
+                    <th>ردیف</th>
+                    <th class="text text-danger">نام کالا</th>
+                    <th class="text text-info">قیمت پایه</th>
+                    <th class="text text-success">تاریخ شروع </th>
+                    <th class="text text-danger">تاریخ پایان </th>
+                    <td>عملیات</td>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int count1 = 1;
+                    foreach (var item in Model)
+                    {
+
+
+                        <tr>
+                            <td class="text text-danger">@count1</td>
+                            <td class="text text-danger">@item.Product.Name</td>
+                            <td class="text text-info">@item.Product.UnitPrice</td>
+                            <td class="text text-success">@item.StartTime</td>
+                            <td class="text text-danger">@item.EndTime</td>
+                           
+                            <td class="text-center">
+                                <a class="btn btn-warning btn-round text-white" asp-controller="Auction" asp-action="Detail" asp-route-Id="@item.Id" class="btn btn-warning btn-round">مشاهده</a>
+                               
+                                <a class="btn btn-info btn-round" asp-controller="Product" asp-action="OnDelete" asp-route-Id="@item.Id">ویرایش</a>
+                                @if(item.Bids != null){
+                                <a class="btn btn-info btn-round" asp-controller="Product" asp-action="OnDelete" asp-route-Id="@item.Id">نمایش پیشنهادات</a>
+                                }
+                            </td>
+                        </tr>
+                        count1++;
+
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</form>

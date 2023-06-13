@@ -5,8 +5,6 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Models.Auction
     {
         public int Id { get; set; }
 
-        public int BidId { get; set; }
-
         public int ProductId { get; set; }
 
         public DateTime StartTime { get; set; }
@@ -15,7 +13,7 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Models.Auction
 
         public int WinnerId { get; set; }
 
-        public virtual BidDto Bid { get; set; } = null!;
+        public virtual ICollection<BidDto> Bids { get; set; } = new List<BidDto>();
 
         public virtual ProductDto Product { get; set; } = null!;
     }

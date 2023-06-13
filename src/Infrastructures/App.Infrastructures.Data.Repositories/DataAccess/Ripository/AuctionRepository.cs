@@ -40,14 +40,19 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
 
         }
 
-        public async Task<List<AuctionDto>> GetAll(CancellationToken cancellationToken)
+        public async Task<List<AuctionDto>> GetAll(int boothId, CancellationToken cancellationToken)
         =>_mapper.Map<List<AuctionDto>>( await _context.Auctions
             .AsNoTracking()
+            .Include(b=>b.Bids)
+            .Include(p=>p.Product)
             .ToListAsync(cancellationToken));
 
         public async Task<AuctionDto> GetDatail(int auctionId, CancellationToken cancellationToken)
         =>_mapper.Map<AuctionDto>(await _context.Auctions
+            .AsNoTracking()
             .Where(A=>A.Id == auctionId)
+            .Include(x=>x.Bids)
+            .Include(p=>p.Product)
             .FirstOrDefaultAsync(cancellationToken));
 
    
@@ -59,10 +64,12 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
            
             if(record != null)
             {
-               record.ProductId = auction.ProductId;
-
-
+                record.StartTime = auction.StartTime;
+                record.ProductId = auction.ProductId;
+                record.EndTime = auction.EndTime;
+                record.WinnerId = auction.WinnerId;
             }
+            await _context.SaveChangesAsync();
         }
     }
 }

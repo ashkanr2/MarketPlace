@@ -338,7 +338,7 @@
                         </a>
 
                     <li>
-                        <a href="@Url.Action("Index","Booth")" class="dropdown-toggle">
+                        <a class="dropdown-toggle">
                             <i class="icon-home"></i>
                             <span>غرفه ی من</span>
                             <div class="paper-ripple"><div class="paper-ripple__background" style="opacity: 0.00288;"></div><div class="paper-ripple__waves"></div></div>
@@ -374,9 +374,33 @@
                     <li>
                         <a href="@Url.Action("GetAllOrders","Order")" class="">
                             <i class="icon-basket-loaded fa-flip-horizontal"></i>
-                            <span>سفارشات ثبت شده</span>
+                            <span>سفارشات </span>
                             <div class="paper-ripple"><div class="paper-ripple__background"></div><div class="paper-ripple__waves"></div></div>
                         </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-toggle">
+                            <i class="icon-chart"></i>
+
+                            <span> حراج</span>
+                            <div class="paper-ripple"><div class="paper-ripple__background" style="opacity: 0.00288;"></div><div class="paper-ripple__waves"></div></div>
+                        </a>
+                        <ul>
+
+                            <li>
+                                <a asp-action="Create" asp-controller="Auction">
+
+                                    <span>ساخت حراجی جدید</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-action="GetAllAuction" asp-controller="Auction">
+
+                                    <span>لیست حراجی ها</span>
+                                </a>
+                            </li>
+
+                        </ul>
                     </li>
                     <li>
                         <a class="" asp-controller="Comment" asp-action="GetAllComments" asp-area="Admin">
@@ -386,13 +410,7 @@
                         </a>
                     </li>
 
-                    <li>
-                        <a href="@Url.Action("Index","Booth")" >
-                            <i class="icon-chart"></i>
-                            <span>ساخت مزاید</span>
-                            <div class="paper-ripple"><div class="paper-ripple__background" style="opacity: 0.00288;"></div><div class="paper-ripple__waves"></div></div>
-                        </a>
-                    </li>
+                   
 
 
 

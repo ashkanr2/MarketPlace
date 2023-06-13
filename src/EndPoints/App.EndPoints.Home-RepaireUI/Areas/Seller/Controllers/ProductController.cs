@@ -37,7 +37,7 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Controllers
             if(boothId == null )
             {
                 return RedirectToAction("Index", "Home");
-            }
+            }   
             else
             {
                 var products = await _productAppservice.GetBoothProducts(boothId.Value, cancellationToken);

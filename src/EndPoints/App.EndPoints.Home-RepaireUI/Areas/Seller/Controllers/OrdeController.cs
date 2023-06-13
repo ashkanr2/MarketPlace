@@ -1,15 +1,10 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using App.Domain.Core.AppServices.Admins;
-using Microsoft.AspNetCore.Authorization;
-using App.Domain.Core.DtoModels;
+﻿using App.Domain.Core.AppServices.Admin;
 using App.EndPoints.Home_RepaireUI.Areas.Admin.Models.Order;
-using App.Domain.Core.AppServices.Admin;
+using Microsoft.AspNetCore.Mvc;
 
-namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
+namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Controllers
 {
-    [Area("Admin")]
+    [Area("Seller")]
     public class OrderController : Controller
     {
         private readonly IOrderAppservice _orderAppservice;
@@ -20,7 +15,7 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> OrderDetail(int id , CancellationToken cancellation)
+        public async Task<IActionResult> OrderDetail(int id, CancellationToken cancellation)
         {
             //var Order = await _orderAppservice.GetDatail(id,cancellation);
             //var orderStatus= Order.Status;
@@ -35,23 +30,23 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
             //};
             return View();
         }
-        public async Task <IActionResult> GetAllOrders(CancellationToken cancellationToken)
+        public async Task<IActionResult> GetAllOrders(CancellationToken cancellationToken)
         {
-           var orders = await _orderAppservice.GetAllOrders(cancellationToken);
+            var orders = await _orderAppservice.GetAllOrders(cancellationToken);
 
-          
+
             var ordertViewModels = orders.Select(a => new OrderDetailViewModel
             {
-              Id=a.Id,
-              UserId=a.UserId,
-              OrderCreatTime=a.OrderCreatTime,
-              status=a.Status.Title,
-              BoothName=a.Booth.Name,
-              TotalPrice=a.TotalPrice,
-              UserName=a.User.Name,
-              Commission=a.Commission,
-              BuyerName=a.User.Name,
-             
+                Id = a.Id,
+                UserId = a.UserId,
+                OrderCreatTime = a.OrderCreatTime,
+                status = a.Status.Title,
+                BoothName = a.Booth.Name,
+                TotalPrice = a.TotalPrice,
+                UserName = a.User.Name,
+                Commission = a.Commission,
+                BuyerName = a.User.Name,
+
             }).ToList();
 
 

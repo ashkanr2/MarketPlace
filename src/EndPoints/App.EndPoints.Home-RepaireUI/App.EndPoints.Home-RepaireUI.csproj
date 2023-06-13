@@ -24,6 +24,14 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <Content Include="Areas\Seller\Views\Order\GetAllOrders.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Areas\Seller\Views\Order\OrderDetail.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Include="Areas\Seller\Views\Shared\_LayoutSeller.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -64,19 +72,18 @@
 
   <ItemGroup>
     <Folder Include="Areas\Seller\Data\" />
-    <Folder Include="Areas\Seller\Models\Order\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="Areas\Admin\Views\Product\Detail.cshtml" />
     <None Include="Areas\Seller\Views\Auction\Create.cshtml" />
+    <None Include="Areas\Seller\Views\Auction\GetAllAuction.cshtml" />
     <None Include="Areas\Seller\Views\Booth\Create.cshtml" />
     <None Include="Areas\Seller\Views\Booth\Edite.cshtml" />
     <None Include="Areas\Seller\Views\Booth\Index.cshtml" />
     <None Include="Areas\Seller\Views\Home\Index.cshtml" />
     <None Include="Areas\Seller\Views\Product\Detail.cshtml" />
     <None Include="Areas\Seller\Views\Product\Index.cshtml" />
-    <None Include="Areas\Seller\Views\Product\Index1.cshtml" />
     <None Include="Areas\Seller\Views\Product\Update.cshtml" />
     <None Include="Areas\Seller\Views\Shared\_LayoutSeller.cshtml.css" />
   </ItemGroup>

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
@@ -51,6 +52,9 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
         public async Task<List<OrderDto>> GetAllOrders(CancellationToken cancellationToken)
         => _mapper.Map<List<OrderDto>>(await _context.Orders
             .AsNoTracking()
+            .Include(x => x.Booth)
+            .Include(s=>s.Status)
+            .Include(u=>u.User)
             .ToListAsync(cancellationToken));
 
         public async Task<List<OrderDto>> GetAllUserOrders(int userId, CancellationToken cancellationToken)

@@ -1,7 +1,7 @@
 ﻿@model List<App.EndPoints.Home_RepaireUI.Areas.Admin.Models.Order.OrderDetailViewModel>
 @{
     ViewData["Title"] = "سفارشات";
-    Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+    Layout = "~/Areas/Seller/Views/shared/_LayoutSeller.cshtml";
     @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 }
 <div class="portlet-body">
@@ -15,7 +15,7 @@
                     <th>نام غرفه</th>
                     <th>تاریخ</th>
                     <th>مبلغ کل</th>
-                    <th>درآمد سایت</th>
+                    <th>کارمزد</th>
                     <th>وضعیت</th>
                    
                 </tr>
@@ -38,7 +38,7 @@
                     <td>@item.OrderCreatTime</td>
                     <td>@item.TotalPrice</td>
                     <td>@item.Commission</td>
-                      <td>@item.status</td>
+                    <td>@item.status</td>
                 </tr>
                 
                  

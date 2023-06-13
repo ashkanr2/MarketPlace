@@ -72,7 +72,10 @@ builder.Services.AddScoped<IAllProductRepository, AllProductRepository>();
 builder.Services.AddScoped<IALLProductAppservice, ALLProductAppservice>();
 builder.Services.AddScoped<IProductRipository, ProductRipository>();
 builder.Services.AddScoped<IProductAppservice, ProductAppservice>();
-
+builder.Services.AddScoped<IAuctionRipository,AuctionRepository>();
+builder.Services.AddScoped<IAuctionAppservice, AuctionAppservice>();
+builder.Services.AddScoped<IOrderRipository, OrderRipository>();
+builder.Services.AddScoped<IOrderAppservice, OrderAppservice>();
 builder.Services.AddRazorPages(); 
 var app = builder.Build();
 

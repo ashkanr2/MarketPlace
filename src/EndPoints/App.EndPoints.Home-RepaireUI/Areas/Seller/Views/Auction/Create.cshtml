@@ -1,84 +1,53 @@
-﻿
+﻿@model App.EndPoints.Home_RepaireUI.Areas.Seller.Models.Auction.AuctionViewModel
 
 @{
     ViewData["Title"] = "ساخت حراجی";
+}
 
-}   
-  <div class="portlet box border shadow">
-                            <div class="portlet-heading">
-                                <div class="portlet-title">
-                                    <h3 class="title">                                        
-                                        <i class="icon-settings"></i>
-                                       ساخت حراجی جدید
-                                    </h3>
-                                </div><!-- /.portlet-title -->
-                                <div class="buttons-box">
-                                    <a class="btn btn-sm btn-default btn-round btn-fullscreen" rel="tooltip" title="تمام صفحه" href="#">
-                                        <i class="icon-size-fullscreen"></i>
-                                    </a>
-                                    <a class="btn btn-sm btn-default btn-round btn-collapse" rel="tooltip" title="کوچک کردن" href="#">
-                                        <i class="icon-arrow-up"></i>
-                                    </a>
-                                </div><!-- /.buttons-box -->
-                            </div><!-- /.portlet-heading -->
-                            <div class="portlet-body">
-                                <form role="form" method="post" asp-controller="Booth" asp-action="Create" asp-area="Seller">
-                                    <div class="form-body">
-                                        <div class="form-group row">
-                                            <label class="col-sm-3">نام</label>
-                                            <div class="col-sm-9">
-                                                <input  type="text" class="form-control" placeholder="نام غرفه " >
-                                            </div>
-                                        </div><!-- /.form-group -->
-                                        <div class="form-group row">
-                                            <label class="col-sm-3">توضیحات</label>
-                                            <div class="col-sm-9">
-                                                <textarea  class="form-control" rows="5" placeholder="توضیحات"></textarea>
-                                            </div>
-                                        </div><!-- /.form-group -->
-                                        <div class="form-group row">
-                                            <label class="col-sm-3">تایید مدیریت </label>
-                                            <div class="col-sm-9">
-                                                <input  type="text" class="form-control" placeholder="غیرفعال" disabled>
-                                            </div>
-                                        </div><!-- /.form-group -->
-                                    </div><!-- /.form-body -->
-                                    <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label for="slc-province">استان</label>
-                                                            <select id="slc-province" class="form-control select2 round">
-                                                                <option>تهران</option>
-                                                                <option>فارس</option>
-                                                                <option>اصفهان</option>
-                                                                <option>خراسان</option>
-                                                                <option>یزد</option>
-                                                            </select>
-                                                        </div><!-- /.form-group -->
-                                                    </div><!-- /.col -->
-                                                    <div class="col-sm-6">
-                                                        <div class="form-group">
-                                                            <label for="slc-city">شهر</label>
-                                                            <select id="slc-city" class="form-control select2 round">
-                                                                <option>تهران</option>
-                                                                <option>ورامین</option>
-                                                                <option>پرند</option>
-                                                                <option>پردیس</option>
-                                                                <option>ری</option>
-                                                            </select>
-                                                        </div><!-- /.form-group -->
-                                                    </div><!-- /.col -->
-                                                </div><!-- /.row -->
-                                    <div class="form-actions">
-                                        <button type="submit" class="btn btn-info btn-round">
-                                            <i class="icon-check"></i>
-                                            ایجاد
-                                        </button>
-                                        <button type="button" class="btn btn-warning btn-round">
-                                            بازگشت
-                                            <i class="icon-close"></i>
-                                        </button>
-                                    </div><!-- /.form-actions -->
-                                </form>
-                            </div><!-- /.portlet-body -->
-  </div><!-- /.portlet                       -->
+<div class="portlet box border shadow">
+    <div class="portlet-heading">
+        <div class="portlet-title">
+            <h3 class="title">
+                <i class="icon-settings"></i>
+                ساخت حراجی جدید
+            </h3>
+        </div><!-- /.portlet-title -->
+    </div><!-- /.portlet-heading -->
+    <div class="portlet-body">
+        <form role="form" method="post" asp-area="Seller" asp-controller="Auction" asp-action="Create">
+            <div class="form-body">
+                <div class="form-group row">
+                    <label class="col-sm-3" for="startTime">زمان شروع</label>
+                    <div class="col-sm-9">
+                        <input type="datetime-local" id="startTime" name="startTime" class="form-control" />
+                    </div>
+                </div><!-- /.form-group -->
+
+                <div class="form-group row">
+                    <label class="col-sm-3" for="endTime">زمان پایان</label>
+                    <div class="col-sm-9">
+                        <input type="datetime-local" id="endTime" name="endTime" class="form-control" />
+                    </div>
+                </div><!-- /.form-group -->
+
+                <div class="form-group row">
+                    <label class="col-sm-3" for="productId">محصول</label>
+                    <div class="col-sm-9">
+                        @Html.DropDownListFor(m => m.ProductId, new SelectList(ViewBag.Products, "Id", "Name"), "-- انتخاب محصول --", new { @class = "form-control" })
+                    </div>
+                </div><!-- /.form-group -->
+            </div><!-- /.form-body -->
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-info btn-round">
+                    <i class="icon-check"></i>
+                    ایجاد
+                </button>
+                <button type="button" class="btn btn-warning btn-round">
+                    بازگشت
+                    <i class="icon-close"></i>
+                </button>
+            </div><!-- /.form-actions -->
+        </form>
+    </div><!-- /.portlet-body -->
+</div><!-- /.portlet -->

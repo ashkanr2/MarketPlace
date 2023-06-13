@@ -1,4 +1,4 @@
-﻿namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Models.Order
+﻿namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Models.Order
 {
     public class OrderDetailViewModel
     {

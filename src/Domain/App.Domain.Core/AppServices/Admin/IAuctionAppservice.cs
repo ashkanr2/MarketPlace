@@ -5,14 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Domain.Core.DataAccess
+namespace App.Domain.Core.AppServices.Admin
 {
-    public interface IAuctionRipository
+    public interface IAuctionAppservice
     {
         Task<AuctionDto> GetDatail(int auctionId, CancellationToken cancellationToken);
+        Task<List<AuctionDto>> GetAll(int BoothId,CancellationToken cancellationToken);
         Task Create(AuctionDto auction, CancellationToken cancellationToken);
-        Task<List<AuctionDto>> GetAll(int boothId,CancellationToken cancellationToken);
         Task Update(AuctionDto auction, CancellationToken cancellationToken);
-        
     }
 }

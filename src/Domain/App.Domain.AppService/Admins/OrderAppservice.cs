@@ -13,6 +13,11 @@ namespace App.Domain.AppService.Admins
     {
         private readonly IOrderRipository _orderRipository;
 
+        public OrderAppservice(IOrderRipository orderRipository)
+        {
+            _orderRipository = orderRipository;
+        }
+
         public async Task Create(OrderDto order, CancellationToken cancellationToken)
         {
            await _orderRipository.Create(order, cancellationToken);
