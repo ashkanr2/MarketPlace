@@ -1,7 +1,7 @@
 ﻿@model App.EndPoints.Home_RepaireUI.Areas.Seller.Models.User.AppUserViewModel
 @{
     ViewData["Title"] = "ویرایش مشخصات ";
-    Layout = "~/Areas/Admin/Views/shared/_LayoutAdmin.cshtml";
+    Layout = "~/Areas/Seller/Views/shared/_LayoutSeller.cshtml";
     @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 }
 <div class="portlet-body edit-form">
@@ -73,7 +73,7 @@
             <hr>
          
 
-            <form id="form" role="form" method="POST" asp-action="EditeInformation" asp-controller="User" asp-area="Admin">
+            <form id="form" role="form" method="POST" asp-action="EditeInformation" asp-controller="Home" asp-area="Seller">
                 <div class="form-body">
 
                     <div class="row">
@@ -84,7 +84,7 @@
                                     <span class="input-group-addon">
                                         <i class="icon-user"></i>
                                     </span>
-                                    <input type="text" id="txt-firstname" name="firstname" class="form-control"placeholder="@Model.Name" asp-for="Name" >
+                                    <input type="text" id="txt-firstname"  class="form-control"placeholder="@Model.Name" asp-for="Name" >
                                 </div>
                             </div>
                         </div>
@@ -95,7 +95,7 @@
                                     <span class="input-group-addon">
                                         <i class="icon-user"></i>
                                     </span>
-                                    <input type="text" id="txt-lastname" name="lastname" class="form-control"placeholder="@Model.LastName" asp-for="LastName">
+                                    <input type="text" id="txt-lastname" class="form-control"placeholder="@Model.LastName" asp-for="LastName">
                                 </div>
                             </div>
                         </div>
@@ -107,7 +107,7 @@
                             <span class="input-group-addon">
                                 <i class="icon-screen-smartphone"></i>
                             </span>
-                            <input type="text" id="txt-mobile" name="mobile" class="form-control ltr text-left mobile">
+                            <input type="text" id="txt-mobile"  class="form-control ltr text-left mobile">
                         </div>
                     </div>
 
@@ -117,7 +117,7 @@
                             <span class="input-group-addon">
                                 <i class="icon-envelope"></i>
                             </span>
-                            <input type="email" id="txt-email" name="email" class="form-control ltr text-left"placeholder="@Model.Email" asp-for="Email">
+                            <input type="email" id="txt-email"  class="form-control ltr text-left"placeholder="@Model.Email" asp-for="Email">
                         </div>
                     </div>
 

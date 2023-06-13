@@ -44,10 +44,10 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Controllers
         [HttpPost]
         public async Task<IActionResult> EditeInformation(AppUserViewModel user, CancellationToken CancellationToken)
         {
-
+            var userId = (await _signInManager.UserManager.GetUserAsync(User)).Id;
             var appuser = new AppUserDto
             {
-                Id = user.Id,
+                Id = userId,
                 Name = user.Name,
                 LastName = user.LastName,
                 Address = user.Address,
