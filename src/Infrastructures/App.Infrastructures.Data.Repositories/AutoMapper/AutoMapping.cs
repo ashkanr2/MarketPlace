@@ -51,7 +51,7 @@ namespace App.Infrastructures.Data.Repositories.AutoMapper
             CreateMap<OrderProduct, OrderProductDto>();
 
             CreateMap<Product, ProductDto>();
-
+            CreateMap<ProductDto , Product>();
 
 
             CreateMap<ProductImage, ProductImageDto>();

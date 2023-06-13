@@ -1,0 +1,63 @@
+﻿@model App.EndPoints.Home_RepaireUI.Areas.Seller.Models.Product.ProductViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "افزودن کالا";
+ 
+}
+<div>
+
+
+<form method="post" asp-action="Create"asp-controller="Product">
+
+       
+                            <div class="portlet-heading">
+                                <div class="portlet-title">
+                                    <h3 class="title">                                        
+                                        <i class="icon-settings"></i>
+                                       افزودن کالا
+                                    </h3>
+                                </div><!-- /.portlet-title -->
+                               
+                            </div><!-- /.portlet-heading -->
+                            <div class="portlet-body">
+                               
+                                    <div class="form-body">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3">نام کالا</label>
+                                            <div class="col-sm-9">
+                                                
+                                                <input type="text" asp-for="ProductName" class="form-control">
+                                            </div>
+                                        </div><!-- /.form-group -->
+                                        <div class="form-group row">
+                                            <label class="col-sm-3">قیمت</label>
+                                            <div class="col-sm-9">
+                                                
+                                            <input type="number" asp-for="UnitPrice" class="form-control">
+                                            </div>
+                                        </div><!-- /.form-group -->
+                                        
+                                 
+                                        <div class="form-group row">
+                                            <label class="col-sm-3">دسته بندی </label>
+                                            <div class="col-sm-9">
+                                                @Html.DropDownListFor(m => m.AllProductId, new SelectList(ViewBag.Allproduct, "Id", "Name"), "-- انتخاب کالا --", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="form-actions">
+                                        <button type="submit" class="btn btn-info btn-round">
+                                            <i class="icon-check"></i>
+                                            ذخیره
+                                        </button>
+                                        <button type="submit"  class="btn btn-warning btn-round">
+                                            بازگشت
+                                            <i class="icon-close"></i>
+                                        </button>
+                                    </div><!-- /.form-actions -->   
+                         
+                            </div><!-- /.portlet-body -->
+                      
+                   
+ </form>
+</div>

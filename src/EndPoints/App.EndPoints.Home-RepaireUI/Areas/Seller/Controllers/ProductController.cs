@@ -8,6 +8,7 @@ using App.Domain.Core.DtoModels;
 using App.EndPoints.Home_RepaireUI.Areas.Seller.Models.Product;
 using App.EndPoints.Home_RepaireUI.Areas.Admin.Models.User;
 using App.Domain.Core.DataAccess;
+using System.Threading;
 
 namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Controllers
 {
@@ -57,6 +58,36 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Controllers
             }
 
         }
+        public async Task <IActionResult> Create(CancellationToken cancellationToken)
+        {
+            var allproduct = await _aLLProductAppservice.GetAll(cancellationToken);
+            ViewBag.Allproduct = allproduct;
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(ProductViewModel product, CancellationToken cancellation)
+        {
+            var userId = (await _signInManager.UserManager.GetUserAsync(User)).Id;
+            var boothId = (await _boothAppservice.Getbooth(userId, cancellation)).Id;
+            var prodductDto = new ProductDto
+            {
+                Name = product.ProductName,
+                UnitPrice = product.UnitPrice,
+                BoothId = boothId,
+                AllProductId = product.AllProductId,
+                AddTime = DateTime.Now,
+                IsDeleted = false,
+                IsAccepted = false,
+                IsAvailable = true,
+
+            };
+            await _productAppservice.Create(prodductDto, cancellation);
+            return RedirectToAction("Index", "Product");
+        }
+
+
+
+
         public async Task<IActionResult> Detail(int id, CancellationToken cancellation)
         {
 

@@ -27,8 +27,6 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
         public async Task Create(ProductDto product, CancellationToken cancellationToken)
         {
             var record = _mapper.Map<Product>(product);
-            record.AddTime = DateTime.Now;
-            record.IsAccepted = false;
             try
             {
                 await _context.Products.AddAsync(record);

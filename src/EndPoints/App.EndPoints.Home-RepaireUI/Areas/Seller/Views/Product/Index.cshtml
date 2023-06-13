@@ -8,7 +8,7 @@
 <div>
     <form method="post">
          <a class="btn btn-info btn-round" asp-controller="Auction" asp-action="Create" >اافزودن کالا برای حراجی </a>
-       
+             <a class="btn btn-info btn-round" asp-controller="Product" asp-action="Create" >اافزودن کالا برای فروش </a>
 
     </form>
  </div> 
@@ -39,11 +39,15 @@
                                 <td>@item.ProductName</td>
                                 <td class="text text-warning">@item.category</td>
                                 <td>@item.Allproduct</td>
-                                @if(item.IsAccepted == false)
+                                @if( item.IsDeleted == true)
                                 {
-                                    <td class="text text-danger">در انتظار تایید</td>
+                                    <td class="text text-danger">حذف شده</td>
                                 }
-                                @if(item.IsAccepted == true)
+                                @if(item.IsAccepted == false && item.IsDeleted == false)
+                                {
+                                    <td class="text text-info">در انتظار تایید</td>
+                                }
+                                @if(item.IsAccepted == true && item.IsDeleted == false)
                                 {
                                     <td class="text text-success">تایید شده</td>
                                 }
