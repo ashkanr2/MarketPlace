@@ -20,7 +20,12 @@
                                
                             </div><!-- /.portlet-heading -->
                             <div class="portlet-body">
-                               
+@*
+                                    @using (Html.BeginForm("Create", "Content", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                    {
+                                        <input type="file" name="ImageData" id="ImageData" onchange="fileCheck(this);" />
+                                    }
+*@
                                     <div class="form-body">
                                         <div class="form-group row">
                                             <label class="col-sm-3">نام کالا</label>

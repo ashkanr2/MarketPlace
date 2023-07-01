@@ -24,7 +24,7 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
         }
 
         public async Task Create(AuctionDto auction, CancellationToken cancellationToken)
-        {
+            {
             var record = _mapper.Map<Auction>(auction);
           
             try

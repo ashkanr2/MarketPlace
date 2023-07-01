@@ -9,6 +9,7 @@ using App.EndPoints.Home_RepaireUI.Areas.Seller.Models.Product;
 using App.EndPoints.Home_RepaireUI.Areas.Admin.Models.User;
 using App.Domain.Core.DataAccess;
 using System.Threading;
+using App.EndPoints.Home_RepaireUI.Areas.Admin.Models.Comment;
 
 namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Controllers
 {
@@ -151,5 +152,18 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Controllers
             await _productAppservice.SoftDelete(Id, cancellation);
             return RedirectToAction("Index");
         }
+     
+        //[HttpPost]
+        //public ActionResult CreateImage(ImageDto model)
+        //{
+        //    HttpPostedFileBase file = Request.Files["ImageData"];
+        //    ContentRepository service = new ContentRepository();
+        //    int i = service.UploadImageInDataBase(file, model);
+        //    if (i == 1)
+        //    {
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(model);
+        //}
     }
 }

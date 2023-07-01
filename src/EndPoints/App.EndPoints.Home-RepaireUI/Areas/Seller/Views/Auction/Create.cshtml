@@ -33,7 +33,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3" for="productId">محصول</label>
                     <div class="col-sm-9">
-                        @Html.DropDownListFor(m => , new SelectList(ViewBag.Allproduct, "Id", "Name"), "-- انتخاب محصول --", new { @class = "form-control" })
+                        @Html.DropDownListFor(m =>m.ProductId , new SelectList( ViewBag.Products, "Id", "Name"), "-- انتخاب محصول --", new { @class = "form-control" })
                     </div>
                 </div><!-- /.form-group -->
             </div><!-- /.form-body -->

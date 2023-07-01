@@ -21,6 +21,7 @@ namespace App.Infrastructures.Data.Repositories.AutoMapper
     
 
             CreateMap<Auction, AuctionDto>();
+            CreateMap<AuctionDto, Auction>();
 
             CreateMap<AllProduct, AllProductDto>();
 

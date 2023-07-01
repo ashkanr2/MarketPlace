@@ -10,6 +10,8 @@ using System.Reflection;
 using App.Domain.Core.Entities;
 using Microsoft.CodeAnalysis.Options;
 using App.Domain.Core.AppServices.Admin;
+using App.EndPoints.Home_RepaireUI.Config;
+using Microsoft.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -76,7 +78,27 @@ builder.Services.AddScoped<IAuctionRipository,AuctionRepository>();
 builder.Services.AddScoped<IAuctionAppservice, AuctionAppservice>();
 builder.Services.AddScoped<IOrderRipository, OrderRipository>();
 builder.Services.AddScoped<IOrderAppservice, OrderAppservice>();
-builder.Services.AddRazorPages(); 
+builder.Services.AddRazorPages();
+
+
+
+//builder.Services.AddSession(options =>
+//{
+//    options.IdleTimeout = TimeSpan.FromMinutes(30);
+//});
+//builder.Configuration
+//    .SetBasePath(Directory.GetCurrentDirectory())
+//    .AddJsonFile("appsettings.json");
+
+
+//var allconfig = builder.Configuration.Get<AppSettings>();
+//builder.Services.AddSingleton(allconfig);
+
+
+
+
+
+
 var app = builder.Build();
 
 
