@@ -15,11 +15,13 @@ namespace App.Domain.Core.AppServices.Admins
         Task<List<ProductDto>> GetCategoryProducts(int CategoryId, CancellationToken cancellationToken);
         Task<List<ProductDto>> GetAll( CancellationToken cancellationToken);
         Task<List<ProductDto>> GetMCAtegoryProducts(int MCId, CancellationToken cancellationToken);
+        Task<List<ProductDto>> Search(string name, CancellationToken cancellationToken);
         Task Create(ProductDto product, CancellationToken cancellationToken);
         Task Deactivate(int producttId, CancellationToken cancellationToken);
         Task SoftDelete(int producttId, CancellationToken cancellationToken);
         Task OnDelete(int producttId, CancellationToken cancellationToken);
         Task Active(int productId, CancellationToken cancellationToken);
         Task Update(ProductDto product, CancellationToken cancellationToken);
+        
     }
 }

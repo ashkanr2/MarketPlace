@@ -67,6 +67,12 @@ namespace App.Domain.AppService.Admins
             await _productRipository.Update(product, cancellationToken);
         }
 
+        public async Task<List<ProductDto>> Search(string name, CancellationToken cancellationToken)
+        {
+            var products = (await _productRipository.GetAll(cancellationToken)).Where(p=>p.Name == name).ToList();    
+            return products;
+        }
+
         public async Task SoftDelete(int producttId, CancellationToken cancellationToken)
         {
            var product = await _productRipository.GetDatail(producttId, cancellationToken);

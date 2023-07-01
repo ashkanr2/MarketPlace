@@ -1,5 +1,5 @@
 using App.Domain.Core.DataAccess;
-using App.Infrastructures.Data.Repositories.AutoMapper;
+using App.EndPoints.Home_RepaireUI.AutoMapper;
 using App.Infrastructures.Data.Repositories.DataAccess.Ripository;
 using App.Infrastructures.Db.SqlServer.Ef.DataBase;
 using App.Domain.AppService.Admins;

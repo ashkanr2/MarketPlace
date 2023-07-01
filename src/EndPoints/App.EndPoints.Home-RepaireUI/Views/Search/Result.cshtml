@@ -1,0 +1,66 @@
+﻿@model List< App.EndPoints.Home_RepaireUI.Models.Product.ProductViewModel>
+@{
+    ViewData["Title"] = "نتایج جست وجو";
+}
+<form method="post">
+    <div>
+        <table>
+            <thead>
+                <tr class="text text-danger">
+                    <th>ردیف</th>
+                    <th>نام کالا</th>
+                    <th>دسته بندی</th>
+                    <th>نوع کالا</th>
+                    <th>وضعیت</th>
+                    <td>عملیات</td>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int count1 = 1;
+                    foreach (var item in Model)
+                    {
+
+
+                        <tr>
+                            <td>@count1</td>
+                            <td>@item.ProductName</td>
+                            <td class="text text-warning">@item.category</td>
+                            <td>@item.Allproduct</td>
+                            @if (item.IsDeleted == true)
+                            {
+                                <td class="text text-danger">حذف شده</td>
+                            }
+                            @if (item.IsAccepted == false && item.IsDeleted == false)
+                            {
+                                <td class="text text-info">در انتظار تایید</td>
+                            }
+                            @if (item.IsAccepted == true && item.IsDeleted == false)
+                            {
+                                <td class="text text-success">تایید شده</td>
+                            }
+                            <td>
+                                <a class="btn btn-warning btn-round" asp-controller="Product" asp-action="Detail" asp-route-Id="@item.Id" class="btn btn-warning btn-round">مشاهده</a>
+                                @if (item.IsDeleted == true)
+                                {
+                                    <a class="btn btn-success btn-round" asp-controller="Product" asp-action="OnDelete" asp-route-Id="@item.Id">بازگردانی</a>
+                                }
+                                @if (item.IsDeleted == false)
+                                {
+                                    <a class="btn btn-danger btn-round" asp-controller="Product" asp-action="Delete" asp-route-Id="@item.Id">حذف</a>
+                                }
+                                @if (item.IsAccepted == true)
+                                {
+                                    <a class="btn btn-info btn-round" asp-controller="Product" asp-action="Update" asp-route-Id="@item.Id">ویرایش</a>
+                                }
+                            </td>
+                        </tr>
+                        count1++;
+
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</form>
+
