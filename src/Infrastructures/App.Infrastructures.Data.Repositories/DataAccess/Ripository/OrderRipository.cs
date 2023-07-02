@@ -60,7 +60,10 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
         public async Task<List<OrderDto>> GetAllUserOrders(int userId, CancellationToken cancellationToken)
          => _mapper.Map<List<OrderDto>>(await _context.Orders
             .AsNoTracking()
-            .Where(x => x.UserId== userId)
+            .Include(x => x.Booth)
+            .Include(s => s.Status)
+            .Include(u => u.User)
+             .Where(u=>u.UserId==userId)
             .ToListAsync(cancellationToken));
 
         public async Task<OrderDto> GetDatail(int orderId, CancellationToken cancellationToken)

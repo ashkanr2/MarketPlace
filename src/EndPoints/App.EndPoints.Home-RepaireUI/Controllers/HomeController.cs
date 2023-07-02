@@ -1,4 +1,5 @@
-﻿using App.Domain.Core.DataAccess;
+﻿using App.Domain.Core.AppServices.Admins;
+using App.Domain.Core.DataAccess;
 using App.Domain.Core.DtoModels;
 using App.EndPoints.Home_RepaireUI.Config;
 using App.EndPoints.Home_RepaireUI.Models;
@@ -11,46 +12,25 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IProductAppservice _productAppservice;
+        
 
-        //private readonly AppSettings _appSettings;
-
-
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IProductAppservice productAppservice )
         {
             _logger = logger;
-           
+            _productAppservice = productAppservice;
         }
 
-        //public HomeController(ILogger<HomeController> logger, AppSettings appSettings)
-        //{
-        //    _logger = logger;
-        //    _appSettings = appSettings;
-        //}
 
-        //public IActionResult Index(int id)
-        //{
-        //    if (ControllerContext.ActionDescriptor.ControllerName == _appSettings.AllowedController &&
-        //    ControllerContext.ActionDescriptor.ActionName == _appSettings.AllowedAction &&
-        //    id == _appSettings.AllowedValue)
-        //    {
-        //        return View();
-        //    }
-        //    else
-        //    {
-        //        return RedirectToAction("Index", "Privacy");
-        //    }
-
-
-
-        //    return View();
-        //}
         public IActionResult Index()
         {
+            
             return View();
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult>Allproduct(CancellationToken cancellationToken)
         {
+
             return View();
         }
 
