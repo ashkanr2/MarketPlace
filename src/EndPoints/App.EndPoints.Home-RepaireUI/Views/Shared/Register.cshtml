@@ -46,7 +46,7 @@
                     <h2 class="text-center m-b-20">ثبت نام </h2>
                     <hr>
 
-                    <form id="advanced-form" method="post" asp-controller="Account" asp-action="Register">
+                    <form id="advanced-form" method="post" asp-controller="Account" asp-action="Register" enctype="multipart/form-data">
                         <div class="form-group">
                             <label class="sr-only control-label" for="firstname">نام</label>
                             <div class="input-group round">
@@ -54,6 +54,15 @@
                                     <i class="icon-note"></i>
                                 </span>
                                 <input asp-for="Name" type="text" class="form-control round" id="firstname"  placeholder="نام">
+                            </div><!-- /.input-group-->
+                        </div><!-- /.form-group -->
+                        <div class="form-group">
+                            <label class="sr-only control-label" for="image">تصویر</label>
+                            <div class="input-group round">
+                                <span class="input-group-addon">
+                                    <i class="icon-picture"></i>
+                                </span>
+                                <input type="file" asp-for="Image" class="form-control round" id="image" name="image">
                             </div><!-- /.input-group-->
                         </div><!-- /.form-group -->
                         <div class="form-group">

@@ -1,9 +1,11 @@
-﻿using App.Domain.Core.DataAccess;
+﻿using App.Domain.Core.AppServices.Admin;
+using App.Domain.Core.DataAccess;
 using App.Domain.Core.Entities;
 using App.EndPoints.Home_RepaireUI.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using System.IO;
 
 namespace App.EndPoints.Home_RepaireUI.Controllers
 {
@@ -12,11 +14,15 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IAppUserRipositry _appUserRipositry;
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IAppUserRipositry appUserRipositry)
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        private readonly IImageAppservice _imageAppservice;
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IAppUserRipositry appUserRipositry, IWebHostEnvironment hostingEnvironment, IImageAppservice imageAppservice)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _appUserRipositry = appUserRipositry;
+            _hostingEnvironment = hostingEnvironment;
+            _imageAppservice = imageAppservice;
         }
 
         public async Task <IActionResult> Login()
@@ -63,49 +69,60 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
         {
             return View();
         }
-        [HttpPost] 
-        public async Task <IActionResult> Register(RegisterViewModel model)
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel model, CancellationToken cancellationToken)
         {
             if (ModelState.IsValid)
             {
-                var user = new AppUser
+                // Check if an image was uploaded
+                if (model.Image != null && model.Image.Length > 0)
                 {
-                    Name = model.Name,
-                    LastName= model.LastName,
-                    Address=model.Address,
-                    Email = model.Email,
-                    CreatAt = DateTime.Now,
-                    IsDeleted =false,
-                    IsSeller= false,
-                    IsCreated=false,
-                    UserName=model.Email,
-                    Wallet=0,
-                    
-                    //LockoutEnabled=false,
-                    //AccessFailedCount=0,
-                    //TwoFactorEnabled=false,
-                    //PhoneNumberConfirmed=false,
-                    
-                };
-                
-                   var result = await _userManager.CreateAsync(user, model.Password);
-                 if(result.Succeeded)
-                {
-                    await _signInManager.SignInAsync(user, isPersistent: true);
-                    return RedirectToAction("Index","Home");
-                }
-                else
-                {
-                     foreach(var item in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty , item.Description);
-                    }
-                }
-                 
-            }
+                    // Generate a unique file name using a combination of timestamp and the original file name
+                    var fileNameWithoutExtension = DateTime.Now.Ticks + "_+_" + Path.GetFileName(model.Image.FileName);
 
+                    // Get the path to the wwwroot folder
+                    var wwwrootPath = _hostingEnvironment.WebRootPath;
+
+                    // Combine the wwwroot path with the desired image upload directory
+                    var uploadPath = Path.Combine(wwwrootPath, "uploads");
+
+                    // Create the uploads directory if it doesn't exist
+                    if (!Directory.Exists(uploadPath))
+                    {
+                        Directory.CreateDirectory(uploadPath);
+                    }
+
+                    // Combine the upload path with the file name and the desired file extension
+                    var fileName = fileNameWithoutExtension + Path.GetExtension(model.Image.FileName);
+
+                    // Combine the upload path with the file name to get the full file path
+                    var filePath = Path.Combine(uploadPath, fileName);
+
+                    // Save the uploaded image to the file system
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await model.Image.CopyToAsync(stream);
+                    }
+
+                    var user = new AppUser
+                    {
+                        UserProfileImageId = (await _imageAppservice.Upload(fileNameWithoutExtension, true, cancellationToken)),
+                        Name = model.Name,
+                        LastName = model.LastName,
+                        Email = model.Email,
+                        UserName = model.Email,
+                        Address = model.Address,
+
+                    };
+                    var result = await _userManager.CreateAsync(user, model.Password);
+                }
+
+
+            }
 
             return View(model);
         }
+
     }
 }

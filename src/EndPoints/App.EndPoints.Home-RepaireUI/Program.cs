@@ -80,6 +80,8 @@ builder.Services.AddScoped<IAuctionRipository,AuctionRepository>();
 builder.Services.AddScoped<IAuctionAppservice, AuctionAppservice>();
 builder.Services.AddScoped<IOrderRipository, OrderRipository>();
 builder.Services.AddScoped<IOrderAppservice, OrderAppservice>();
+builder.Services.AddScoped<IImageAppservice, ImageAppservice>();
+builder.Services.AddScoped<IImageRipository, ImageRipository>();
 builder.Services.AddScoped<DateConvertor>();
 builder.Services.AddRazorPages();
 

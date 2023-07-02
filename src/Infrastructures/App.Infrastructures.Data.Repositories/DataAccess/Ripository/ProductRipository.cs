@@ -45,7 +45,8 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
             .AsNoTracking()
              .Where(a => a.BoothId == boothId)
               .Include(x => x.AllProduct)
-             .ThenInclude(p => p.Category) // Include the related Category entity
+             .ThenInclude(p => p.Category)
+             .Include(i=>i.ProductImages)
             .ToListAsync(cancellationToken);
 
             var productDtos = _mapper.Map<List<ProductDto>>(products);
@@ -71,6 +72,9 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
             var products = await _context.Products
                 .AsNoTracking()
                 .Include(x => x.AllProduct)
+                .ThenInclude(p => p.Category)
+                .Include(i => i.ProductImages)
+                .ThenInclude(a=>a.Image)
                 .ToListAsync(cancellationToken);
             var productDtos = _mapper.Map<List<ProductDto>>(products);
            return productDtos;
