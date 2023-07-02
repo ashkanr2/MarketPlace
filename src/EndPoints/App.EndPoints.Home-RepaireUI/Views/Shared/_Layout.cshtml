@@ -36,6 +36,8 @@
         <header class="Masai-header default">
             <div class="container-fluid">
                 <div class="row">
+                  
+
                     <div class="col-lg-4 col-md-5 col-sm-8 col-7">
                         <div class="search-area default">
                             <form method="post" asp-action="Result" asp-controller="Search" class="search">
@@ -44,28 +46,28 @@
                             </form>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-5 col-sm-8 col-7">
-                        <ul class="col-lg-4 col-md-5 col-sm-8 col-7">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Home" asp-action="Index" asp-area="Admin">پنل ادمین</a>
-                            </li>
+                    <a class="dropdown-item" asp-controller="Account" asp-action="Login" asp-area="">ورود</a>
 
-                        </ul>
-                        <ul class="col-lg-4 col-md-5 col-sm-8 col-7">
-                           
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Home" asp-action="Index" asp-area="Seller">پنل فروشنده</a>
-                            </li>
-                        </ul>
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Login" asp-area="">ورود</a>
-                            </li>
-                        </ul>
-                      
+                    <div class="col-lg-4 col-md-5 col-sm-8 col-7">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                پنل
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" asp-controller="Home" asp-action="Index" asp-area="Admin">پنل ادمین</a>
+                                <a class="dropdown-item" asp-controller="Home" asp-action="Index" asp-area="Seller">پنل فروشنده</a>
+                               
+                            </div>
+                        </li>
 
                     </div>
-                    
+                   
+                      
+
+
+
+
+
                     <div class="col-md-2 col-sm-12">
                         <div class="user_head">
                             <a href="login.html" class="iconhead">
@@ -74,6 +76,8 @@
                             </a>
 
                         </div>
+
+
                         <div class="cart dropdown masai_dropdown">
                             <span class="divider"></span>
 

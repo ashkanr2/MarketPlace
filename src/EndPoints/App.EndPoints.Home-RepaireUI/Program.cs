@@ -12,6 +12,8 @@ using Microsoft.CodeAnalysis.Options;
 using App.Domain.Core.AppServices.Admin;
 using App.EndPoints.Home_RepaireUI.Config;
 using Microsoft.Data.SqlClient;
+using App.Frameworks;
+using App.Frameworks.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -78,6 +80,7 @@ builder.Services.AddScoped<IAuctionRipository,AuctionRepository>();
 builder.Services.AddScoped<IAuctionAppservice, AuctionAppservice>();
 builder.Services.AddScoped<IOrderRipository, OrderRipository>();
 builder.Services.AddScoped<IOrderAppservice, OrderAppservice>();
+builder.Services.AddScoped<DateConvertor>();
 builder.Services.AddRazorPages();
 
 

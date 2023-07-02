@@ -20,9 +20,6 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
             {
                 Id = x.Id,
                 UnitPrice = x.UnitPrice,
-                AllProductId = x.AllProductId,
-                IsDeleted = x.IsDeleted,
-                IsAccepted = x.IsAccepted,
                 boothId = x.BoothId,
                 ProductName = x.AllProduct.Name,
             }).ToList();

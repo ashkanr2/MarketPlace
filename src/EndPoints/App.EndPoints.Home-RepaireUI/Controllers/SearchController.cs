@@ -17,22 +17,22 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
             _mapper = mapper;
         }
 
-        public async Task<IActionResult> Result(string item , CancellationToken cancellationToken)
-        {
-           var items =await _productAppservice.Search(item, cancellationToken);
-            var products = items.Select(x => new ProductViewModel
-            {
-                Id = x.Id,
-                UnitPrice = x.UnitPrice,
-                AllProductId = x.AllProductId,
-                IsDeleted = x.IsDeleted,
-                IsAccepted = x.IsAccepted,
-                ProductImages = x.ProductImages,
-                boothId = x.BoothId,
-                ProductName = x.AllProduct.Name,
-            }).ToList();
+        //public async Task<IActionResult> Result(string item , CancellationToken cancellationToken)
+        //{
+        //   var items =await _productAppservice.Search(item, cancellationToken);
+        //    var products = items.Select(x => new ProductViewModel
+        //    {
+        //        Id = x.Id,
+        //        UnitPrice = x.UnitPrice,
+        //        AllProductId = x.AllProductId,
+        //        IsDeleted = x.IsDeleted,
+        //        IsAccepted = x.IsAccepted,
+        //        ProductImages = x.ProductImages,
+        //        boothId = x.BoothId,
+        //        ProductName = x.AllProduct.Name,
+        //    }).ToList();
            
-            return View(products);
-        }
+        //    return View(products);
+        //}
     }
 }

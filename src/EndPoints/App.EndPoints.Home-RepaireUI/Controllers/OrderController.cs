@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using App.EndPoints.Home_RepaireUI.Models.Order;
 using App.EndPoints.Home_RepaireUI.Models.Product;
+using App.Frameworks;
+using App.Frameworks.Web;
 
 namespace App.EndPoints.Home_RepaireUI.Controllers
 {
@@ -12,11 +14,13 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
         private readonly IOrderAppservice _orderAppservice;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
-        public OrderController(IOrderAppservice orderAppservice, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager)
+        private readonly DateConvertor _dateConvertor;
+        public OrderController(IOrderAppservice orderAppservice, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, DateConvertor dateConvertor)
         {
             _orderAppservice = orderAppservice;
             _signInManager = signInManager;
             _userManager = userManager;
+            _dateConvertor = dateConvertor;
         }
 
         public IActionResult Index()
@@ -36,7 +40,7 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
                 BoothName = a.Booth.Name,
                 TotalPrice = a.TotalPrice,
                 Commission = a.Commission,
-                
+                ShamsiDate=_dateConvertor.ConvertToPersianDate(a.OrderCreatTime),
 
             }).ToList();
             return View(ordertViewModels);
