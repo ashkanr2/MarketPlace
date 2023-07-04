@@ -44,7 +44,10 @@ namespace App.EndPoints.Home_RepaireUI.AutoMapper
 
            
             CreateMap<Cart, CartDto>();
+            CreateMap<CartDto, Cart>();
+
             CreateMap<CartProduct, CartProductDto>();
+            CreateMap<CartProductDto, CartProduct>();
 
             CreateMap<MothersCategory, MothersCategoryDto>();
 

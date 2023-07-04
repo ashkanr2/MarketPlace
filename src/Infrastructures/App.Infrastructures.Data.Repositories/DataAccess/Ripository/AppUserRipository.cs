@@ -60,7 +60,10 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
         }
         public async Task<AppUserDto>GetDetail(int userId,CancellationToken CancellationToken)
         {
-            var user = _mapper.Map < AppUserDto > (await _context.AppUsers.Where(x=>x.Id == userId).FirstOrDefaultAsync(CancellationToken));
+            var user = _mapper.Map < AppUserDto > (await _context.AppUsers.Include(i=>i.UserProfileImage).Where(x=>x.Id == userId).FirstOrDefaultAsync(CancellationToken));
+            string[] parts = user.UserProfileImage.Path.Split("_+_");
+            string filename = parts[0];
+            user.UserProfileImage.Path = filename;
             return user;
         }
 

@@ -83,6 +83,8 @@
     <None Include="Areas\Seller\Views\Booth\Create.cshtml" />
     <None Include="Areas\Seller\Views\Booth\Edite.cshtml" />
     <None Include="Areas\Seller\Views\Booth\Index.cshtml" />
+    <None Include="Views\Cart\Index.cshtml" />
+    <None Include="Views\Cart\List.cshtml" />
     <None Include="Areas\Seller\Views\Home\Index.cshtml" />
     <None Include="Areas\Seller\Views\Product\Create.cshtml" />
     <None Include="Areas\Seller\Views\Product\Detail.cshtml" />

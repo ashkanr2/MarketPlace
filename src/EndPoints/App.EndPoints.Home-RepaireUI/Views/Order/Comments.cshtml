@@ -1,0 +1,52 @@
+﻿@model List<App.Domain.Core.DtoModels.CommentDto>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Comments</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>نظرات  ثبت شده کاربر 3</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>User ID</th>
+            <th>Comment</th>
+            <th>Created At</th>
+          
+            <th>Booth ID</th>
+            <th>Order ID</th>
+          
+        </tr>
+        @foreach (var comment in Model)
+        {
+            <tr>
+                <td>@comment.Id</td>
+                <td>@comment.UserId</td>
+                <td>@comment.Comment1</td>
+                <td>@comment.CreatedAt</td>
+               
+                <td>@comment.BoothId</td>
+                <td>@comment.OrderId</td>
+               
+            </tr>
+        }
+    </table>
+</body>
+</html>

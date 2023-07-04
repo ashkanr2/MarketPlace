@@ -1,0 +1,46 @@
+﻿@model App.Domain.Core.DtoModels.CommentDto
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Comment</title>
+</head>
+<body>
+    <h1>Create Comment</h1>
+    <form action="submit-comment" method="post">
+        <label for="id">ID:</label>
+        <input type="text" id="id" name="id"><br><br>
+
+        <label for="userId">User ID:</label>
+        <input type="text" id="userId" name="userId"><br><br>
+
+        <label for="comment">Comment:</label>
+        <input type="text" id="comment" name="comment"><br><br>
+
+        <label for="createdAt">Created At:</label>
+        <input type="datetime-local" id="createdAt" name="createdAt"><br><br>
+
+        <label for="isDeleted">Is Deleted:</label>
+        <input type="checkbox" id="isDeleted" name="isDeleted"><br><br>
+
+        <label for="boothId">Booth ID:</label>
+        <input type="text" id="boothId" name="boothId"><br><br>
+
+        <label for="orderId">Order ID:</label>
+        <input type="text" id="orderId" name="orderId"><br><br>
+
+        <label for="isAccepted">Is Accepted:</label>
+        <input type="checkbox" id="isAccepted" name="isAccepted"><br><br>
+
+        <label for="booth">Booth:</label>
+        <input type="text" id="booth" name="booth"><br><br>
+
+        <label for="order">Order:</label>
+        <input type="text" id="order" name="order"><br><br>
+
+        <label for="user">User:</label>
+        <input type="text" id="user" name="user"><br><br>
+
+        <input type="submit" value="Create">
+    </form>
+</body>
+</html>

@@ -75,54 +75,54 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Check if an image was uploaded
                 if (model.Image != null && model.Image.Length > 0)
                 {
-                    // Generate a unique file name using a combination of timestamp and the original file name
-                    var fileNameWithoutExtension = DateTime.Now.Ticks + "_+_" + Path.GetFileName(model.Image.FileName);
+                    var fileNameWithoutExtension = DateTime.Now.Ticks.ToString();
 
-                    // Get the path to the wwwroot folder
                     var wwwrootPath = _hostingEnvironment.WebRootPath;
-
-                    // Combine the wwwroot path with the desired image upload directory
                     var uploadPath = Path.Combine(wwwrootPath, "uploads");
 
-                    // Create the uploads directory if it doesn't exist
                     if (!Directory.Exists(uploadPath))
                     {
                         Directory.CreateDirectory(uploadPath);
                     }
 
-                    // Combine the upload path with the file name and the desired file extension
-                    var fileName = fileNameWithoutExtension + Path.GetExtension(model.Image.FileName);
+                    // Get the original file extension
+                    var fileExtension = Path.GetExtension(model.Image.FileName);
 
-                    // Combine the upload path with the file name to get the full file path
+                    // Construct the new file name
+                    var fileName = fileNameWithoutExtension + fileExtension;
+
                     var filePath = Path.Combine(uploadPath, fileName);
 
-                    // Save the uploaded image to the file system
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
                         await model.Image.CopyToAsync(stream);
                     }
 
+                   
+                    var imageNameInDatabase = fileNameWithoutExtension + ".png" + "_+_" + Path.GetFileNameWithoutExtension(model.Image.FileName).Replace(".", "");
+
                     var user = new AppUser
                     {
-                        UserProfileImageId = (await _imageAppservice.Upload(fileNameWithoutExtension, true, cancellationToken)),
+                        UserProfileImageId = (await _imageAppservice.Upload(imageNameInDatabase, true, cancellationToken)),
                         Name = model.Name,
                         LastName = model.LastName,
                         Email = model.Email,
                         UserName = model.Email,
                         Address = model.Address,
-
+                        CreatAt=DateTime.Now,
+                        EmailConfirmed=true,
                     };
+
                     var result = await _userManager.CreateAsync(user, model.Password);
                 }
-
-
             }
 
             return View(model);
         }
+
+
 
     }
 }

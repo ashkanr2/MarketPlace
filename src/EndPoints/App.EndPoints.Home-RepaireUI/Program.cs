@@ -82,6 +82,10 @@ builder.Services.AddScoped<IOrderRipository, OrderRipository>();
 builder.Services.AddScoped<IOrderAppservice, OrderAppservice>();
 builder.Services.AddScoped<IImageAppservice, ImageAppservice>();
 builder.Services.AddScoped<IImageRipository, ImageRipository>();
+builder.Services.AddScoped<ICartRipository,CartRipository>();
+builder.Services.AddScoped<ICartAppservice,CartAppservice>();
+builder.Services.AddScoped<ICartProductRipository, CartProductRipository>();
+builder.Services.AddScoped<ICartProductAppservise,CartProductAppservise>();
 builder.Services.AddScoped<DateConvertor>();
 builder.Services.AddRazorPages();
 

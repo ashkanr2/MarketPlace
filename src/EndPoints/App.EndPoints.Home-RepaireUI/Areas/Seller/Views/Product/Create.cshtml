@@ -12,33 +12,29 @@
        
                             <div class="portlet-heading">
                                 <div class="portlet-title">
-                                    <h3 class="title">                                        
-                                        <i class="icon-settings"></i>
-                                       افزودن کالا
-                                    </h3>
+                <h3 class="title">
+
+                    افزودن کالا
+                </h3>
                                 </div><!-- /.portlet-title -->
                                
                             </div><!-- /.portlet-heading -->
                             <div class="portlet-body">
-@*
-                                    @using (Html.BeginForm("Create", "Content", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                                    {
-                                        <input type="file" name="ImageData" id="ImageData" onchange="fileCheck(this);" />
-                                    }
-*@
+
+                                   
                                     <div class="form-body">
                                         <div class="form-group row">
                                             <label class="col-sm-3">نام کالا</label>
                                             <div class="col-sm-9">
-                                                
-                                                <input type="text" asp-for="ProductName" class="form-control">
+
+                                            <input type="text" asp-for="ProductName" class="form-control text text-center" placeholder="نام کالا">
                                             </div>
                                         </div><!-- /.form-group -->
                                         <div class="form-group row">
                                             <label class="col-sm-3">قیمت</label>
                                             <div class="col-sm-9">
-                                                
-                                            <input type="number" asp-for="UnitPrice" class="form-control">
+
+                                          <input type="number" asp-for="UnitPrice" class="form-control text text-center" placeholder="قیمت">
                                             </div>
                                         </div><!-- /.form-group -->
                                         
@@ -49,7 +45,17 @@
                                                 @Html.DropDownListFor(m => m.AllProductId, new SelectList(ViewBag.Allproduct, "Id", "Name"), "-- انتخاب کالا --", new { @class = "form-control" })
                                             </div>
                                         </div>
-                                    
+
+                                        <div class="form-group">
+                                            <label class="sr-only control-label" for="image">تصویر</label>
+                                            <div class="input-group round">
+                                                
+                                                <span class="input-group-addon">
+                                                  <i class="icon-picture"> اپلود عکس </i>
+                                                </span>
+                                       <input type="file" class="form-control round text text-center" id="image" name="image" @*asp-for=""*@>
+                                            </div><!-- /.input-group-->
+                                        </div><!-- /.form-group -->
                                         <div class="form-actions">
                                         <button type="submit" class="btn btn-info btn-round">
                                             <i class="icon-check"></i>

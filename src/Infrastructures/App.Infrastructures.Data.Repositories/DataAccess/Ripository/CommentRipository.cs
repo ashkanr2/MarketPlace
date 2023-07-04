@@ -46,11 +46,11 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
             .ToListAsync(cancellationToken));
 
         public async Task<CommentDto> GetDatail(int commentId, CancellationToken cancellationToken)
-         => await Task.FromResult(_mapper.Map<CommentDto>(await _context.Comments
-             .AsNoTracking()
-             .Where(x => x.Id == commentId)
-              .FirstOrDefaultAsync(cancellationToken)));
-
+        {
+            var comment = _mapper.Map<CommentDto>(await _context.Comments.AsNoTracking().Where(a => a.Id == commentId).FirstOrDefaultAsync());
+            return comment;
+        }
+        
         public async Task HardDelted(int commentId, CancellationToken cancellationToken)
         {
             var comment = await _context.Comments
