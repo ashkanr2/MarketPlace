@@ -19,7 +19,7 @@ namespace App.EndPoints.Home_RepaireUI.AutoMapper
             //User 
             
             CreateMap<AppUser, AppUserDto>();
-            
+            CreateMap<AppUserDto, AppUser>();
     
 
             CreateMap<Auction, AuctionDto>();
@@ -53,9 +53,11 @@ namespace App.EndPoints.Home_RepaireUI.AutoMapper
             CreateMap<MothersCategory, MothersCategoryDto>();
 
             CreateMap<Order, OrderDto>();
+            CreateMap<OrderDto, Order>();
 
 
             CreateMap<OrderProduct, OrderProductDto>();
+            CreateMap<OrderProductDto, OrderProduct>();
 
             CreateMap<Product, ProductDto>();
             CreateMap<ProductDto , Product>();

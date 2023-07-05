@@ -14,11 +14,11 @@ namespace App.Domain.Core.DataAccess
         Task<List<OrderDto>> GetAllOrders( CancellationToken cancellationToken);
         Task<List<OrderDto>> GetAllUserOrders(int userId, CancellationToken cancellationToken);
         Task<OrderDto> GetDatail(int orderId, CancellationToken cancellationToken);
-        Task Create(OrderDto order, CancellationToken cancellationToken);
+        Task<int> Create(OrderDto order, CancellationToken cancellationToken);
         Task Update(OrderDto order, CancellationToken cancellationToken);
         Task SoftDelete(int orderId, CancellationToken cancellationToken);
         Task HardDelted(int orderId, CancellationToken cancellationToken);
-
+        Task CreateOrderProducts(int orderId, List<OrderProductDto> product, CancellationToken cancellationToken);
 
     }
 }

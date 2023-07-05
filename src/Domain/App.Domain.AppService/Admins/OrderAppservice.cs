@@ -18,10 +18,11 @@ namespace App.Domain.AppService.Admins
             _orderRipository = orderRipository;
         }
 
-        public async Task Create(OrderDto order, CancellationToken cancellationToken)
-        {
-           await _orderRipository.Create(order, cancellationToken);
-        }
+        public async Task<int> Create(OrderDto order, CancellationToken cancellationToken)
+        => await _orderRipository.Create(order,cancellationToken);
+
+       public async Task CreateOrderProducts(int orderId, List<OrderProductDto> product, CancellationToken cancellationToken)
+        =>await _orderRipository.CreateOrderProducts(orderId, product, cancellationToken);
 
         public async Task<List<OrderDto>> GetAllBoothOrders(int BoothId, CancellationToken cancellationToken)
        => await _orderRipository.GetAllBoothOrders(BoothId, cancellationToken);

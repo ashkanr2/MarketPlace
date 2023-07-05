@@ -24,7 +24,7 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
             _mapper = mapper;
         }
 
-        public async Task Create(OrderDto order, CancellationToken cancellationToken)
+        public async Task<int> Create(OrderDto order, CancellationToken cancellationToken)
         {
             var record = _mapper.Map<Order>(order);
             record.OrderCreatTime = DateTime.Now;
@@ -32,13 +32,31 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
             try
             {
                 await _context.Orders.AddAsync(record);
-                await _context.SaveChangesAsync(cancellationToken);
+                await _context.SaveChangesAsync();
 
+                return record.Id; // Return the ID of the created order
             }
             catch (Exception ex)
             {
                 //_loger.LogError("Error in add new Order {exception}", ex);
+                throw;
             }
+        }
+
+        public async Task CreateOrderProducts(int orderId, List<OrderProductDto> product, CancellationToken cancellationToken)
+        {
+            foreach (var item in product)
+            {
+                
+                item.OrderId = orderId;
+                item.ProductId = item.Product.Id;
+                item.Product = null;
+
+                var orderProductEntity = _mapper.Map<OrderProduct>(item); 
+                await _context.OrderProducts.AddAsync(orderProductEntity);
+            }
+
+            await _context.SaveChangesAsync(); 
         }
 
         public async Task<List<OrderDto>> GetAllBoothOrders(int BoothId, CancellationToken cancellationToken)

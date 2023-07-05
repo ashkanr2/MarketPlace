@@ -1,6 +1,10 @@
 ﻿<!DOCTYPE html>
 <html lang="fa">
 @using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<App.Domain.Core.Entities.AppUser> SignInManager
+@inject UserManager<App.Domain.Core.Entities.AppUser> userManager
+
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <head>
     <meta charset="utf-8" />
@@ -46,8 +50,20 @@
                             </form>
                         </div>
                     </div>
-                    <a class="dropdown-item" asp-controller="Account" asp-action="Login" asp-area="">ورود</a>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <span>  <a class="dropdown-item" asp-controller="Account" asp-action="Login" asp-area=""> @User.Identity.Name</a></span>
+                    }
+                    else
+                    {
+                        <a class="dropdown-item" asp-controller="Account" asp-action="Login" asp-area="">ورود</a>
+                    }
 
+                       
+                        
+
+                  
+                   
                     <div class="col-lg-4 col-md-5 col-sm-8 col-7">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

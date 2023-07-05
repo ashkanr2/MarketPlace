@@ -40,7 +40,23 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
             var MotherCategories = await _motherCategoryAppservice.GetAll(cancellationToken);
             return View(MotherCategories);
         }
-
+        public async Task<IActionResult> Inventory(CancellationToken cancellationToken)
+        {
+            var userId = (await _userManager.GetUserAsync(User)).Id;
+            var UserWAllet = (await _appuserRipositry.GetDetail(userId, cancellationToken)).Wallet;
+            ViewBag.wallet = UserWAllet;
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Inventory(int wallet , CancellationToken cancellationToken)
+        {
+            var userId = (await _userManager.GetUserAsync(User)).Id;
+            var UserInfo = (await _appuserRipositry.GetDetail(userId, cancellationToken));
+            await _appuserRipositry.IncreaseWallet(userId, wallet, cancellationToken);
+            var UserWallet = (await _appuserRipositry.GetDetail(userId, cancellationToken)).Wallet;
+            ViewBag.wallet = UserWallet;
+            return RedirectToAction("Index", "Home");
+        }
 
         public async Task<IActionResult>Allproduct(CancellationToken cancellationToken)
         {

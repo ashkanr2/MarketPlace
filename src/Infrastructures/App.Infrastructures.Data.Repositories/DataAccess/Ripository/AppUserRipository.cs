@@ -120,5 +120,20 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
             return roles;
         }
 
+        public async Task IncreaseWallet(int userId, int amount, CancellationToken CancellationToken)
+        {
+            var user = _mapper.Map<AppUserDto>(await _context.Users.AsNoTracking().Where(a=>a.Id==userId).FirstOrDefaultAsync());
+            user.Wallet= user.Wallet + amount;
+            
+            await Update(user, CancellationToken);
+        }
+
+        public async Task DecreaseWallet(int userId, int amount, CancellationToken CancellationToken)
+        {
+            var user = _mapper.Map<AppUserDto>(await _context.Users.AsNoTracking().Where(a => a.Id == userId).FirstOrDefaultAsync());
+            user.Wallet = user.Wallet - amount;
+
+            await Update(user, CancellationToken);
+        }
     }
 }

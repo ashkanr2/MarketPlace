@@ -18,6 +18,8 @@ namespace App.Domain.Core.DataAccess
 
         Task<AppUserDto> GetDetail(int userId, CancellationToken CancellationToken);
         Task Update(AppUserDto appuser, CancellationToken CancellationToken);
+        Task IncreaseWallet(int userId, int amount, CancellationToken CancellationToken);
+        Task DecreaseWallet(int userId,int amount, CancellationToken CancellationToken);
         Task<bool> Exists(string email, CancellationToken CancellationToken);
         Task<List<string>> GetRoles(int userId, CancellationToken cancellationToken);
        

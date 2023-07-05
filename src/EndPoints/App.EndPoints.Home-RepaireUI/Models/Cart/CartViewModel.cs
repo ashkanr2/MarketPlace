@@ -8,6 +8,8 @@ namespace App.EndPoints.Home_RepaireUI.Models.Cart
         public int Id { get; set; }
         public int UserId { get; set; }
         public int BoothId { get; set; }
+        public int TotalPrice { get; set; }
+        public string BoothName { get; set; }   
         public DateTime CreateTime { get; set; }
         public CartProductDto CartProduct { get; set; }
         public virtual ICollection<ProductViewModel> CartProducts { get; set; } = new List<ProductViewModel>();

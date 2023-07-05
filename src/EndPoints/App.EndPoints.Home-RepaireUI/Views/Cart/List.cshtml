@@ -56,6 +56,11 @@
                                             <a asp-action="Index" asp-controller="Cart" class="btn btn-info btn-round" asp-route-cartId="@cartViewModel.Id">
                                                 مشاهده جزئیات
                                             </a>
+                                            <a asp-action="PaymentMethod" asp-controller="Cart" class="btn btn-success btn-round"
+                                               asp-route-totalPrice="@cartViewModel.TotalPrice" asp-route-cartId="@cartViewModel.Id">
+                                                پرداخت
+                                            </a>
+
                                         </td>
                                     </tr>
                                     count++;

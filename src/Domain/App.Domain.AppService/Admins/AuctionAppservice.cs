@@ -1,4 +1,5 @@
 ﻿using App.Domain.Core.AppServices.Admin;
+using App.Domain.Core.AppServices.Admins;
 using App.Domain.Core.DataAccess;
 using App.Domain.Core.DtoModels;
 using AutoMapper;
@@ -14,7 +15,7 @@ namespace App.Domain.AppService.Admins
     {
         private readonly IAuctionRipository _auctionRipository;
         private readonly IMapper _mapper;
-
+        private readonly IProductAppservice _productAppservice;
         public AuctionAppservice(IAuctionRipository auctionRipository, IMapper mapper)
         {
             _auctionRipository = auctionRipository;
@@ -23,7 +24,11 @@ namespace App.Domain.AppService.Admins
 
         public async Task Create(AuctionDto auction, CancellationToken cancellationToken)
         {
+
             await _auctionRipository.Create(auction, cancellationToken);
+            var product = await _productAppservice.GetDetail(auction.ProductId, cancellationToken);
+            product.IsAvailable = false;
+            await _productAppservice.Update(product, cancellationToken);
         }
 
         public async Task<List<AuctionDto>> GetAll(int BoothId, CancellationToken cancellationToken)

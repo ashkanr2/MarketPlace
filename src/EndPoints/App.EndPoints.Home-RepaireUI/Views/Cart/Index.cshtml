@@ -39,6 +39,7 @@
                                 
                                 <th scope="col">غرفه </th>
                                 <th scope="col">قیمت نهایی</th>
+                                <th scope="col">عملیات</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,8 +62,15 @@
                                     </td>
                                     
                                     <td class="price_alltd"><span> @item.UnitPrice تومان</span></td>
+                                    <td>
+                                        <a asp-action="PaymentMethod" asp-controller="Cart" class="btn btn-success btn-round"
+                                           asp-route-cartId="@Model.Id" asp-route-totalPrice="@Model.TotalPrice">
+                                            پرداخت
+                                        </a>
+                                    </td>
                                 </tr>
                             }
+                           
                         </tbody>
                     </table>
                 </div>

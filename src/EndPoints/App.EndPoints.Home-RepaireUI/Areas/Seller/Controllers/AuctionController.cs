@@ -8,6 +8,8 @@ using App.Domain.Core.DataAccess;
 using System.Threading;
 using App.EndPoints.Home_RepaireUI.Areas.Seller.Models.Auction;
 using App.Domain.Core.AppServices.Admin;
+using System.Drawing.Printing;
+using App.Frameworks.Web;
 
 namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Controllers
 {
@@ -21,18 +23,20 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Controllers
         private readonly IAuctionAppservice _auctionAppservice;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IBoothAppservice _boothAppservice;
-
+        private readonly DateConvertor dateConvertor;
         public AuctionController(UserManager<AppUser> userManager,
             IProductAppservice productAppservice,
             SignInManager<AppUser> signInManager,
             IBoothAppservice boothAppservice,
-            IAuctionAppservice auctionAppservice)
+            IAuctionAppservice auctionAppservice,
+            DateConvertor dateConvertor)
         {
             _userManager = userManager;
             _productAppservice = productAppservice;
             _signInManager = signInManager;
             _boothAppservice = boothAppservice;
             _auctionAppservice = auctionAppservice;
+            this.dateConvertor = dateConvertor;
         }
 
         public async Task <IActionResult> GetAllAuction(CancellationToken cancellationToken)
@@ -44,7 +48,7 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Controllers
                 return RedirectToAction("Index","Home");
             }
                 var Auctions = await _auctionAppservice.GetAll(boothId ?? default(int), cancellationToken);
-                var AuctionView = Auctions.Select(a => new AuctionViewModel
+                var AuctionView = Auctions.Select(async a => new AuctionViewModel
                 {
                     Id = a.Id,
                     StartTime = a.StartTime,
@@ -52,7 +56,8 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Controllers
                     Product = a.Product,
                     ProductId = a.ProductId,
                     Bids = a.Bids,
-
+                    StaredTime= dateConvertor.ConvertToPersianDate(a.StartTime),
+                    EndedTime=dateConvertor.ConvertToPersianDate(a.EndTime),
                 }).ToList();
             
             return View(AuctionView);
@@ -62,7 +67,8 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Controllers
         {
             var userId = (await _signInManager.UserManager.GetUserAsync(User)).Id;
             var boothId = (await _boothAppservice.Getbooth(userId, cancellationToken)).Id;
-            var products = await _productAppservice.GetBoothProducts(boothId, cancellationToken);
+            var products = (await _productAppservice.GetBoothProducts(boothId, cancellationToken))
+             .Where(a => a.IsAvailable && !a.IsDeleted && a.IsAccepted);
 
             ViewBag.Products = products;
 
@@ -81,6 +87,7 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Controllers
 
             };
             await _auctionAppservice.Create(auctionDto, cancellationToken);
+            
             return RedirectToAction("Index","Home");
 
         }

@@ -10,6 +10,9 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Models.Auction
         public DateTime StartTime { get; set; }
 
         public DateTime EndTime { get; set; }
+        public string StaredTime { get; set; }
+
+        public string EndedTime { get; set; }
 
         public int WinnerId { get; set; }
 

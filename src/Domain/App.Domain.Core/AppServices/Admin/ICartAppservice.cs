@@ -18,6 +18,6 @@ namespace App.Domain.Core.AppServices.Admin
         Task<List<CartDto>> GetAllBooth(int boothID, CancellationToken cancellationToken);
         Task Update(CartDto booth, CancellationToken cancellationToken);
         Task HardDelted(int cartId, CancellationToken cancellationToken);
-        
+        Task<int> CreateOrder(int cartId,AppUserDto user ,CancellationToken cancellationToken);
     }
 }
