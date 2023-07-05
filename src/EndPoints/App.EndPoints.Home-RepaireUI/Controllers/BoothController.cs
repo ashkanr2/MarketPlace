@@ -2,21 +2,26 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using App.EndPoints.Home_RepaireUI.Models.Booth;
+using App.Frameworks.Web;
+
 namespace App.EndPoints.Home_RepaireUI.Controllers
 {
     public class BoothController : Controller
     {
         private readonly IMapper _mapper;
         private readonly IBoothAppservice _boothAppservice;
-
-        public BoothController(IMapper mapper, IBoothAppservice boothAppservice)
+        private readonly DateConvertor _dateConvertor;
+        public BoothController(IMapper mapper, IBoothAppservice boothAppservice, DateConvertor dateConvertor)
         {
             _mapper = mapper;
             _boothAppservice = boothAppservice;
+            _dateConvertor = dateConvertor;
         }
         public async Task<IActionResult> Booths(CancellationToken cancellation)
         {
-            var booths = await _boothAppservice.GetAll(cancellation);
+            var booths = (await _boothAppservice.GetAll(cancellation))
+            .Where(x => x.IsCreated && !x.IsDeleted)
+            .ToList();
             var boothViewModels = booths.Select(b => new BoothViewModel
             {
                 Id = b.Id,
@@ -29,9 +34,32 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
                 IsDeleted = b.IsDeleted,
                 CityId = b.CityId,
                 IsCreated = b.IsCreated,
+                CreatedDate = _dateConvertor.ConvertToPersianDate(b.CreatedAt)
             }).ToList();
             return View(boothViewModels);
 
+        }
+        public async Task<IActionResult>GetBoothDetail(int id, CancellationToken cancellationToken)
+        {
+            var Item = await _boothAppservice.GetDatail(id, cancellationToken);
+            var Booth = new BoothViewModel
+            {
+                Id = Item.Id,
+                Name = Item.Name,
+                OwnerUserId = Item.OwnerUserId,
+                CreatedAt = Item.CreatedAt,
+                Description = Item.Description,
+                TotalSalesNumber = Item.TotalSalesNumber,
+                BoothImageId = Item.BoothImageId,
+                IsDeleted = Item.IsDeleted,
+                CityId = Item.CityId,
+                IsCreated = Item.IsCreated,
+                CreatedDate = _dateConvertor.ConvertToPersianDate(Item.CreatedAt),
+                Image=Item.BoothImage,
+            };
+
+
+            return View(Booth);
         }
 
     }

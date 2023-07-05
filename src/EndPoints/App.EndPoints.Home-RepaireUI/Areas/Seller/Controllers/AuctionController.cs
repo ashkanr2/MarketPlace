@@ -39,29 +39,31 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Controllers
             this.dateConvertor = dateConvertor;
         }
 
-        public async Task <IActionResult> GetAllAuction(CancellationToken cancellationToken)
+        public async Task<IActionResult> GetAllAuction(CancellationToken cancellationToken)
         {
             var userId = (await _signInManager.UserManager.GetUserAsync(User)).Id;
             var boothId = (await _boothAppservice.Getbooth(userId, cancellationToken))?.Id;
-           if(boothId == null)
+
+            if (boothId == null)
             {
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
             }
-                var Auctions = await _auctionAppservice.GetAll(boothId ?? default(int), cancellationToken);
-                var AuctionView = Auctions.Select(async a => new AuctionViewModel
-                {
-                    Id = a.Id,
-                    StartTime = a.StartTime,
-                    EndTime = a.EndTime,
-                    Product = a.Product,
-                    ProductId = a.ProductId,
-                    Bids = a.Bids,
-                    StaredTime= dateConvertor.ConvertToPersianDate(a.StartTime),
-                    EndedTime=dateConvertor.ConvertToPersianDate(a.EndTime),
-                }).ToList();
-            
-            return View(AuctionView);
-            
+
+            var Auctions = await _auctionAppservice.GetAll(boothId ?? default(int), cancellationToken);
+            var AuctionTasks = Auctions.Select(async a => new AuctionViewModel
+            {
+                Id = a.Id,
+                StartTime = a.StartTime,
+                EndTime = a.EndTime,
+                Product = a.Product,
+                ProductId = a.ProductId,
+                Bids = a.Bids,
+                StaredTime=dateConvertor.ConvertToPersianDate(a.StartTime),
+                EndedTime = dateConvertor.ConvertToPersianDate(a.EndTime)
+            }).ToList();
+
+            var AuctionView = await Task.WhenAll(AuctionTasks);
+            return View(AuctionView.ToList());
         }
         public async Task<IActionResult> Create(CancellationToken cancellationToken)
         {

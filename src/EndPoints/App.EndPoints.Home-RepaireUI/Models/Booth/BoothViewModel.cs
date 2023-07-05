@@ -1,4 +1,6 @@
-﻿namespace App.EndPoints.Home_RepaireUI.Models.Booth
+﻿using App.Domain.Core.DtoModels;
+
+namespace App.EndPoints.Home_RepaireUI.Models.Booth
 {
     public class BoothViewModel
     {
@@ -21,6 +23,8 @@
         public int CityId { get; set; }
 
         public bool IsCreated { get; set; }
+        public string CreatedDate { get; set; }
+        public ImageDto Image { get; set; }
 
     }
 }

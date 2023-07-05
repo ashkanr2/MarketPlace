@@ -13,6 +13,7 @@ namespace App.Domain.Core.DataAccess
         Task Create(AuctionDto auction, CancellationToken cancellationToken);
         Task<List<AuctionDto>> GetAll(int boothId,CancellationToken cancellationToken);
         Task Update(AuctionDto auction, CancellationToken cancellationToken);
-        
+        Task<List<AuctionDto>> GetAllAllActions(CancellationToken cancellationToken);
+      
     }
 }

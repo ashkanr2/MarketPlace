@@ -3,6 +3,7 @@ using App.Domain.Core.AppServices.Admins;
 using App.Domain.Core.DataAccess;
 using App.Domain.Core.DtoModels;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,23 @@ namespace App.Domain.AppService.Admins
 
         public async Task<List<AuctionDto>> GetAll(int BoothId, CancellationToken cancellationToken)
         => await _auctionRipository.GetAll(BoothId, cancellationToken);
-        
+
+        public async Task<List<AuctionDto>> GetAllAllActions(CancellationToken cancellationToken)
+       => await _auctionRipository.GetAllAllActions(cancellationToken);
+
+        public async Task<List<ProductDto>> GetAllProductsAuction(CancellationToken cancellationToken)
+        {
+            var allAuctions = await _auctionRipository.GetAllAllActions(cancellationToken);
+            var currentDate = DateTime.Now;
+
+            var productsInAuction = allAuctions
+               .Where(a => a.StartTime <= currentDate && a.EndTime > currentDate)
+                .Select(a => a.Product)
+                .ToList();
+
+            return productsInAuction;
+
+        }
 
         public async Task<AuctionDto> GetDatail(int auctionId, CancellationToken cancellationToken)
          => await _auctionRipository.GetDatail(auctionId, cancellationToken);

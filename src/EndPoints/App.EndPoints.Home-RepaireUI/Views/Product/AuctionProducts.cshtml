@@ -1,7 +1,7 @@
 ﻿@model List<App.EndPoints.Home_RepaireUI.Models.Product.ProductViewModel>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-    ViewData["Title"] = $"{ViewBag.CategoryName} کالا های ";
+    ViewData["Title"] = "کالاهای مزایده ای  ";
 
 
 }
@@ -9,11 +9,17 @@
     <header class="card-header">
         <h3 class="card-title">
             <span>کالاها </span>
+           
         </h3>
         <br />
         <br />
+        
         @{
             int length = Model.Count;
+        }
+        @if (length==0)
+        {
+            <h4 class="text-danger">  در حال حاضر  مزایده ای موجود نیست </h4>
         }
         @for (int i = 0; i < length; i += 6)
         {

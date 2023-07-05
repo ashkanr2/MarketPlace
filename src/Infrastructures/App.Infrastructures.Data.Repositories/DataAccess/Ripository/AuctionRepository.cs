@@ -47,6 +47,13 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
             .Include(p=>p.Product)
             .ToListAsync(cancellationToken));
 
+        public async Task<List<AuctionDto>> GetAllAllActions(CancellationToken cancellationToken)
+        => _mapper.Map<List<AuctionDto>>(await _context.Auctions
+            .AsNoTracking()
+            .Include(p => p.Product)
+            .ToListAsync(cancellationToken));
+
+       
         public async Task<AuctionDto> GetDatail(int auctionId, CancellationToken cancellationToken)
         =>_mapper.Map<AuctionDto>(await _context.Auctions
             .AsNoTracking()

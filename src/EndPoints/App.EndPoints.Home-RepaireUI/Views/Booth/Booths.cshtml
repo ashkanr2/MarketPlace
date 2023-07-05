@@ -38,17 +38,11 @@
                                     <tr class="table-info">
                                         <td>@counter</td>
                                         <td>@item.Name</td>
-                                        <td>@item.CreatedAt</td>
-                                        @if (item.IsCreated == false)
+                                        <td>@item.CreatedDate</td>
+                                       
+                                        @if (item.IsCreated == true && item.IsDeleted==false) 
                                         {
-
-                                            <td>
-                                                <a class="btn btn-success btn-round" asp-controller="Booth" asp-action="Active" asp-route-Id="@item.Id">فعال کردن</a>
-                                            </td>
-                                        }
-                                        @if (item.IsCreated == true)
-                                        {
-                                            <td>  <a class="btn btn-danger btn-round" asp-controller="Booth" asp-action="Diactivated" asp-route-Id="@item.Id">غیر فعال </a></td>
+                                            <td>  <a class="btn btn-info btn-round" asp-controller="Booth" asp-action="GetBoothDetail" asp-route-Id="@item.Id">مشاهده   </a></td>
 
                                         }
 

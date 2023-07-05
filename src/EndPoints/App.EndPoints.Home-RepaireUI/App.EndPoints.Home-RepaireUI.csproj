@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <Content Remove="Areas\Admin\Views\Product\Detail.cshtml" />
+    <Content Remove="Views\Product\AuctionProducts.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -91,6 +92,7 @@
     <None Include="Areas\Seller\Views\Product\Index.cshtml" />
     <None Include="Areas\Seller\Views\Product\Update.cshtml" />
     <None Include="Areas\Seller\Views\Shared\_LayoutSeller.cshtml.css" />
+    <None Include="Views\Product\AuctionProducts.cshtml" />
     <None Include="wwwroot\css\plugins\prettyphoto\js\jquery.prettyPhoto.js" />
     <None Include="wwwroot\fonts\font-awesome\webfonts\fa-brands-400.woff2" />
     <None Include="wwwroot\fonts\font-awesome\webfonts\fa-regular-400.woff2" />
@@ -112,6 +114,14 @@
     <None Include="wwwroot\js\plugins\jquery.sharrre.js" />
     <None Include="wwwroot\js\plugins\nouislider.min.js" />
     <None Include="wwwroot\js\plugins\owl.carousel.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Product\AuctionProducts.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Product\AuctionProducts.cshtml" />
   </ItemGroup>
 
 </Project>

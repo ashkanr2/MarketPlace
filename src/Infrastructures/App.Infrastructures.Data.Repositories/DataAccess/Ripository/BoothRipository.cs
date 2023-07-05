@@ -46,6 +46,7 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
 
         public async Task<BoothDto> GetDatail(int boothId, CancellationToken cancellationToken)
         { var booth = await _context.Booths.AsNoTracking()
+                .Include(a=>a.BoothImage)
              .Where(x => x.Id == boothId).FirstOrDefaultAsync(cancellationToken);
             return _mapper.Map<BoothDto>(booth);
            
