@@ -61,7 +61,7 @@
                                
 
                                 <div class="col-12 text-center">
-                                    <a href="edit-profile.html" class="btn btn-main-masai big_btn">
+                                    <a asp-action="EditeProfile" asp-controller="Home" class="btn btn-main-masai big_btn">
                                         ویرایش
                                     </a>
                                 </div>
@@ -135,13 +135,13 @@
                             </a>
                         </li>
                         <li>
-                            <a href="edit-profile.html" class="dropdown-item">
+                            <a asp-action="EditeProfile" asp-controller="Home" class="dropdown-item">
                                 <i class="fa fa-pencil colormain" aria-hidden="true"></i>
                                 ویرایش اطلاعات
                             </a>
                         </li>
                         <li>
-                            <a asp-action="Delivered" asp-action="Order" class="dropdown-item ">
+                            <a asp-action="Delivered" asp-controller="Order" class="dropdown-item ">
                                 <i class="fa fa-cart-arrow-down colormain" aria-hidden="true"></i>
                                 تحویل داده شده
                             </a>

@@ -53,13 +53,14 @@ namespace App.Domain.AppService.Admins
 
         public async Task<ProductDto> GetDetail(int productId, CancellationToken cancellationToken)
          =>  await _productRipository.GetDatail(productId, cancellationToken);
-        
 
-        public Task<List<ProductDto>> GetMCAtegoryProducts(int MCId, CancellationToken cancellationToken)
+
+        public async Task<List<ProductDto>> GetMCAtegoryProducts(int MCId, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var item = await _productRipository.GetAllFromCategory(MCId,cancellationToken);
+            
+            return item;
         }
-
         public async Task OnDelete(int producttId, CancellationToken cancellationToken)
         {
             var product = await _productRipository.GetDatail(producttId, cancellationToken);

@@ -31,11 +31,12 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
             {
                 await _context.Products.AddAsync(record);
                 await _context.SaveChangesAsync(cancellationToken);
+                Console.WriteLine($"New Product Added Successful");
 
             }
             catch (Exception ex)
             {
-                //_loger.LogError("Error in add new Order {exception}", ex);
+                Console.WriteLine($"Error in add new Product: {ex}");
             }
         }
 
@@ -53,13 +54,15 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
             return productDtos;
 
         }
-        public async Task<List<ProductDto>> GetAllFromCategory(int categoryId, CancellationToken cancellationToken)
+        public async Task<List<ProductDto>> GetAllFromCategory(int McategoryId, CancellationToken cancellationToken)
         {
             var products = await _context.Products
             .AsNoTracking()
             .Include(x => x.AllProduct)
             .ThenInclude(a => a.Category)
-             .Where(x => x.AllProduct.CategoryId == categoryId)
+            .Include(i => i.ProductImages)
+            .ThenInclude(a => a.Image)
+             .Where(x => x.AllProduct.Category.MotherCategoryId == McategoryId)
                 .ToListAsync(cancellationToken);
 
             var productDtos = _mapper.Map<List<ProductDto>>(products);

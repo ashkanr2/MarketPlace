@@ -35,6 +35,7 @@ namespace App.EndPoints.Home_RepaireUI.AutoMapper
             CreateMap<BuyerMedal, BuyerMedalDto>();
 
             CreateMap<Category, CategoryDto>();
+            CreateMap<CategoryDto, Category>();
 
             CreateMap<City, CityDto>();
 

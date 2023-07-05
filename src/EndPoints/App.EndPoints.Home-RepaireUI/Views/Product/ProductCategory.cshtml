@@ -1,0 +1,58 @@
+﻿@model List<App.EndPoints.Home_RepaireUI.Models.Product.ProductViewModel>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "کالاهای موجود  ";
+
+
+}
+<div class="widget widget-product card border_all bglight pad_time_prod" id="shegeft_1">
+    <header class="card-header">
+        <h3 class="card-title">
+            <span>کالاها </span>
+        </h3>
+        <br />
+        <br />
+        @{
+            int length = Model.Count;
+        }
+        @for (int i = 0; i < length; i += 6)
+        {
+            <div class="product-carousel owl-carousel owl-theme owl-rtl owl-loaded owl-drag">
+                <div class="owl-stage-outer">
+                    <div class="owl-stage">
+                        @for (int j = i; j < i + 6 && j < length; j++)
+                        {
+                            var product = Model[j];
+                            <div class="owl-item active">
+                                <div class="item">
+                                    <a href="single-product.html">
+                                        @if (product.ImagesPaths != null && product.ImagesPaths.Any())
+                                        {
+                                            var imagePath = product.ImagesPaths.First();
+                                            var imageUrl = $"~/uploads/{imagePath}";
+                                            <img class="img-fluid" src="@Url.Content(imageUrl)" alt="Product Image" />
+                                            <br />
+                                        }
+                                        <h2 class="product_title">
+                                            @product.ProductName
+                                        </h2>
+                                        <div class="price">
+                                            <span>@product.UnitPrice<span>تومان</span></span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+                </div>
+                <div class="owl-dots disabled"></div>
+            </div>
+            <br />
+            <br />
+        }
+</div>
+
+
+
+

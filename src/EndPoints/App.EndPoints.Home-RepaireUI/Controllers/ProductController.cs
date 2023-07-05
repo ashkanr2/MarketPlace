@@ -33,5 +33,23 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
             }).ToList();
             return View(ProductViwe);
         }
+        public async Task<IActionResult> ProductCategory(int motherCategoryId, CancellationToken CancellationToken)
+        {
+            var products = await _productAppservice.GetMCAtegoryProducts(motherCategoryId, CancellationToken);
+            var ProductViwe = products.Select(x => new ProductViewModel
+            {
+                Id = x.Id,
+                UnitPrice = x.UnitPrice,
+                boothId = x.BoothId,
+                ProductName = x.Name,
+                ImagesPaths = x.ProductImages.Select(pi =>
+                {
+                    string[] parts = pi.Image.Path.Split("_+_");
+                    return parts[0];
+                }).ToList()
+            }).ToList();
+            return View(ProductViwe);
+        }
+        
     }
 }

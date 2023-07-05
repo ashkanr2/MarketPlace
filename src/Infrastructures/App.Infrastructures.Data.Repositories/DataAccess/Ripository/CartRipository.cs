@@ -43,7 +43,11 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
 
         public async Task<List<CartDto>> GetAllUserCarts(int userID, CancellationToken cancellationToken)
         {
-            var UserCarts = _mapper.Map<List<CartDto>>(await _context.Carts.AsNoTracking().Where(a => a.UserId == userID).ToListAsync());
+            var UserCarts = _mapper.Map<List<CartDto>>(await _context.Carts
+                .Include(p=>p.CartProducts)
+                .ThenInclude(c=>c.Product)
+                .AsNoTracking().Where(a => a.UserId == userID).ToListAsync());
+
             return UserCarts;
         }
 

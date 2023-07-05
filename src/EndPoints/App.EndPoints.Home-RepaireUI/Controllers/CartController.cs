@@ -19,9 +19,9 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
             _signInManager = signInManager;
         }
 
-        public async Task <IActionResult> Index( CancellationToken cancellationToken)
+        public async Task <IActionResult> Index(int cartId , CancellationToken cancellationToken)
         {
-            int cartId = 1;
+            
             var cart = await _appservice.GetDatail(cartId,cancellationToken);
 
             if (cart == null)
@@ -37,15 +37,14 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
                 Id = cart.Id,
                 UserId = cart.UserId,
                 CreateTime = cart.CreateTime,
-                //CartProducts = cart.CartProducts.Select(cp => new ProductViewModel
-                //{
-                //    Id = cp.Product.Id,
-                //    UnitPrice = cp.Product.UnitPrice,
-                //    boothId = cp.Product.BoothId,
-                //    ProductName = cp.Product.Name,
-                //    Allproduct = cp.Product.AllProduct.Name,
-                //    ImagesPaths = cp.Product.ProductImages.Select(pi => pi.Image.Path).ToList()
-                //}).ToList()
+                CartProducts = cart.CartProducts.Select(cp => new ProductViewModel
+                {
+                    Id = cp.Product.Id,
+                    UnitPrice = cp.Product.UnitPrice,
+                    boothId = cp.Product.BoothId,
+                    ProductName = cp.Product.Name,
+                    
+                }).ToList()
             };
             return View(cartViewModel);
         }

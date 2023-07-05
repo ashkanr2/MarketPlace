@@ -1,0 +1,100 @@
+﻿@model App.Domain.Core.DtoModels.AppUserDto
+@{
+    ViewData["Title"] = "ویرایش مشخصات";
+}
+<div class="col-lg-6 col-md-6">
+    <header class="card-header">
+        <h3 class="card-title"><span>اطلاعات حساب شخصی</span></h3>
+    </header>
+    <div class="login_box">
+
+
+
+        <form method="post" asp-action="EditeProfile" asp-controller="Home" class="">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="form-account-title"><span>*</span> نام کاربری</div>
+                    <div class="form-account-row">
+                        <input class="input_second input_all" type="text" placeholder="@Model.Name" asp-for="@Model.Name" >
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                    <div class="form-account-title"><span>(اختیاری)</span> نام و نام خانوادگی </div>
+                    <div class="form-account-row">
+                        <input class="input_second input_all" type="text" placeholder="@Model.LastName" asp-for="@Model.LastName">
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                    <div class="form-account-title"><span>*</span> شماره همراه </div>
+                    <div class="form-account-row">
+                        <input class="input_second input_all" type="text" placeholder="@Model.PhoneNumber" asp-for="@Model.PhoneNumber">
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                    <div class="form-account-title"><span>(اختیاری)</span> ایمیل </div>
+                    <div class="form-account-row">
+                        <input class="input_second input_all" type="text" placeholder="@Model.Email" asp-for="@Model.Email">
+                    </div>
+                </div>
+                <button  type="submit" class="btn btn-info btn-round">
+                    <i class="icon-check"></i>
+                    ذخیره
+                </button>
+     
+            </div>
+        </form>
+        <div class="profile-menu ">
+            <ul class="profile-menu-items">
+                <li>
+                    <a asp-action="Profile" asp-action="Home" class="dropdown-item active">
+                        <i class="fa fa-user-large colormain"></i>
+                        پروفایل
+                    </a>
+                </li>
+                <li>
+                    <a asp-action="EditeProfile" asp-controller="Home" class="dropdown-item">
+                        <i class="fa fa-pencil colormain" aria-hidden="true"></i>
+                        ویرایش اطلاعات
+                    </a>
+                </li>
+                <li>
+                    <a asp-action="Delivered" asp-controller="Order" class="dropdown-item ">
+                        <i class="fa fa-cart-arrow-down colormain" aria-hidden="true"></i>
+                        تحویل داده شده
+                    </a>
+                </li>
+                <li>
+                    <a href="order-current.html" class="dropdown-item ">
+                        <i class="fa fa-cart-arrow-down colormain" aria-hidden="true"></i>    سفارش جاری
+                    </a>
+                </li>
+                <li>
+                    <a href="order-cancelled.html" class="dropdown-item">
+                        <i class="fa fa-times colormain" aria-hidden="true"></i>
+                        لغو شده
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="order-message.html" class="dropdown-item">
+
+                        نظرات من
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="password-update.html" class="dropdown-item">
+                        <i class="fa fa-shield colormain" aria-hidden="true"></i>
+                        تغییر رمز
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+
+
+    </div>
+
+</div>

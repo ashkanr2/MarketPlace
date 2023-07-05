@@ -1,4 +1,5 @@
-﻿using App.Domain.Core.AppServices.Admins;
+﻿using App.Domain.Core.AppServices.Admin;
+using App.Domain.Core.AppServices.Admins;
 using App.Domain.Core.DataAccess;
 using App.Domain.Core.DtoModels;
 using App.Domain.Core.Entities;
@@ -20,7 +21,9 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly DateConvertor _dateConvertor;
-        public HomeController(ILogger<HomeController> logger, IProductAppservice productAppservice, IAppUserRipositry appuserRipositry, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, DateConvertor dateConvertor)
+        private readonly ICategoryAppservice _categoryAppservice;
+        private readonly IMotherCategoryAppservice _motherCategoryAppservice;
+        public HomeController(ILogger<HomeController> logger, IProductAppservice productAppservice, IAppUserRipositry appuserRipositry, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, DateConvertor dateConvertor, IMotherCategoryAppservice motherCategoryAppservice)
         {
             _logger = logger;
             _productAppservice = productAppservice;
@@ -28,14 +31,16 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _dateConvertor = dateConvertor;
+            _motherCategoryAppservice = motherCategoryAppservice;
         }
 
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
-            
-            return View();
+            var MotherCategories = await _motherCategoryAppservice.GetAll(cancellationToken);
+            return View(MotherCategories);
         }
+
 
         public async Task<IActionResult>Allproduct(CancellationToken cancellationToken)
         {
@@ -61,9 +66,19 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
             var userInfo = await _appuserRipositry.GetDetail(userId, cancellationToken);
             return View(userInfo);
         }
-        public IActionResult Hello()
+        public async Task<IActionResult> EditeProfile(CancellationToken cancellationToken)
         {
-            return View();
+
+            int userId = (await _userManager.GetUserAsync(User)).Id;
+            var UserInfo = await _appuserRipositry.GetDetail(userId, cancellationToken);
+            return View(UserInfo);
         }
+        [HttpPost]
+        public async Task<IActionResult> EditeProfile(AppUserDto user,CancellationToken cancellationToken)
+        {
+            return RedirectToAction("Profile", "Home");
+        }
+
+
     }
 }

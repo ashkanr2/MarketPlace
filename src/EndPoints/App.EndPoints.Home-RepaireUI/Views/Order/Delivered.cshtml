@@ -76,48 +76,12 @@
                 </div>
             </div>
             <div class="profile-page-aside col-xl-3 col-lg-4 col-md-6 center-section order-1">
-                <div class="profile-card-1">
-                    <!--image-->
-                    <div class="img">
-
-                        <img src="assets/img/profile.jpg">
-                    </div>
-                    <a class="view-more" href="" data-toggle="modal" data-target="#myModal">
-                        <i class="fa fa-plus-circle"></i>
-                    </a>
-                    <div class="modal-share modal-width-custom modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                    <h4 class="modal-title" id="myModalLabel">تغییر پروفایل</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <ul class="profile-avatars default text-center">
-                                        <li>
-                                            <img class="profile-avatars-item" src="assets/img/profile/1.png">
-                                        </li>
-                                        <li>
-                                            <img class="profile-avatars-item" src="assets/img/profile/2.png">
-                                        </li>
-                                        <li>
-                                            <img class="profile-avatars-item" src="assets/img/profile/3.png">
-                                        </li>
-                                        <li>
-                                            <img class="profile-avatars-item" src="assets/img/profile/4.png">
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
+               
                
                 <div class="profile-menu ">
                     <ul class="profile-menu-items">
                         <li>
-                            <a asp-action="Profile" asp-action="Home" class="dropdown-item active">
+                            <a asp-action="Profile" asp-controller="Home" class="dropdown-item active">
                                 <i class="fa fa-user-large colormain"></i>
                                 پروفایل
                             </a>
@@ -129,7 +93,7 @@
                             </a>
                         </li>
                         <li>
-                            <a asp-action="Delivered" asp-action="Order" class="dropdown-item ">
+                            <a asp-action="Delivered" asp-controller="Order" class="dropdown-item ">
                                 <i class="fa fa-cart-arrow-down colormain" aria-hidden="true"></i>
                                 تحویل داده شده
                             </a>

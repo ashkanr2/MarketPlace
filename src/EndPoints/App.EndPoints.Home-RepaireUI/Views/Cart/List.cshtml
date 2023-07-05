@@ -18,25 +18,48 @@
         <div class="portlet-body">
             <div class="table-responsive">
                 <div id="data-table_wrapper" class="dataTables_wrapper no-footer">
-                    <div id="data-table_filter" class="dataTables_filter"><label>جستجو: <input type="search" class="" placeholder="" aria-controls="data-table"></label></div>
+                    
                     <table class="table table-bordered table-hover table-striped dataTable no-footer" id="data-table" role="grid" aria-describedby="data-table_info" style="width: 100%;">
                         <thead>
                             <tr role="row">
                                 <th class="sorting_asc" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-sort="ascending" aria-label="ردیف: activate to sort column descending" style="width: 175.535px;">ردیف</th>
-                                <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="ماده غذایی: activate to sort column ascending" style="width: 433.674px;">نام غرفه</th>
+                                <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="ماده غذایی: activate to sort column ascending" style="width: 433.674px;">نام کالا</th>
                                 <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" aria-label="مقدار: activate to sort column ascending" style="width: 180.25px;">تاریخ تاسیس</th>
                                 <td class="sorting_disabled" rowspan="1" colspan="1" aria-label="عملیات" style="width: 211.174px;">عملیات</td>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var cartViewModel in Model)
+                            @if(Model == null)
                             {
                                 <tr class="table-info">
                                     <td></td>
-                                    <td>@cartViewModel.CartProduct.Product.BoothId</td>
-                                    <td>@cartViewModel.BoothId</td>
-                                    
+                                    <td></td>
+                                    <td></td>
+
                                 </tr>
+                            }
+
+
+                            @if (Model != null)
+                            {
+                                int count = 1;
+                                foreach (var cartViewModel in Model)
+                                {
+                                    <tr class="table-info">
+                                        <td>@count</td>
+                                        @foreach (var productViewModel in cartViewModel.CartProducts)
+                                        {
+                                            <td>@productViewModel.ProductName</td>
+                                        }
+                                        <td>@cartViewModel.CreateTime</td>
+                                        <td>
+                                            <a asp-action="Index" asp-controller="Cart" class="btn btn-info btn-round" asp-route-cartId="@cartViewModel.Id">
+                                                مشاهده جزئیات
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    count++;
+                                }
                             }
                         </tbody>
                     </table>

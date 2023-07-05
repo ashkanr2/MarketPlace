@@ -35,42 +35,32 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">محصول</th>
-                                <th scope="col">سبد خرید شما</th>
-                                <th scope="col">قیمت واحد</th>
-                                <th scope="col">تعداد</th>
+                                <th scope="col"> کالا</th>
+                                
+                                <th scope="col">غرفه </th>
                                 <th scope="col">قیمت نهایی</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var product in Model.CartProducts)
+                         
+                            @foreach (var item in Model.CartProducts)
                             {
                                 <tr class="cart_item">
-                                    <td>
-                                        @if (product.ImagesPaths.Any())
-                                        {
-                                            <img src="@product.ImagesPaths.First()" alt="">
-                                        }
-                                        <i class="fa fa-times" aria-hidden="true"></i>
-                                    </td>
+                                    
                                     <td>
                                         <h3 class="cart_title">
-                                            <a href="">@product.ProductName</a>
+                                           @item.ProductName
                                         </h3>
-                                        <div class="cart_content">
-                                            <div><span>بیمه </span><span class="item_property">@product.Allproduct</span></div>
-                                            <span class="cart_divider"></span>
-                                            <div><span>رنگ </span><span class="item_property">مشکی</span></div>
-                                        </div>
+                                        <h6>
+                                            @item.UnitPrice
+                                        </h6>
+                                       
                                     </td>
                                     <td>
-                                        <div class="cart_price">
-                                            <del><span>@product.UnitPrice.ToString("C")</span></del>
-                                            <ins><span>@product.UnitPrice.ToString("C")</span></ins>
-                                        </div>
+                                       @item.boothId
                                     </td>
-                                    <td><input type="number" class="tedad" value="1"></td>
-                                    <td class="price_alltd">@product.UnitPrice.ToString("C") <span>تومان</span></td>
+                                    
+                                    <td class="price_alltd"><span> @item.UnitPrice تومان</span></td>
                                 </tr>
                             }
                         </tbody>
