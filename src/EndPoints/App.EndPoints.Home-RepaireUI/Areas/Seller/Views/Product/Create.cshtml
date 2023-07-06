@@ -7,7 +7,7 @@
 <div>
 
 
-<form method="post" asp-action="Create"asp-controller="Product">
+<form method="post" asp-action="Create" asp-controller="Product" enctype="multipart/form-data">
 
        
                             <div class="portlet-heading">
@@ -53,7 +53,7 @@
                                                 <span class="input-group-addon">
                                                   <i class="icon-picture"> اپلود عکس </i>
                                                 </span>
-                                       <input type="file" class="form-control round text text-center" id="image" name="image" @*asp-for=""*@>
+                                                 <input type="file" asp-for="Image" class="form-control round" id="Image" name="Image">
                                             </div><!-- /.input-group-->
                                         </div><!-- /.form-group -->
                                         <div class="form-actions">

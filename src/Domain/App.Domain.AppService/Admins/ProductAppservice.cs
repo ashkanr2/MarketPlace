@@ -26,10 +26,9 @@ namespace App.Domain.AppService.Admins
             await _productRipository.Update(product, cancellationToken);
         }
 
-        public async Task Create(ProductDto product, CancellationToken cancellationToken)
-        {
-            await _productRipository.Create(product, cancellationToken);
-        }
+        public async Task<int> Create(ProductDto product, CancellationToken cancellationToken)
+       => await _productRipository.Create(product, cancellationToken);
+       
 
         public async Task Deactivate(int productId, CancellationToken cancellationToken)
         {

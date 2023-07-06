@@ -22,7 +22,8 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
         public async Task<IActionResult> AllProducts(CancellationToken CancellationToken)
         {
 
-            var products = await _productAppservice.GetAll(CancellationToken);
+            var Items = await _productAppservice.GetAll(CancellationToken.None);
+            var products = Items.Where(p => !p.IsDeleted && p.IsAccepted && p.IsAvailable).ToList();
 
             var ProductViwe = products.Select(x => new ProductViewModel
             {
@@ -40,7 +41,8 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
         }
         public async Task<IActionResult> ProductCategory(int motherCategoryId, CancellationToken CancellationToken)
         {
-            var products = await _productAppservice.GetMCAtegoryProducts(motherCategoryId, CancellationToken);
+            var Items = await _productAppservice.GetAll(CancellationToken.None);
+            var products = Items.Where(p => !p.IsDeleted && p.IsAccepted && p.IsAvailable).ToList();
             var CategoryName = (await _motherCategoryAppservice.GetDatail(motherCategoryId, CancellationToken)).Title;
             ViewBag.CategoryName = CategoryName;
             var ProductViwe = products.Select(x => new ProductViewModel
@@ -60,8 +62,8 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
         }
         public async Task<IActionResult> AuctionProducts(CancellationToken CancellationToken)
         {
-            var products = await _auctionAppservice.GetAllProductsAuction(CancellationToken);
-
+            var Items = await _productAppservice.GetAll(CancellationToken.None);
+            var products = Items.Where(p => !p.IsDeleted && p.IsAccepted && p.IsAvailable).ToList();
             var ProductViwe = products.Select(x => new ProductViewModel
             {
                 Id = x.Id,
@@ -80,8 +82,9 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
         }
         public async Task<IActionResult> BoothProduct(int boothId, CancellationToken cancellationToken)
         {
-            var products = await _productAppservice.GetBoothProducts(boothId, cancellationToken);
-            var productView = products.Select(x => new ProductViewModel
+            var Items = await _productAppservice.GetAll(CancellationToken.None);
+            var products = Items.Where(p => !p.IsDeleted && p.IsAccepted && p.IsAvailable).ToList();
+            var ProductViwe = products.Select(x => new ProductViewModel
             {
                 Id = x.Id,
                 UnitPrice = x.UnitPrice,
@@ -89,16 +92,13 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
                 ProductName = x.Name,
                 ImagesPaths = x.ProductImages.Select(pi =>
                 {
-                    if (pi.Image != null)
-                    {
-                        string[] parts = pi.Image.Path.Split("_+_");
-                        return parts[0];
-                    }
-                    return null;
+                    string[] parts = pi.Image.Path.Split("_+_");
+                    return parts[0];
                 }).ToList()
             }).ToList();
+            return View(ProductViwe);
 
-            return View(productView);
+           
         }
 
     }

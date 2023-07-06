@@ -32,7 +32,10 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
         }
 
         public async Task<List<CartDto>> GetAll(CancellationToken cancellationToken)
-        => _mapper.Map<List<CartDto>>(await _context.Carts.ToListAsync(cancellationToken));
+        => _mapper.Map<List<CartDto>>(await _context.Carts
+           .Include(p => p.CartProducts)
+            .ThenInclude(c => c.Product)
+            .ToListAsync(cancellationToken));
         
        
         public async Task<List<CartDto>> GetAllBooth(int boothID, CancellationToken cancellationToken)

@@ -65,6 +65,7 @@ namespace App.EndPoints.Home_RepaireUI.AutoMapper
             CreateMap<ProductViewModel, ProductDto>();
 
             CreateMap<ProductImage, ProductImageDto>();
+            CreateMap<ProductImageDto, ProductImage>();
 
             CreateMap<Province, ProvinceDto>();
 

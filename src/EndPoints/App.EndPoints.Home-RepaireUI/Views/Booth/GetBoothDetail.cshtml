@@ -7,8 +7,9 @@
     <title>@ViewData["Title"]</title>
 </head>
 <body>
+    <br />
     <h1>غرفه @Model.Name</h1>
-
+    <br />
     <div>
        
         <div class="img">
@@ -23,12 +24,29 @@
 
 
         </div>
+        <br />
         <p><strong>تاریخ ایجاد:</strong> @Model.CreatedDate</p>
+        <br />
         <p><strong>توضیحات:</strong> @Model.Description</p>
+        <br />
         <p><strong>تعداد کل فروش:</strong> @Model.TotalSalesNumber</p>
-        <p><strong>حذف شده است:</strong> @Model.IsDeleted</p>
+       
         <a class="text-warning" asp-action="BoothProduct" asp-controller="Product" asp-route-BoothId="@Model.Id" > مشاهده کالاهای غرفه</a>
         
     </div>
+
+    <br/>
+    <br/>
+   
 </body>
+
 </html>
+
+@foreach (var comment in ViewBag.comments)
+{
+    <p>------------------------------</p>
+    <p><strong>شناسه کاربر:</strong> @comment.UserId</p>
+    <p><strong>نظر:</strong> @comment.Comment1</p>
+    <p><strong>تاریخ ایجاد:</strong> @comment.CreatedAt</p>
+    <p>------------------------------</p>
+}

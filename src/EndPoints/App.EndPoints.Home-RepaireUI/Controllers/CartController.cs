@@ -36,6 +36,28 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
             _productAppservice = productAppservice;
             _mapper = mapper;
         }
+        [HttpPost]
+        public async Task<IActionResult> AddNewCart(int productId, CancellationToken cancellationToken)
+        {
+            var userId = (await _signInManager.UserManager.GetUserAsync(User)).Id;
+
+            var cart = new CartDto
+            {
+                UserId = userId,
+                CartProducts = new List<CartProductDto>
+        {
+            new CartProductDto
+            {
+                ProductId = productId
+            }
+        }
+            };
+
+            await _cartAppservice.Create(cart, cancellationToken);
+
+            return RedirectToAction("List", "Cart");
+        }
+
 
         public async Task<IActionResult> Index(int cartId, CancellationToken cancellationToken)
         {
@@ -48,8 +70,8 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
 
             int totalprice = cart.CartProducts.Sum(cp => cp.Product.UnitPrice);
 
-            //var userId = (await _signInManager.UserManager.GetUserAsync(User)).Id;
-            int UserId = 11;
+            var userId = (await _signInManager.UserManager.GetUserAsync(User)).Id;
+            
             var cartViewModel = new CartViewModel
             {
                 Id = cart.Id,

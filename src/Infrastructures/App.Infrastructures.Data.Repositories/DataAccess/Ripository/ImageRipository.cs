@@ -88,5 +88,11 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
             
         }
 
+        public async Task UploadProductImage(ProductImageDto image, CancellationToken cancellationToken)
+        {
+            var item = _mapper.Map<ProductImage>(image);
+            await _context.ProductImages.AddAsync(item);
+            _context.SaveChangesAsync();
+        }
     }
 }

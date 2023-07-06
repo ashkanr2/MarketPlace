@@ -14,7 +14,7 @@ namespace App.Domain.Core.DataAccess
         Task<List<ProductDto>> GetAll( CancellationToken cancellationToken);
         Task<List<ProductDto>> GetAllFromCategory(int categoryId, CancellationToken cancellationToken);
         Task<ProductDto> GetDatail(int productId, CancellationToken cancellationToken);
-        Task Create(ProductDto product, CancellationToken cancellationToken);
+        Task<int> Create(ProductDto product, CancellationToken cancellationToken);
         Task Update(ProductDto product, CancellationToken CancellationToken);
         Task SoftDelete(int productId, CancellationToken cancellationToken);
         Task HardDelted(int productId, CancellationToken cancellationToken);

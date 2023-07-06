@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using App.Domain.Core.DtoModels;
 using App.EndPoints.Home_RepaireUI.Areas.Admin.Models.Order;
 using App.Domain.Core.AppServices.Admin;
+using App.Domain.Core.DataAccess;
 
 namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
 {
@@ -13,10 +14,11 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
     public class OrderController : Controller
     {
         private readonly IOrderAppservice _orderAppservice;
-
-        public OrderController(IOrderAppservice orderAppservice)
+        private readonly IAppUserRipositry _appUserRipositry;
+        public OrderController(IOrderAppservice orderAppservice, IAppUserRipositry appUserRipositry)
         {
             _orderAppservice = orderAppservice;
+            _appUserRipositry = appUserRipositry;
         }
 
         [HttpGet]
@@ -54,7 +56,7 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
              
             }).ToList();
 
-
+            ViewBag.commission= (await _appUserRipositry.GetDetail(1,cancellationToken)).Wallet;
             return View(ordertViewModels);
         }
 

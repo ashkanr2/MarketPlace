@@ -10,6 +10,8 @@ using App.EndPoints.Home_RepaireUI.Areas.Admin.Models.User;
 using App.Domain.Core.DataAccess;
 using System.Threading;
 using App.EndPoints.Home_RepaireUI.Areas.Admin.Models.Comment;
+using System.Net;
+using System.IO;
 
 namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Controllers
 {
@@ -22,7 +24,9 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IBoothAppservice _boothAppservice;
-        public ProductController(IMapper mapper, IProductAppservice productAppservice, IALLProductAppservice aLLProductAppservice, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IBoothAppservice boothAppservice)
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        private readonly IImageAppservice _imageAppservice;
+        public ProductController(IMapper mapper, IProductAppservice productAppservice, IALLProductAppservice aLLProductAppservice, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IBoothAppservice boothAppservice, IWebHostEnvironment hostingEnvironment, IImageAppservice imageAppservice)
         {
             _mapper = mapper;
             _productAppservice = productAppservice;
@@ -30,6 +34,8 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _boothAppservice = boothAppservice;
+            _hostingEnvironment = hostingEnvironment;
+            _imageAppservice = imageAppservice;
         }
 
         public async Task <IActionResult> Index( CancellationToken cancellationToken)
@@ -65,11 +71,43 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Controllers
             ViewBag.Allproduct = allproduct;
             return View();
         }
+
+
         [HttpPost]
         public async Task<IActionResult> Create(ProductViewModel product, CancellationToken cancellation)
         {
             var userId = (await _signInManager.UserManager.GetUserAsync(User)).Id;
             var boothId = (await _boothAppservice.Getbooth(userId, cancellation)).Id;
+            if (product.Image != null && product.Image.Length > 0)
+            {
+                var fileNameWithoutExtension = DateTime.Now.Ticks.ToString();
+
+                var wwwrootPath = _hostingEnvironment.WebRootPath;
+                var uploadPath = Path.Combine(wwwrootPath, "uploads");
+
+                if (!Directory.Exists(uploadPath))
+                {
+                    Directory.CreateDirectory(uploadPath);
+                }
+
+                // Get the original file extension
+                var fileExtension = Path.GetExtension(product.Image.FileName);
+
+                // Construct the new file name
+                var fileName = fileNameWithoutExtension + fileExtension;
+
+                var filePath = Path.Combine(uploadPath, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await product.Image.CopyToAsync(stream);
+                }
+
+                var imageNameInDatabase = fileNameWithoutExtension + ".jpg" + "_+_" + Path.GetFileNameWithoutExtension(product.Image.FileName).Replace(".", "");
+                var ImageId = await _imageAppservice.Upload(imageNameInDatabase, false, cancellation);
+           
+           
+
             var prodductDto = new ProductDto
             {
                 Name = product.ProductName,
@@ -82,7 +120,15 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Controllers
                 IsAvailable = true,
 
             };
-            await _productAppservice.Create(prodductDto, cancellation);
+               var productId = await _productAppservice.Create(prodductDto, cancellation);
+                var image = new ProductImageDto
+                {
+                    ProductId = productId,
+                    ImageId = ImageId
+                };
+            await _imageAppservice.UploadProductImage(image,cancellation);
+               
+            }
             return RedirectToAction("Index", "Product");
         }
 

@@ -14,5 +14,6 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Seller.Models.Product
         public string Allproduct { get; set; }
         public string category { get; set; }
         public virtual ICollection<ProductImageDto> ProductImages { get; set; } = new List<ProductImageDto>();
+        public IFormFile Image { get; set; }
     }
 }

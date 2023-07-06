@@ -16,6 +16,7 @@
     @{
         int length = Model.Count;
     }
+    
     @for (int i = 0; i < length; i += 6)
     {
         <div class="product-carousel owl-carousel owl-theme owl-rtl owl-loaded owl-drag">
@@ -26,21 +27,25 @@
                         var product = Model[j];
                         <div class="owl-item active">
                             <div class="item">
-                                <a href="single-product.html">
-                                    @if (product.ImagesPaths != null && product.ImagesPaths.Any())
-                                    {
-                                        var imagePath = product.ImagesPaths.First();
-                                        var imageUrl = $"~/uploads/{imagePath}";
-                                        <img class="img-fluid" src="@Url.Content(imageUrl)" alt="Product Image" />
-                                        <br />
-                                    }
-                                    <h2 class="product_title">
-                                        @product.ProductName
-                                    </h2>
-                                    <div class="price">
-                                        <span>@product.UnitPrice<span>تومان</span></span>
-                                    </div>
-                                </a>
+                                    <form method="post" action="@Url.Action("AddNewCart", "Cart")">
+                                        <input type="hidden" name="productId" value="@product.Id" />
+
+                                        <a href="#" onclick="event.preventDefault(); this.closest('form').submit();">
+                                            @if (product.ImagesPaths != null && product.ImagesPaths.Any())
+                                            {
+                                                var imagePath = product.ImagesPaths.First();
+                                                var imageUrl = $"~/uploads/{imagePath}";
+                                                <img class="img-fluid" src="@Url.Content(imageUrl)" alt="Product Image" />
+                                                <br />
+                                            }
+                                            <h2 class="product_title">
+                                                @product.ProductName
+                                            </h2>
+                                            <div class="price">
+                                                <span>@product.UnitPrice<span>تومان</span></span>
+                                            </div>
+                                        </a>
+                                    </form>
                             </div>
                         </div>
 

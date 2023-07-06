@@ -61,5 +61,8 @@ namespace App.Domain.AppService.Admins
         {
            return await _imageRipository.Upload( path,isProfile , cancellationToken);
         }
+
+        public async Task UploadProductImage(ProductImageDto image, CancellationToken cancellationToken)
+        =>await _imageRipository.UploadProductImage( image, cancellationToken);
     }
 }

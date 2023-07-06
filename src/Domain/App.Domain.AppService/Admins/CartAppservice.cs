@@ -17,13 +17,15 @@ namespace App.Domain.AppService.Admins
         private readonly IAppUserRipositry _appUserRipositry;
         private readonly IOrderAppservice _orderAppservice;
         private readonly IProductAppservice _productAppservice;
-        public CartAppservice(ICartRipository cartRipository, ICartProductAppservise cartProductAppservise, IAppUserRipositry appUserRipositry, IOrderAppservice orderAppservice, IProductAppservice productAppservice)
+        private readonly IBoothAppservice _boothAppservice;
+        public CartAppservice(ICartRipository cartRipository, ICartProductAppservise cartProductAppservise, IAppUserRipositry appUserRipositry, IOrderAppservice orderAppservice, IProductAppservice productAppservice, IBoothAppservice boothAppservice)
         {
             _cartRipository = cartRipository;
             _cartProductAppservise = cartProductAppservise;
             _appUserRipositry = appUserRipositry;
             _orderAppservice = orderAppservice;
             _productAppservice = productAppservice;
+            _boothAppservice = boothAppservice;
         }
 
         public async Task Create(CartDto cart, CancellationToken cancellationToken)
@@ -92,14 +94,16 @@ namespace App.Domain.AppService.Admins
                 OrderCreatTime = DateTime.Now,
 
             };
-
+            var booth = await _boothAppservice.GetDatail(cart.BoothId, cancellationToken);
+            booth.TotalSalesNumber = booth.TotalSalesNumber + 1;
+            await _boothAppservice.Update(booth, cancellationToken);
             int OrderId = await _orderAppservice.Create(Order, cancellationToken);
             Order.Id=OrderId;
             await _orderAppservice.CreateOrderProducts(OrderId, orderProducts, cancellationToken);
             await _appUserRipositry.IncreaseWallet(1, Order.Commission, cancellationToken);
             await _appUserRipositry.DecreaseWallet(user.Id, Order.TotalPrice, cancellationToken);
-            //await HardDelted(cartId, cancellationToken);
-           
+            await HardDelted(cartId, cancellationToken);
+
             return OrderId;
         }
     }

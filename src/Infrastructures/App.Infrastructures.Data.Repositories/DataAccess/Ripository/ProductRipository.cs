@@ -24,7 +24,7 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
             _context = context;
         }
 
-        public async Task Create(ProductDto product, CancellationToken cancellationToken)
+        public async Task<int> Create(ProductDto product, CancellationToken cancellationToken)
         {
             var record = _mapper.Map<Product>(product);
             try
@@ -32,28 +32,17 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
                 await _context.Products.AddAsync(record);
                 await _context.SaveChangesAsync(cancellationToken);
                 Console.WriteLine($"New Product Added Successful");
-
+                var Item = _context.Products.Where(a => a.Name == product.Name).FirstOrDefault();
+                return Item.Id;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in add new Product: {ex}");
             }
+            return 0;
         }
 
-        public async Task<List<ProductDto>> GetAll(int boothId, CancellationToken cancellationToken)
-        {
-            var products = await _context.Products
-            .AsNoTracking()
-             .Where(a => a.BoothId == boothId)
-              .Include(x => x.AllProduct)
-             .ThenInclude(p => p.Category)
-             .Include(i=>i.ProductImages)
-            .ToListAsync(cancellationToken);
 
-            var productDtos = _mapper.Map<List<ProductDto>>(products);
-            return productDtos;
-
-        }
         public async Task<List<ProductDto>> GetAllFromCategory(int McategoryId, CancellationToken cancellationToken)
         {
             var products = await _context.Products
@@ -68,6 +57,21 @@ namespace App.Infrastructures.Data.Repositories.DataAccess.Ripository
             var productDtos = _mapper.Map<List<ProductDto>>(products);
 
             return productDtos;
+        }
+        public async Task<List<ProductDto>> GetAll(int boothId, CancellationToken cancellationToken)
+        {
+            var products = await _context.Products
+            .AsNoTracking()
+             .Where(a => a.BoothId == boothId)
+              .Include(x => x.AllProduct)
+             .ThenInclude(p => p.Category)
+             .Include(i => i.ProductImages)
+             .ThenInclude(a => a.Image)
+            .ToListAsync(cancellationToken);
+
+            var productDtos = _mapper.Map<List<ProductDto>>(products);
+            return productDtos;
+
         }
 
         public async Task<List<ProductDto>> GetAll( CancellationToken cancellationToken)

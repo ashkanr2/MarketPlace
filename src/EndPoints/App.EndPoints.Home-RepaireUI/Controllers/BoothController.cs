@@ -11,11 +11,13 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
         private readonly IMapper _mapper;
         private readonly IBoothAppservice _boothAppservice;
         private readonly DateConvertor _dateConvertor;
-        public BoothController(IMapper mapper, IBoothAppservice boothAppservice, DateConvertor dateConvertor)
+        private readonly ICommentAppservice _commentAppservice;
+        public BoothController(IMapper mapper, IBoothAppservice boothAppservice, DateConvertor dateConvertor, ICommentAppservice commentAppservice)
         {
             _mapper = mapper;
             _boothAppservice = boothAppservice;
             _dateConvertor = dateConvertor;
+            _commentAppservice = commentAppservice;
         }
         public async Task<IActionResult> Booths(CancellationToken cancellation)
         {
@@ -55,8 +57,12 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
                 CityId = Item.CityId,
                 IsCreated = Item.IsCreated,
                 CreatedDate = _dateConvertor.ConvertToPersianDate(Item.CreatedAt),
-                Image=Item.BoothImage,
+                Image = Item.BoothImage,
             };
+            var comments = (await _commentAppservice.GetAllBoothComments(id, cancellationToken))
+            .Where(a => a.IsAccepted == true && a.IsDeleted == false);
+
+            ViewBag.comments = comments;
 
 
             return View(Booth);

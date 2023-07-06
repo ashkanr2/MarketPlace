@@ -39,7 +39,7 @@ namespace App.EndPoints.Home_RepaireUI.Areas.Admin.Controllers
                 IsAccepted = x.IsAccepted,
                 AddTime = x.AddTime,
                 boothId=x.BoothId,
-                ProductName=x.AllProduct.Name,
+                ProductName=x.Name,
             }).ToList();
 
             return View(ProductViwe);
