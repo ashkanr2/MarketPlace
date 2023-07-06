@@ -41,10 +41,7 @@ namespace App.EndPoints.Home_RepaireUI.Controllers
         }
         public async Task<IActionResult> ProductCategory(int motherCategoryId, CancellationToken CancellationToken)
         {
-            var Items = await _productAppservice.GetAll(CancellationToken.None);
-            var products = Items.Where(p => !p.IsDeleted && p.IsAccepted && p.IsAvailable).ToList();
-            var CategoryName = (await _motherCategoryAppservice.GetDatail(motherCategoryId, CancellationToken)).Title;
-            ViewBag.CategoryName = CategoryName;
+            var products = await _productAppservice.GetMCAtegoryProducts(motherCategoryId, CancellationToken);
             var ProductViwe = products.Select(x => new ProductViewModel
             {
                 Id = x.Id,
